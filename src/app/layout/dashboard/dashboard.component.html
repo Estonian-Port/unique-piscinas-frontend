@@ -1,0 +1,131 @@
+<!-- pool-dashboard.component.html -->
+<div class="container py-4">
+  <!-- Header -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="h4"><i class="fas fa-tint"></i> Parámetros del Agua</h1>
+    <button class="btn btn-primary"><i class="fas fa-plus"></i> Nueva Lectura</button>
+  </div>
+
+  <!-- Resumen Parámetros -->
+  <div class="row mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h5><i class="fas fa-vial"></i> pH</h5>
+        <p class="h4">7.2</p>
+        <small class="text-muted">+0.1 desde la última medición</small>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h5><i class="fas fa-thermometer-half"></i> Temperatura</h5>
+        <p class="h4">24.5°C</p>
+        <small class="text-muted">-0.3°C desde la última medición</small>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h5><i class="fas fa-sun"></i> Clima Local</h5>
+        <p class="h4">28°C - Soleado</p>
+        <small class="text-muted">Madrid, España</small>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado del Sistema -->
+  <div class="card p-3 mb-4">
+    <h5><i class="fas fa-cogs"></i> Estado del Sistema</h5>
+    <p>Estado del filtro: <strong>En reposo</strong></p>
+    <p>Entradas activas: <strong>Ninguna</strong></p>
+    <p>Presión de trabajo: <strong>1.2 bar (óptima)</strong></p>
+    <p>Última actividad: <strong>Hace 2 horas</strong></p>
+    <p>Próximo ciclo: <strong>En 4 horas</strong></p>
+  </div>
+
+  <!-- Entradas de Agua -->
+  <div class="card p-3 mb-4">
+    <h5><i class="fas fa-water"></i> Entradas de Agua</h5>
+    <div class="row">
+      <div class="col-md-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="fondo">
+          <label class="form-check-label" for="fondo"><i class="fas fa-swimming-pool"></i> Fondo</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="barrefondo">
+          <label class="form-check-label" for="barrefondo"><i class="fas fa-sync"></i> Barrefondo</label>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="skimmer">
+          <label class="form-check-label" for="skimmer"><i class="fas fa-eye"></i> Skimmer</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Control del Filtro -->
+  <div class="card p-3 mb-4">
+    <h5><i class="fas fa-sliders-h"></i> Control del Filtro</h5>
+    <div class="btn-group" role="group">
+      <button class="btn btn-outline-secondary"><i class="fas fa-filter"></i> Filtrar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i> Retrolavar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-tint-slash"></i> Enjuagar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-trash-alt"></i> Desagotar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Recircular</button>
+    </div>
+  </div>
+
+  <!-- Dispositivos y Sensores -->
+  <div class="row mb-4">
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h6><i class="fas fa-lightbulb"></i> Lámpara UV</h6>
+        <p>Estado: Inactiva</p>
+        <p>Vida restante: 23%</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h6><i class="fas fa-bolt"></i> Ionizador de Cobre</h6>
+        <p>Electrodo +: 65% restante</p>
+        <p>Electrodo -: 72% restante</p>
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <div class="card p-3">
+        <h6><i class="fas fa-wave-square"></i> Transductor de Ultrasonido</h6>
+        <p>Estado: Óptimo</p>
+        <p>Vida restante: 68%</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Control de Luces -->
+  <div class="card p-3 mb-4">
+    <h5><i class="fas fa-lightbulb"></i> Control de Luces</h5>
+    <p>Modo: Manual</p>
+    <p>Estado: Apagado</p>
+  </div>
+
+  <!-- Tendencias y Lecturas Recientes -->
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="card p-3">
+        <h5><i class="fas fa-chart-line"></i> Tendencias de Parámetros</h5>
+        <div class="bg-light text-center py-5">[Gráfica Placeholder]</div>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <div class="card p-3">
+        <h5><i class="fas fa-history"></i> Lecturas Recientes</h5>
+        <ul class="list-unstyled small">
+          <li><i class="fas fa-calendar-day"></i> Hoy - pH: 7.2, Temp: 24.5°C</li>
+          <li><i class="fas fa-calendar-day"></i> Ayer - pH: 7.1, Temp: 24.8°C</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
