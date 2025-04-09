@@ -1,0 +1,9 @@
+<div #chartWrapper>
+  <ng-container *ngFor="let options of chartOptions">
+    <highcharts-chart
+      [Highcharts]="Highcharts"
+      [options]="options"
+      style="width: 100%; height: 12rem; display: block;"
+    ></highcharts-chart>
+  </ng-container>
+</div>
