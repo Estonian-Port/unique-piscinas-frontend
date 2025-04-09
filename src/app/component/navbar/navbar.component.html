@@ -1,0 +1,34 @@
+<nav *ngIf="!isLogin()"class="navbar navbar-expand-lg navbar-light fixed-top custom-navbar">
+  <div class="container-fluid px-4">
+    <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+      <i class="fas fa-tint me-2"></i> UNIQUE
+    </a>
+
+    <div class="navbar-buttons">
+
+      <div>
+        <button class="btn btn-outline-dark me-2">
+          <i class="fas fa-cog"></i> Administración
+        </button>
+      </div>
+
+      <div>
+        <button class="btn btn-outline-dark me-2">
+          <i class="fas fa-history"></i> Historial
+        </button>
+      </div>
+
+      <div class="cursor-pointer ">
+      
+        <button class="dropdown-btn" (click)="toggleDropdown($event)"><i class="fas fa-user"></i></button>
+        
+        <div class="dropdown-menu"  [ngClass]="{ show: dropdownVisible }" #dropdownMenu>
+          <a class="dropdown-item" (click)="perfil()"><i class="fas fa-user"></i> Perfil</a>
+          <a class="dropdown-item" (click)="clientes()"><i class="fas fa-users-cog"></i> Clientes</a>
+          <a class="dropdown-item" (click)="logout()"><i class="fas fa-sign-out-alt"></i> Cerrar sesion</a>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,1 +1,70 @@
-/* You can add global styles to this file, and also import other style files */
+body {
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a,
+a:link,
+a:visited,
+a:focus,
+a:hover,
+a:active {
+  color: var(--color-octario);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+ul,
+ol {
+  list-style-type: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.inactiveLink {
+  pointer-events: none;
+  cursor: default;
+}
+
+:root {
+  --color-primario: #0d6efd;
+  --color-secundario: dodgerblue;
+  --color-terciario: whitesmoke;
+  --color-cuaternario: #666666;
+  --color-quinario: white;
+  --color-sexenario: #363636;
+  --color-septenario: #555555;
+  --color-octavo: black;
+  --color-noveno: #dc3545;
+  --hover-bg-color-primary: rgba(90, 90, 90, 0.2);
+  --hover-bg-color-secondary: rgba(240, 240, 240, 0.2);
+  --espacio-separacion: 0.5rem;
+  --sombra: 0 0.35rem 0.35rem var(--color-terciario);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 5vw 1.7fr 1fr;
+  grid-template-rows: 6vh 1.7fr 1fr;
+  gap: 0px 0px;
+  grid-template-areas:
+    'b b b'
+    'c c c'
+    'c c c';
+  height: 100%;
+  width: 100%;
+}
+
+.content-layout {
+  min-height: 94vh;
+  grid-area: c;
+}
+
+.navbar-layout {
+  grid-area: b;
+}

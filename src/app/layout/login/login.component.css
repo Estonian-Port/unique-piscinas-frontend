@@ -1,0 +1,20 @@
+.main-login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+}
+
+.logo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 90%;
+  width: 100vh;
+}
+
+@media (max-width : 994px) {
+  .logo{
+      display: none;
+  }
+}

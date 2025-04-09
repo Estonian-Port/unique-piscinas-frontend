@@ -6,15 +6,19 @@ import { AppComponent } from './app.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { LoginComponent } from './layout/login/login.component';
 import { FormsModule } from '@angular/forms';
+import { NavbarComponent } from './component/navbar/navbar.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
     DashboardComponent,
-    LoginComponent
+    LoginComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule
   ],
