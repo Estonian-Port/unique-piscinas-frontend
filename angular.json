@@ -58,7 +58,8 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            }
+            },
+            "baseHref": "/unique-piscinas-frontend/"
           },
           "defaultConfiguration": "production"
         },
