@@ -37,6 +37,7 @@
           },
           "configurations": {
             "production": {
+              "baseHref": "/unique-piscinas-frontend/",
               "budgets": [
                 {
                   "type": "initial",
@@ -58,8 +59,7 @@
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
-            },
-            "baseHref": "/unique-piscinas-frontend/"
+            }
           },
           "defaultConfiguration": "production"
         },
