@@ -1,0 +1,201 @@
+<!-- pool-dashboard.component.html -->
+<div class="p-4">
+  <!-- Header -->
+  <div class="my-4 d-flex justify-content-between">
+    <div>
+      <h1 class="h4">Parámetros del Agua</h1>
+      <small class="text-muted">Volumen de la piscina: {{ pileta.volumen }} m3</small>
+    </div>
+    <div>
+      <button class="btn btn-dark">
+        <i class="fas fa-plus"></i> Nueva Lectura
+      </button>
+    </div>
+  </div>
+
+  <!-- Resumen Parámetros -->
+  <div class="row mb-3">
+    
+    <div class="col-md-4">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-start">
+          <h5 class="mb-1">pH</h5>
+          <i class="fas fa-tint text-secondary"></i>
+        </div>
+        <p class="h4 fw-bold mb-1">{{ pileta.ph }}</p>
+        <small class="text-muted d-block mb-2">{{ pileta.phCambio }} desde la última medición</small>
+        <div class="progress" style="height: 8px;">
+          <div class="progress-bar bg-dark" role="progressbar" [style.width]="((pileta.ph - 6) / (8 - 6)) * 100 + '%'" aria-valuemin="6" aria-valuemax="8"></div>
+        </div>
+        <div class="d-flex justify-content-between mt-1 text-muted small">
+          <span>6.0</span>
+          <span>7.0</span>
+          <span>8.0</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 h-100">
+        <div class="d-flex justify-content-between align-items-start">
+          <h5 class="mb-1">Temperatura</h5>
+          <i class="fas fa-thermometer-half text-danger"></i>
+        </div>
+        <p class="h4 fw-bold mb-1">{{ pileta.temperatura }}°C</p>
+        <small class="text-muted d-block mb-2">{{ pileta.temperaturaCambio }} desde la última medición</small>
+        <div class="progress" style="height: 8px;">
+          <div class="progress-bar bg-danger" role="progressbar"
+            [style.width]="((pileta.temperatura - 18) / (32 - 18)) * 100 + '%'"
+            [attr.aria-valuenow]="pileta.temperatura"
+            [attr.aria-valuemin]="18"
+            [attr.aria-valuemax]="32">
+          </div>
+        </div>
+        <div class="d-flex justify-content-between mt-1 text-muted small">
+          <span>18°C</span>
+          <span>25°C</span>
+          <span>32°C</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card p-3 h-100">
+        <h5 class="mb-0">Clima Local</h5>
+
+        <div class="d-flex justify-content-between">
+          <div>
+            <p class="h4 fw-bold mt-2 mb-1">{{ clima.temperatura }}°C</p>
+            <p class="mb-1 text-muted">{{ clima.ubicacion }}</p>
+          </div>
+          <div class="d-flex align-items-center me-4">
+            <i class="fas fa-sun text-warning fa-2x"></i>
+          </div>
+        </div>
+
+        <p class="fw-semibold">{{ clima.estado }}</p>    
+
+        <div class="d-flex justify-content-between text-muted">
+          <small><i class="fas fa-tint"></i> Humedad: {{ clima.humedad }}%</small>
+          <small><i class="fas fa-wind"></i> Viento: {{ clima.viento }} km/h</small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Estado del Sistema -->
+  <div class="card p-3 mb-3">
+    <h5><i class="fas fa-cogs mb-3"></i> Estado del Sistema</h5>
+    <p>Estado del filtro: <strong>{{ sistema.filtro }}</strong></p>
+    <p>Entradas activas: <strong>{{ sistema.entradasActivas }}</strong></p>
+    <p>Presión de trabajo: <strong>{{ sistema.presionTrabajo }} bar ({{ sistema.presionEstado }})</strong></p>
+    <p>Última actividad: <strong>Hace {{ sistema.ultimaActividad }} horas</strong></p>
+    <p>Próximo ciclo: <strong>En {{ sistema.proximoCiclo }} horas</strong></p>
+  </div>
+
+    <!-- Entradas de Agua -->
+    <div class="card p-3 mb-3">
+      <h5><i class="fas fa-water"></i> Entradas de Agua</h5>
+      <small class="text-muted d-block mb-2">Seleccione las entradas de agua para su sistema</small>
+
+      <div class="row text-center">
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 p-3 entrada-agua" (click)="toggleEntrada('fondo')" [class.activo]="entradas.fondo">
+            <h6 class="fw-bold">Fondo</h6>
+            <div class="icono-circular-contenedor">
+              <div class="icono-circular mt-2 mb-2" [class.activo]="entradas.fondo">
+                <i class="fas fa-swimming-pool"></i>
+              </div>
+            </div>
+            <small class="text-muted">Limpieza del fondo de la piscina</small>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 p-3 entrada-agua" (click)="toggleEntrada('barrefondo')" [class.activo]="entradas.barrefondo">
+            <h6 class="fw-bold">Barrefondo</h6>
+            <div class="icono-circular-contenedor">
+              <div class="icono-circular mt-2 mb-2" [class.activo]="entradas.barrefondo">
+                <i class="fas fa-sync"></i>
+              </div>
+            </div>
+            <small class="text-muted">Aspiración automática del fondo</small>
+          </div>
+        </div>
+
+        <div class="col-md-4 mb-3">
+          <div class="card h-100 p-3 entrada-agua" (click)="toggleEntrada('skimmer')" [class.activo]="entradas.skimmer">
+            <h6 class="fw-bold">Skimmer</h6>
+            <div class="icono-circular-contenedor">
+              <div class="icono-circular mt-2 mb-2" [class.activo]="entradas.skimmer">
+                <i class="fas fa-eye"></i>
+              </div>
+            </div>
+            <small class="text-muted">Limpieza de la superficie del agua</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <!-- Control del Filtro -->
+  <div class="card p-3 mb-3">
+    <h5><i class="fas fa-sliders-h"></i> Control del Filtro</h5>
+    <div class="btn-group" role="group">
+      <button class="btn btn-outline-secondary"><i class="fas fa-filter"></i> Filtrar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-sync-alt"></i> Retrolavar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-tint-slash"></i> Enjuagar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-trash-alt"></i> Desagotar</button>
+      <button class="btn btn-outline-secondary"><i class="fas fa-redo"></i> Recircular</button>
+    </div>
+  </div>
+
+  <!-- Dispositivos y Sensores -->
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6><i class="fas fa-lightbulb"></i> Lámpara UV</h6>
+        <p>Estado: {{ equipamiento.estadoUv }}</p>
+        <p>Vida restante: {{ equipamiento.vidaUv }}%</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6><i class="fas fa-bolt"></i> Ionizador de Cobre</h6>
+        <p>Electrodo +: {{ equipamiento.electrodoPositivo }}% restante</p>
+        <p>Electrodo -: {{ equipamiento.electrodoNegativo }}% restante</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card p-3">
+        <h6><i class="fas fa-wave-square"></i> Transductor de Ultrasonido</h6>
+        <p>Estado: {{ equipamiento.estadoUltrasonido }}</p>
+        <p>Vida restante: {{ equipamiento.vidaUltrasonido }}%</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Control de Luces -->
+  <div class="card p-3 mb-3">
+    <h5><i class="fas fa-lightbulb"></i> Control de Luces</h5>
+    <p>Modo: {{ luces.modoLuz }}</p>
+    <p>Estado: {{ luces.estadoLuz }}</p>
+  </div>
+
+  <!-- Tendencias y Lecturas Recientes -->
+  <div class="row mb-3">
+    <div class="col-md-6">
+      <div class="card p-3 h-100">
+        <h5><i class="fas fa-chart-line"></i> Tendencias de Parámetros</h5>
+        <div class="bg-light text-center py-5">[Gráfica Placeholder]</div>
+      </div>
+    </div>
+    <div class="col-md-6 ">
+      <div class="card p-3 h-100">
+        <h5><i class="fas fa-history"></i> Lecturas Recientes</h5>
+        <ul class="list-unstyled small" *ngFor="let pileta of listaLecturaPileta ">
+          <li><i class="fas fa-calendar-day"></i> Hoy - -hora- - pH: {{ pileta.ph }}, Temp: {{ pileta.temperatura }}°C</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

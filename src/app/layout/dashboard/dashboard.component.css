@@ -1,0 +1,38 @@
+.entrada-agua {
+  cursor: pointer;
+  transition: all 0.3s;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+}
+
+.entrada-agua:hover {
+  background-color: #d1e7fd;
+}
+
+.entrada-agua.activo{
+  background-color: #afd7ff;
+}
+
+.icono-circular {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #e9f5ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  transition: all 0.3s;
+}
+
+.icono-circular-contenedor{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icono-circular.activo {
+  background-color: #007bff;
+  color: white;
+}
+
