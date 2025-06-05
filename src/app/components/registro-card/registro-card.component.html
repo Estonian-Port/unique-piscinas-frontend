@@ -1,0 +1,48 @@
+<div class="card mb-4 shadow-sm border">
+  <!-- Encabezado con la acción -->
+  <div class="card-header bg-primary text-white">
+    <h6 class="mb-0">{{ registro.accion }}</h6>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="card-body">
+    <!-- Fecha y dispositivo -->
+    <div class="row mb-4">
+      <div class="col-6 d-flex align-items-start">
+        <i class="fas fa-calendar-alt text-secondary me-2 mt-1"></i>
+        <div>
+          <small class="text-muted d-block">Fecha</small>
+          <div class="fw-semibold text-dark">{{ registro.fecha }}</div>
+        </div>
+      </div>
+
+      <div class="col-6 d-flex align-items-start">
+        <i class="fas fa-desktop text-secondary me-2 mt-1"></i>
+        <div>
+          <small class="text-muted d-block">Dispositivo</small>
+          <div class="fw-semibold text-dark">{{ registro.dispositivo }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Descripción -->
+    <div class="mb-4 bg-light rounded p-3">
+      <div class="d-flex align-items-center mb-2">
+        <i class="fas fa-info-circle text-secondary me-2"></i>
+        <small class="text-muted">Descripción</small>
+      </div>
+      <div class="text-dark">{{ registro.descripcion }}</div>
+    </div>
+
+    <!-- Técnico -->
+    <div class="d-flex align-items-center bg-light rounded p-3">
+      <div class="d-flex align-items-center mb-2">
+        <i class="fas fa-tools text-secondary me-2"></i>
+      </div>
+      <div>
+        <small class="text-muted d-block mb-1">Técnico</small>
+        <div class="fw-semibold text-dark">{{ registro.tecnico }}</div>
+      </div>
+    </div>
+  </div>
+</div>

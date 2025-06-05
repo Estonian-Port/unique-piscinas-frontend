@@ -10,6 +10,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { GraficoComponent } from './components/grafico/grafico.component';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { RegistroCardComponent } from './components/registro-card/registro-card.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
     DashboardComponent,
     LoginComponent,
     NavbarComponent,
-    GraficoComponent
+    GraficoComponent,
+    RegistroCardComponent
   ],
   imports: [
     BrowserModule,
