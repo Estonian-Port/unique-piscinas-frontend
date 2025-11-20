@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { use, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
 import { Platform, ScrollView, Text, View } from 'react-native';
 import UsuarioRegistrados from '@/components/usuario/usuarioRegistrados';
@@ -8,36 +8,38 @@ import WebTabBar from '@/components/utiles/webTabBar';
 import UsuariosPendientes from '@/components/usuario/usuariosPendientes';
 
 const Usuarios = () => {
+  const [refreshUser, setRefreshUser] = useState(0);
+
+  const refrescarUsuarios = () => {
+    setRefreshUser(refreshUser + 1);
+  };
+
   return (
     <PrivateScreen>
       <ScrollView className="flex-1 bg-white">
         <ScreenTabs>
-          <View className='w-11/12'>
-          
+          <View className="w-11/12">
             <Text className="self-start font-geist-bold text-3xl text-text m-5">
               Panel de Administración
             </Text>
 
-            <WebTabBar 
-            isAdmin={true}
-            />
+            <WebTabBar isAdmin={true} />
 
-            {Platform.OS === "web" ? (
+            {Platform.OS === 'web' ? (
               <View className="grid grid-cols-3 gap-3">
                 <View className="col-span-2">
-                  <NuevoUsuarioForm />
+                  <NuevoUsuarioForm onCreated={refrescarUsuarios} />
                 </View>
-                <UsuarioRegistrados />
-                <UsuariosPendientes />
+                <UsuarioRegistrados refreshKey={refreshUser} />
+                <UsuariosPendientes refreshKey={refreshUser} />
               </View>
             ) : (
               <>
-                <NuevoUsuarioForm />
-                <UsuarioRegistrados />
-                <UsuariosPendientes />
+                <NuevoUsuarioForm onCreated={refrescarUsuarios} />
+                <UsuarioRegistrados refreshKey={refreshUser} />
+                <UsuariosPendientes refreshKey={refreshUser} />
               </>
             )}
-
           </View>
         </ScreenTabs>
       </ScrollView>

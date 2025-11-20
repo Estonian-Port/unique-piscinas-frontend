@@ -1,22 +1,19 @@
 import {
   View,
   Text,
-  Switch,
   TextInput,
   KeyboardAvoidingView,
   Platform,
   Modal,
-  Pressable,
 } from 'react-native';
 import React, { useState } from 'react';
 import { GermicidaNuevo, PiscinaEquipos } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { marcasIonizador } from './modalEditarGermicida';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Octagon } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   ionizadorMarca: Yup.string().required('Seleccione una marca de ionizador'),
@@ -96,7 +93,7 @@ const ModalAgregarIonizador = ({
             marca: values.ionizadorMarca,
             datoExtra: Number(values.ionizadorElectrodos),
             tiempoVidaUtil: Number(values.ionizadorTiempoVidaUtil),
-            activa: true,
+            activa: false,
           };
           handleNewIonizador(newIonizador);
           onClose();
@@ -132,51 +129,17 @@ const ModalAgregarIonizador = ({
                       </Text>
                     </View>
 
-                    <View className="items-start w-4/5">
+                    <View className="items-start w-full">
                       <Text className="text-text text-sm font-geist">
                         Marca
                       </Text>
-                      <DropDownPicker
-                        open={openMarcaIonizador}
+                      <TextInput
+                        className="border-2 border-gray-300 rounded-md py-4 px-3 w-full"
                         value={values.ionizadorMarca}
-                        items={marcasIonizador.map((item) => ({
-                          label: item.name,
-                          value: item.name, // Cambiado para consistencia
-                        }))}
-                        setOpen={setOpenMarcaIonizador}
-                        setValue={(callback) => {
-                          const val = callback(values.ionizadorMarca);
-                          setFieldValue('ionizadorMarca', val);
-                          setFieldTouched('ionizadorMarca', true);
-                        }}
-                        placeholder="Seleccione una marca"
-                        zIndex={2000}
-                        zIndexInverse={2000}
-                        listMode="SCROLLVIEW"
-                        style={{
-                          borderColor: '#d1d5db', // un violeta más notorio
-                          borderWidth: 2,
-                          borderRadius: 6,
-                          backgroundColor: '#fff',
-                          paddingVertical: 12,
-                          paddingHorizontal: 10,
-                        }}
-                        dropDownContainerStyle={{
-                          borderColor: '#d1d5db',
-                          borderWidth: 2,
-                          borderRadius: 6,
-                          backgroundColor: '#f3f4f6',
-                        }}
-                        selectedItemContainerStyle={{
-                          backgroundColor: '#ede9fe', // violeta claro para el seleccionado
-                        }}
-                        selectedItemLabelStyle={{
-                          fontWeight: 'bold',
-                          color: '#7c3aed',
-                        }}
-                        placeholderStyle={{
-                          color: '#333333',
-                        }}
+                        onChangeText={handleChange('ionizadorMarca')}
+                        onBlur={handleBlur('ionizadorMarca')}
+                        placeholder="Ingrese la marca del ionizador"
+                        placeholderTextColor="#9CA3AF"
                       />
                       {errors.ionizadorMarca && touched.ionizadorMarca && (
                         <Text className="text-red-500 text-xs mt-1">
@@ -194,6 +157,7 @@ const ModalAgregarIonizador = ({
                           onBlur={handleBlur('ionizadorElectrodos')}
                           keyboardType="numeric"
                           placeholder="Ej: 15"
+                          placeholderTextColor="#9CA3AF"
                         />
                         {errors.ionizadorElectrodos &&
                           touched.ionizadorElectrodos && (
@@ -213,6 +177,7 @@ const ModalAgregarIonizador = ({
                           onBlur={handleBlur('ionizadorTiempoVidaUtil')}
                           keyboardType="numeric"
                           placeholder="Ej: 150"
+                          placeholderTextColor="#9CA3AF"
                         />
                         {errors.ionizadorTiempoVidaUtil &&
                           touched.ionizadorTiempoVidaUtil && (
@@ -223,26 +188,26 @@ const ModalAgregarIonizador = ({
                       </View>
                     </View>
                   </View>
-
-                  <View className="flex-row justify-between gap-3 mt-3">
-                    <Pressable
+                          
+                  <View className="flex-row justify-between mt-3">
+                    <CustomPressable
                       onPress={onClose}
-                      className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-gray-400 rounded-lg mr-1 items-center justify-center h-12"
+                      containerClassName="w-1/2"
                     >
                       <Text className="text-text text-center font-geist-semi-bold">
                         Cancelar
                       </Text>
-                    </Pressable>
-                    <Pressable
+                    </CustomPressable>
+                    <CustomPressable
                       onPress={handleSubmit as any}
-                      className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
+                      containerClassName="w-1/2"
                     >
-                      <View className="flex-row items-center justify-center">
-                        <Text className="text-white text-center font-geist-semi-bold ml-2">
-                          Guardar cambios
-                        </Text>
-                      </View>
-                    </Pressable>
+                      <Text className="text-white text-center font-geist-semi-bold">
+                        Guardar cambios
+                      </Text>
+                    </CustomPressable>
                   </View>
                 </View>
               </View>

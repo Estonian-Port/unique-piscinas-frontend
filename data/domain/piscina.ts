@@ -1,5 +1,4 @@
 import { Programacion } from './cicloFiltrado';
-import { Equipo } from './equipo';
 import { Usuario } from './user';
 
 export interface PiscinaRegistrada {
@@ -50,6 +49,7 @@ export interface PiscinaProgramacion {
   volumen: string;
   programacionIluminacion: Programacion[];
   programacionFiltrado: Programacion[];
+  iluminacionManual: boolean;
 }
 
 //Se usa en la vista usuario -> equipment
@@ -83,8 +83,8 @@ export interface PiscinaResume {
   diferenciaPh: number;
   entradaAgua: entradaAgua[];
   funcionActiva: funcionFiltro;
-  sistemasGermicidas: sistemaGermicida[];
-  calefaccion: boolean;
+  sistemasGermicidas: Germicida[];
+  calefaccion: Calefaccion | null;
   esDesbordante: boolean;
 }
 
@@ -126,6 +126,7 @@ export type Bomba = {
   modelo: string;
   potencia: number;
   activa: boolean;
+  tipo: string;
 };
 
 export type Filtro = {
@@ -137,7 +138,7 @@ export type Filtro = {
   activo: boolean;
   datoExtra?: number;
   tiempoVidaUtil?: number;
-  vidaRestante?: number;
+  vidaRestante: string;
 };
 
 //Esto se usa para traer datos del back
@@ -145,16 +146,10 @@ export type Germicida = {
   id: number;
   tipo: string;
   marca: string;
-  vidaRestante: number;
+  vidaRestante: string;
   activo: boolean;
   estado: string;
   datoExtra: number;
-};
-
-export type Valvula = {
-  id: number;
-  tipo: string;
-  estado: string;
 };
 
 export type Calefaccion = {
@@ -165,8 +160,6 @@ export type Calefaccion = {
   potencia: number;
   activa: boolean;
 };
-
-
 
 export type Registro = {
   id: number;
@@ -227,6 +220,7 @@ export type BombaNuevo = {
   modelo: string;
   potencia: number;
   activa: boolean;
+  tipo: string;
 };
 
 export type FiltroNuevo = {
@@ -256,3 +250,9 @@ export type CalefaccionNueva = {
   potencia: number;
   activa: boolean;
 };
+
+export interface GenerarPatenteDTO {
+  firmware: string;
+  tipo: string;
+}
+

@@ -1,11 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {View,Text,Pressable,TextInput,Modal,KeyboardAvoidingView,Platform} from 'react-native';
+import {
+  View,
+  Text,
+  TextInput,
+  Modal,
+  KeyboardAvoidingView,
+  Platform,
+} from 'react-native';
 import { useAuth } from '@/context/authContext';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { UsuarioLogin } from '@/data/domain/user';
 import { usuarioService } from '@/services/usuario.service';
 import Toast from 'react-native-toast-message';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   nombre: Yup.string().required('El nombre es obligatorio'),
@@ -83,7 +91,7 @@ const ModalEditarPerfil = ({
           errors,
           touched,
           values,
-          dirty
+          dirty,
         }) => (
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -97,7 +105,9 @@ const ModalEditarPerfil = ({
                 <Text className="font-geist text-text text-sm mb-4 self-center">
                   Modifique los datos de su perfil
                 </Text>
-                <Text className="font-geist-semi-bold text-text text-sm mt-2">Nombre</Text>
+                <Text className="font-geist-semi-bold text-text text-sm mt-2">
+                  Nombre
+                </Text>
                 <TextInput
                   className="border h-12 rounded-lg mt-2 px-2"
                   value={values.nombre}
@@ -116,7 +126,7 @@ const ModalEditarPerfil = ({
                   className="border h-12 rounded-lg mt-2 px-2"
                   value={values.apellido}
                   placeholder="Ingrese su apellido"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#9CA3AF"
                   onChangeText={handleChange('apellido')}
                   onBlur={handleBlur('apellido')}
                 />
@@ -130,7 +140,7 @@ const ModalEditarPerfil = ({
                   className="border h-12 rounded-lg mt-2 px-2"
                   value={values.email}
                   placeholder="Ingrese su email"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#9CA3AF"
                   keyboardType="email-address"
                   onChangeText={handleChange('email')}
                   onBlur={handleBlur('email')}
@@ -145,7 +155,7 @@ const ModalEditarPerfil = ({
                   className="border h-12 rounded-lg mt-2 px-2"
                   value={values.celular}
                   placeholder="Ingrese su celular"
-                  placeholderTextColor="#9ca3af"
+                  placeholderTextColor="#9CA3AF"
                   keyboardType="numeric"
                   onChangeText={handleChange('celular')}
                   onBlur={handleBlur('celular')}
@@ -153,28 +163,28 @@ const ModalEditarPerfil = ({
                 {errors.celular && touched.celular && (
                   <Text className="text-red-500">{errors.celular}</Text>
                 )}
-                <View className="flex-row justify-between gap-3 mt-5">
-                  <Pressable
+                <View className="flex-row justify-between mt-5">
+                  <CustomPressable
                     onPress={onClose}
-                    className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                    containerClassName='w-1/2'
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
-                  </Pressable>
-                  <Pressable
+                  </CustomPressable>
+                  <CustomPressable
                     disabled={!dirty}
                     onPress={handleSubmit as any}
-                    className={`bg-purple-unique rounded-lg flex-1 items-center justify-center h-12 ${
+                    className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
+                    containerClassName='w-1/2'
                   >
-                    <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold px-1">
-                        Guardar cambios
-                      </Text>
-                    </View>
-                  </Pressable>
+                    <Text className="text-white text-center font-geist-semi-bold px-1">
+                      Guardar
+                    </Text>
+                  </CustomPressable>
                 </View>
               </View>
             </View>

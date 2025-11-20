@@ -2,7 +2,6 @@ import {
   ScrollView,
   Text,
   View,
-  Pressable,
   ActivityIndicator,
 } from 'react-native';
 import { Screen } from '@/components/utiles/Screen';
@@ -26,6 +25,8 @@ import ModalAgregarIonizador from '@/components/dashboard/modalAgregarIonizador'
 import ModalAgregarTrasductor from '@/components/dashboard/modalAgregarTrasductor';
 import TratamientoCard from '@/components/dashboard/tratamientoCard';
 import { Clipboard } from 'react-native-feather';
+import Divider from '@/components/utiles/divider';
+import CustomPressable from '@/components/utiles/customPressable';
 
 export default function Equipos() {
   const [modalNuevoRegistro, setModalNuevoRegistro] = useState(false);
@@ -84,13 +85,13 @@ export default function Equipos() {
 
   return (
     <PrivateScreen>
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1 bg-white px-4">
         <Screen>
-          <Text className="self-start p-5 text-text font-geist-semi-bold text-2xl">
+          <Text className="self-start py-5 text-text font-geist-semi-bold text-2xl">
             Editar Equipamiento - {pool.direccion}
           </Text>
-          <Text className="self-start pl-5 mb-2 text-text font-geist-semi-bold text-xl">
-            Bombas de filtración
+          <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
+            {pool!.bombas.length > 1 ? 'Bombas' : 'Bomba'}
           </Text>
           {pool!.bombas.map((item) => (
             <BombaCard
@@ -100,26 +101,25 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           ))}
-          {pool.bombas.length < 3 && (
-            <Pressable
-              className="bg-gray-200 rounded-lg p-3 w-3/4 items-center mb-3"
+          {pool.bombas.length < 4 && (
+            <CustomPressable
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
               onPress={() => setModalAgregarBomba(true)}
+              containerClassName='w-1/2'
             >
               <Text className="font-geist-semi-bold text-text">
                 + Agregar bomba
               </Text>
-            </Pressable>
+            </CustomPressable>
           )}
-          {modalAgregarBomba && (
             <ModalAgregarBomba
               visible={modalAgregarBomba}
               onClose={() => setModalAgregarBomba(false)}
               piscina={pool}
               actualizarPiscina={fetchPool}
             />
-          )}
-
-          <Text className="self-start pl-5 mb-2 text-text font-geist-semi-bold text-xl">
+          <Divider />
+          <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Filtro
           </Text>
           <FiltroCard
@@ -127,7 +127,8 @@ export default function Equipos() {
             piscina={pool}
             actualizarPiscina={fetchPool}
           />
-          <Text className="self-start pl-5 mb-2 text-text font-geist-semi-bold text-xl">
+          <Divider />
+          <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Sistemas germicidas
           </Text>
           {pool.sistemasGermicidas.map((item) => (
@@ -138,67 +139,67 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           ))}
-          <View className="flex-row gap-3 justify-center items-center">
-            {!tieneUv && (
-              <Pressable
-                className="bg-gray-200 rounded-lg p-3 w-1/2 items-center mb-3"
-                onPress={() => setModalAgregarUV(true)}
-              >
-                <Text className="font-geist-semi-bold text-text">
-                  + Agregar UV
-                </Text>
-              </Pressable>
-            )}
-            {modalAgregarUV && (
-              <ModalAgregarUV
-                visible={modalAgregarUV}
-                onClose={() => setModalAgregarUV(false)}
-                piscina={pool}
-                actualizarPiscina={fetchPool}
-              />
-            )}
-            {!tieneIonizador && (
-              <Pressable
-                className="bg-gray-200 rounded-lg p-3 w-1/2 items-center mb-3"
-                onPress={() => setModalAgregarIonizador(true)}
-              >
-                <Text className="font-geist-semi-bold text-text">
-                  + Agregar Ionizador
-                </Text>
-              </Pressable>
-            )}
-            {modalAgregarIonizador && (
-              <ModalAgregarIonizador
-                visible={modalAgregarIonizador}
-                onClose={() => setModalAgregarIonizador(false)}
-                piscina={pool}
-                actualizarPiscina={fetchPool}
-              />
-            )}
-            {!tieneTrasductor && (
-              <Pressable
-                className="bg-gray-200 rounded-lg p-3 w-1/2 items-center mb-3"
-                onPress={() => setModalAgregarTrasductor(true)}
-              >
-                <Text className="font-geist-semi-bold text-text">
-                  + Agregar Trasductor
-                </Text>
-              </Pressable>
-            )}
-            {modalAgregarTrasductor && (
-              <ModalAgregarTrasductor
-                visible={modalAgregarTrasductor}
-                onClose={() => setModalAgregarTrasductor(false)}
-                piscina={pool}
-                actualizarPiscina={fetchPool}
-              />
-            )}
-          </View>
-
-          <Text className="self-start pl-5 mb-2 text-text font-geist-semi-bold text-xl">
+          {!tieneUv && (
+            <CustomPressable
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              onPress={() => setModalAgregarUV(true)}
+              containerClassName='w-1/2'
+            >
+              <Text className="font-geist-semi-bold text-text">
+                + Agregar UV
+              </Text>
+            </CustomPressable>
+          )}
+          {modalAgregarUV && (
+            <ModalAgregarUV
+              visible={modalAgregarUV}
+              onClose={() => setModalAgregarUV(false)}
+              piscina={pool}
+              actualizarPiscina={fetchPool}
+            />
+          )}
+          {!tieneIonizador && (
+            <CustomPressable
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              onPress={() => setModalAgregarIonizador(true)}
+              containerClassName='w-1/2'
+            >
+              <Text className="font-geist-semi-bold text-text">
+                + Agregar Ionizador
+              </Text>
+            </CustomPressable>
+          )}
+          {modalAgregarIonizador && (
+            <ModalAgregarIonizador
+              visible={modalAgregarIonizador}
+              onClose={() => setModalAgregarIonizador(false)}
+              piscina={pool}
+              actualizarPiscina={fetchPool}
+            />
+          )}
+          {!tieneTrasductor && (
+            <CustomPressable
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              onPress={() => setModalAgregarTrasductor(true)}
+              containerClassName='w-1/2'
+            >
+              <Text className="font-geist-semi-bold text-text">
+                + Agregar Trasductor
+              </Text>
+            </CustomPressable>
+          )}
+          {modalAgregarTrasductor && (
+            <ModalAgregarTrasductor
+              visible={modalAgregarTrasductor}
+              onClose={() => setModalAgregarTrasductor(false)}
+              piscina={pool}
+              actualizarPiscina={fetchPool}
+            />
+          )}
+          <Divider />
+          <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Tratamiento
           </Text>
-
           <TratamientoCard
             orp={pool.orp}
             controlPH={pool.controlAutomaticoPH}
@@ -206,8 +207,8 @@ export default function Equipos() {
             piscina={pool}
             actualizarPiscina={fetchPool}
           />
-
-          <Text className="self-start pl-5 mb-2 text-text font-geist-semi-bold text-xl">
+          <Divider />
+          <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Calefacción
           </Text>
           {pool.calefaccion ? (
@@ -217,14 +218,15 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           ) : (
-            <Pressable
-              className="bg-gray-200 rounded-lg p-3 w-3/4 items-center mb-3"
+            <CustomPressable
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
               onPress={() => setModalAgregarCalefaccion(true)}
+              containerClassName='w-1/2'
             >
               <Text className="font-geist-semi-bold text-text">
                 + Agregar Calefacción
               </Text>
-            </Pressable>
+            </CustomPressable>
           )}
           {modalAgregarCalefaccion && (
             <ModalAgregarCalefaccion
@@ -234,20 +236,20 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           )}
-
-          <View className="flex-row items-center justify-between mb-4 w-11/12 self-center">
+          <Divider />
+          <View className="flex-row items-center justify-between mb-4 w-full self-center">
             <Text className="text-text font-geist-semi-bold text-xl">
               Registros
             </Text>
-            <Pressable
+            <CustomPressable
               onPress={() => setModalNuevoRegistro(true)}
               className="bg-white border border-grayish-unique rounded-lg py-3 px-2 flex-row items-center justify-center"
             >
-              <Clipboard className="mr-2" /> 
+              <Clipboard className="mr-2" />
               <Text className="text-black font-geist-semi-bold text-sm">
                 Nuevo Registro
               </Text>
-            </Pressable>
+            </CustomPressable>
             {modalNuevoRegistro && (
               <ModalNuevoRegistro
                 visible={modalNuevoRegistro}
@@ -257,7 +259,7 @@ export default function Equipos() {
               />
             )}
           </View>
-
+          <View className="bg-white rounded-lg mb-4 w-full">
           {pool.registros.length === 0 && (
             <View className="flex-1 justify-center items-center py-4">
               <Text className="text-gray-500 font-geist">
@@ -265,12 +267,15 @@ export default function Equipos() {
               </Text>
             </View>
           )}
-
-          <ScreenCard>
             {pool.registros.map((item) => (
-              <RegistroCard key={item.id} registro={item} piscinaId={pool.id} actualizarPiscina={fetchPool} />
+              <RegistroCard
+                key={item.id}
+                registro={item}
+                piscinaId={pool.id}
+                actualizarPiscina={fetchPool}
+              />
             ))}
-          </ScreenCard>
+          </View>
         </Screen>
       </ScrollView>
     </PrivateScreen>

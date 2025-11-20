@@ -3,10 +3,10 @@ import {
   Text,
   Modal,
   KeyboardAvoidingView,
-  Pressable,
   Platform,
 } from 'react-native';
 import { entradaAgua, funcionFiltro } from '@/data/domain/piscina';
+import CustomPressable from '../utiles/customPressable';
 
 const ModalBarrefondo = ({
   visible,
@@ -57,39 +57,38 @@ const ModalBarrefondo = ({
       >
         <View className="flex-1 justify-center items-center bg-black/50">
           <View className="bg-white p-6 rounded-lg w-4/5 max-w-md">
-            <Text className="text-lg font-geist-semi-bold text-text mb-4">
+            <Text className="text-lg font-geist-semi-bold text-text mb-4 text-center">
               Seleccione función de filtro para Barrefondo
             </Text>
 
-            <View className="flex-row justify-between gap-3 mt-3">
-              <Pressable
+            <View className="flex-row justify-between mt-3">
+              <CustomPressable
                 onPress={onClose}
-                className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-gray-400 rounded-lg mr-1 items-center justify-center h-12"
+                containerClassName='w-1/3'
               >
                 <Text className="text-text text-center font-geist-semi-bold">
                   Cancelar
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 onPress={handleFiltrarPress}
-                className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-purple-unique rounded-lg mx-1 items-center justify-center h-12"
+                containerClassName='w-1/3'
               >
-                <View className="flex-row items-center justify-center">
-                  <Text className="text-white text-center font-geist-semi-bold ml-2">
+                  <Text className="text-white text-center font-geist-semi-bold">
                     Filtrar
                   </Text>
-                </View>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 onPress={handleDesagotarPress}
-                className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
+                containerClassName='w-1/3'
               >
-                <View className="flex-row items-center justify-center">
-                  <Text className="text-white text-center font-geist-semi-bold ml-2">
+                  <Text className="text-white text-center font-geist-semi-bold">
                     Desagotar
                   </Text>
-                </View>
-              </Pressable>
+              </CustomPressable>
             </View>
           </View>
         </View>

@@ -7,6 +7,7 @@ import { router } from 'expo-router';
 import { UsuarioRegistrado } from '@/data/domain/user';
 import { useAuth } from '@/context/authContext';
 import { ChevronDown, ChevronUp, Delete, Eye, Mail, MinusCircle, Phone } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 const UserItem = ({
   usuario,
@@ -56,10 +57,10 @@ const UserItem = ({
           <View
             className={`rounded-full px-2 py-1 ${
               usuario.estado === 'ACTIVO'
-                ? 'bg-green-400'
+                ? 'bg-green-200 border border-green-300'
                 : usuario.estado === 'INACTIVO'
-                ? 'bg-red-400'
-                : 'bg-gray-300'
+                ? 'bg-yellow-100 border border-yellow-200'
+                : 'bg-gray-300 border border-gray-400 '
             }`}
           >
             <Text className="font-geist-semi-bold text-text text-sm text-center">
@@ -95,12 +96,12 @@ const UserItem = ({
             <Text className="font-geist-semi-bold text-text text-base flex-1 pr-2">
               Piscinas asignadas
             </Text>
-            <Pressable
+            <CustomPressable
               className="border border-gray-300 rounded-md p-2 flex-row items-center justify-center"
               onPress={() => setModalNuevaPiscina(true)}
             >
               <Text> + Añadir Piscina</Text>
-            </Pressable>
+            </CustomPressable>
             {modalNuevaPiscina && (
               <ModalAnadirPiscina
                 visible={modalNuevaPiscina}

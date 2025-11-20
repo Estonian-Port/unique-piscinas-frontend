@@ -11,8 +11,12 @@ import PrivateScreen from '@/components/utiles/privateScreen';
 import { useAuth } from '@/context/authContext';
 import WebTabBar from '@/components/utiles/webTabBar';
 import Header from '@/components/utiles/header';
-import { climaIconColor, climaIconComponent } from '@/components/utiles/climaIconMapper';
-import { useEffect, useState } from 'react';
+import {
+  climaIconColor,
+  climaIconComponent,
+} from '@/components/utiles/climaIconMapper';
+import { useCallback, useEffect, useState } from 'react';
+import { useFocusEffect } from 'expo-router';
 
 export default function Resume() {
   const { usuario, selectedPool } = useAuth();
@@ -21,29 +25,30 @@ export default function Resume() {
 
   const [clima, setClima] = useState<ClimaResponse | null>(null);
 
-  useEffect(() => {
-    if (selectedPool) {
+  const fetchData = useCallback(async () => {
+    if (!selectedPool) return;
+    try {
       setLoading(true);
-      const fetchData = async () => {
-        try {
-          const [poolData, poolPh, climaData] = await Promise.all([
-            piscinaService.getPiscinaResume(selectedPool.id),
-            piscinaService.getPiscinaResumePhById(selectedPool.id),
-            climaService.getClima()
-          ]);
+      const [poolData, poolPh, climaData] = await Promise.all([
+        piscinaService.getPiscinaResume(selectedPool.id),
+        piscinaService.getPiscinaResumePhById(selectedPool.id),
+        climaService.getClima(),
+      ]);
 
-          setPiscina({ ...poolData, ...poolPh });
-          setClima(climaData);
-        } catch (error) {
-          console.error('Error al cargar datos:', error);
-        } finally {
-          setLoading(false);
-        }
-      };
-
-      fetchData();
+      setPiscina({ ...poolData, ...poolPh });
+      setClima(climaData);
+    } catch (error) {
+      console.error('Error al cargar datos:', error);
+    } finally {
+      setLoading(false);
     }
   }, [selectedPool]);
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [fetchData])
+  );
 
   if (loading || !usuario || !selectedPool || !piscina || !clima) {
     return (
@@ -81,6 +86,7 @@ export default function Resume() {
               setPiscina={setPiscina}
               entradaAgua={piscina.entradaAgua}
               funcionFiltro={piscina.funcionActiva}
+              onUpdate={fetchData}
             />
             <Indicadores piscina={piscina} />
           </View>
@@ -89,4 +95,3 @@ export default function Resume() {
     </PrivateScreen>
   );
 }
-

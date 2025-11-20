@@ -1,6 +1,5 @@
-import { View, Text, ScrollView, Pressable } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { useState } from 'react';
-import { Screen } from '@/components/utiles/Screen';
 import InformacionBasica from '@/components/dashboard/nuevaPiscina/informacionBasica';
 import ConfiguracionPiscina from '@/components/dashboard/nuevaPiscina/configuracionPiscina';
 import { PiscinaNueva } from '@/data/domain/piscina';
@@ -69,71 +68,69 @@ const NuevaPiscina = () => {
   };
 
   return (
-    <ScrollView className="flex-1 bg-white">
-      <Screen>
-        <View className="flex-1 bg-white mt-5 w-11/12 px-2">
-          <Text className="font-geist-semi-bold text-text text-3xl">
-            Agregar Nueva Piscina
-          </Text>
-          <Text className="font-geist-light text-text text-sm">
-            Complete la información para registrar una nueva piscina
-          </Text>
-          {step === 1 && (
-            <InformacionBasica
-              onCancel={handleCancel}
-              onNext={() => setStep(2)}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-          {step === 2 && (
-            <ConfiguracionPiscina
-              onCancel={handleCancel}
-              onBack={() => setStep(1)}
-              onNext={() => setStep(3)}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-          {step === 3 && (
-            <BombaNuevaPiscina
-              onCancel={handleCancel}
-              onBack={() => setStep(2)}
-              onNext={() => setStep(4)}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-          {step === 4 && (
-            <FiltroNuevaPiscina
-              onCancel={handleCancel}
-              onBack={() => setStep(3)}
-              onNext={() => setStep(5)}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-          {step === 5 && (
-            <TratamientoNuevaPiscina
-              onCancel={handleCancel}
-              onBack={() => setStep(4)}
-              onNext={() => setStep(6)}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-          {step === 6 && (
-            <CalefaccionNuevaPiscina
-              onCancel={handleCancel}
-              onBack={() => setStep(5)}
-              onSave={handleSave}
-              nuevaPiscina={nuevaPiscina}
-              setNuevaPiscina={setNuevaPiscina}
-            />
-          )}
-        </View>
-      </Screen>
-    </ScrollView>
+    <View className="flex-1 bg-white">
+      <View className="flex-1 bg-white mt-5 w-full px-6">
+        <Text className="font-geist-semi-bold text-text text-3xl">
+          Agregar Nueva Piscina
+        </Text>
+        <Text className="font-geist-light text-text text-sm mb-2">
+          Complete la información para registrar una nueva piscina
+        </Text>
+        {step === 1 && (
+          <InformacionBasica
+            onCancel={handleCancel}
+            onNext={() => setStep(2)}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+        {step === 2 && (
+          <ConfiguracionPiscina
+            onCancel={handleCancel}
+            onBack={() => setStep(1)}
+            onNext={() => setStep(3)}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+        {step === 3 && (
+          <BombaNuevaPiscina
+            onCancel={handleCancel}
+            onBack={() => setStep(2)}
+            onNext={() => setStep(4)}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+        {step === 4 && (
+          <FiltroNuevaPiscina
+            onCancel={handleCancel}
+            onBack={() => setStep(3)}
+            onNext={() => setStep(5)}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+        {step === 5 && (
+          <TratamientoNuevaPiscina
+            onCancel={handleCancel}
+            onBack={() => setStep(4)}
+            onNext={() => setStep(6)}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+        {step === 6 && (
+          <CalefaccionNuevaPiscina
+            onCancel={handleCancel}
+            onBack={() => setStep(5)}
+            onSave={handleSave}
+            nuevaPiscina={nuevaPiscina}
+            setNuevaPiscina={setNuevaPiscina}
+          />
+        )}
+      </View>
+    </View>
   );
 };
 

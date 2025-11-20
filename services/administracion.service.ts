@@ -1,4 +1,4 @@
-import { PiscinaRegistrada, PiscinaFichaTecnica, PiscinaEquipos, PiscinaListItem } from '@/data/domain/piscina';
+import { PiscinaRegistrada, PiscinaFichaTecnica, PiscinaEquipos, PiscinaListItem, GenerarPatenteDTO } from '@/data/domain/piscina';
 import api from '../helper/auth.interceptor';
 import { StatDashboard } from '@/data/domain/stat';
 import { UsuarioList, UsuarioPendiente, UsuarioRegistrado } from '@/data/domain/user';
@@ -62,6 +62,10 @@ class AdministracionService {
     return response.data.data;
   }
 
+  generarPatente = async (userId: number, body: GenerarPatenteDTO): Promise<string> => {
+    const response = await api.post(`${ADMINISTRACION}/generar-patente/${userId}`, body);
+    return response.data.data;
+  };
 }
 
 export const administracionService = new AdministracionService();

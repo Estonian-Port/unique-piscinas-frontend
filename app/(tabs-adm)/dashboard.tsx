@@ -1,4 +1,10 @@
-import { ActivityIndicator, Platform, ScrollView, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Platform,
+  ScrollView,
+  Text,
+  View,
+} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
 import StatCard from '@/components/dashboard/statCard';
@@ -9,6 +15,7 @@ import { administracionService } from '@/services/administracion.service';
 import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
 import PrivateScreen from '@/components/utiles/privateScreen';
 import WebTabBar from '@/components/utiles/webTabBar';
+import CustomPressable from '@/components/utiles/customPressable';
 
 const Dashboard = () => {
   const { usuario } = useAuth();
@@ -66,7 +73,7 @@ const Dashboard = () => {
 
             <WebTabBar isAdmin={true} />
 
-            {Platform.OS === "web" ? (
+            {Platform.OS === 'web' ? (
               <View className="grid grid-cols-3 gap-3">
                 <StatCard
                   title="Usuarios"

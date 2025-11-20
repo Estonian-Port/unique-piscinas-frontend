@@ -1,4 +1,5 @@
 import { Piscina, PiscinaListItem } from "./piscina";
+import { RolType } from "./rol";
 
 export interface NuevoUsuario {
   email: string;
@@ -10,7 +11,7 @@ export interface UsuarioLogin {
   apellido: string;
   email: string;
   celular: number;
-  isAdmin: boolean;
+  rol: RolType;
   piscinasId: number[];
   primerLogin: boolean;
 }

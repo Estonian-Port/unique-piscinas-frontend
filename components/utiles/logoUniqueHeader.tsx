@@ -7,14 +7,31 @@ const LogoUniqueHeader = () => {
   const { usuario } = useAuth();
 
   const handlePress = () => {
-    console.log(usuario?.primerLogin);
-    if (usuario?.isAdmin) {
+    if (!usuario) return;
+
+    const { rol, piscinasId, primerLogin } = usuario;
+
+    if (rol === 'ADMIN') {
       router.replace('/dashboard');
-    } else if (!usuario?.primerLogin) {
-      if (usuario?.piscinasId && usuario.piscinasId.length > 1) {
+      return;
+    }
+
+    if (rol === 'PAT_GEN') {
+      return;
+    }
+
+    if (rol === 'USER' && primerLogin) {
+            return;
+    }
+    
+    if (rol === 'USER' && !primerLogin) {
+      const count = (piscinasId?.length ?? 0);
+      if (count > 1) {
         router.replace('/pools');
+      } else if (count === 1) {
+        router.replace('/resume');
       } else {
-        router.replace('/dashboard');
+        return;
       }
     }
   };

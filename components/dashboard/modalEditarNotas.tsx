@@ -6,11 +6,11 @@ import {
   KeyboardAvoidingView,
   Platform,
   TextInput,
-  Pressable,
 } from 'react-native';
 import { PiscinaFichaTecnica } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   notas: Yup.string().max(100, 'Máximo 100 caracteres'),
@@ -61,7 +61,7 @@ const ModalEditarNotas = ({
           >
             <View className="flex-1 justify-center items-center bg-black/50">
               <View className="bg-white p-6 rounded-lg w-4/5 max-w-md">
-                <Text className="text-lg font-geist-semi-bold text-text mb-4">
+                <Text className="text-lg font-geist-semi-bold text-text text-center">
                   Editar Notas
                 </Text>
 
@@ -74,6 +74,7 @@ const ModalEditarNotas = ({
                   onChangeText={handleChange('notas')}
                   onBlur={handleBlur('notas')}
                   placeholder="Alguna información adicional que quieras agregar..."
+                  placeholderTextColor="#9CA3AF"
                   multiline={true}
                   numberOfLines={6}
                   textAlignVertical="top"
@@ -82,25 +83,27 @@ const ModalEditarNotas = ({
                   <Text className="text-red-500 mt-2">{errors.notas}</Text>
                 )}
 
-                <View className="flex-row justify-between gap-3 mt-3">
-                  <Pressable
+                <View className="flex-row justify-between mt-5">
+                  <CustomPressable
                     onPress={onClose}
-                    className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                    containerClassName='w-1/2'
                   >
                     <Text className="text-white text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
-                  </Pressable>
-                  <Pressable
+                  </CustomPressable>
+                  <CustomPressable
                     onPress={handleSubmit as any}
-                    className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
+                    containerClassName='w-1/2'
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold ml-2">
-                        Guardar cambios
+                        Guardar
                       </Text>
                     </View>
-                  </Pressable>
+                  </CustomPressable>
                 </View>
               </View>
             </View>

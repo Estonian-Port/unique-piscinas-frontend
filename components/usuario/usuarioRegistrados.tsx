@@ -1,28 +1,30 @@
 import { View, Text } from 'react-native';
-import React, { useEffect, useState } from 'react';  // Añadir useState
+import React, { useEffect, useState } from 'react'; // Añadir useState
 import { ScreenCard } from '../utiles/ScreenCard';
 import UserItem from './userItem';
 import { administracionService } from '@/services/administracion.service';
 import { useAuth } from '@/context/authContext';
 import { UsuarioRegistrado } from '@/data/domain/user';
 
-const UsuarioRegistrados = () => {
-  const {usuario} = useAuth();
+const UsuarioRegistrados = ({ refreshKey }: { refreshKey: number }) => {
+  const { usuario } = useAuth();
   const [users, setUsers] = useState<UsuarioRegistrado[]>([]);
   const [expandedUserId, setExpandedUserId] = useState<number | null>(null);
 
-      const fetchData = async () => {
-        try {
-          const response = await administracionService.getUsuariosRegistrados(usuario!.id);
-          setUsers(response);
-        } catch (error) {
-          console.error('Error fetching user data:', error);
-        }
-      };
+  const fetchData = async () => {
+    try {
+      const response = await administracionService.getUsuariosRegistrados(
+        usuario!.id
+      );
+      setUsers(response);
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
+  };
 
   useEffect(() => {
-      fetchData();
-  }, []);
+    fetchData();
+  }, [refreshKey]);
 
   const handleToggleExpand = (userId: number) => {
     setExpandedUserId(expandedUserId === userId ? null : userId);
@@ -39,7 +41,7 @@ const UsuarioRegistrados = () => {
         </Text>
       </View>
       {users.map((user) => (
-        <UserItem 
+        <UserItem
           key={user.id}
           usuario={user}
           isExpanded={expandedUserId === user.id}

@@ -1,4 +1,4 @@
-import { View, Text, Pressable, Switch } from 'react-native';
+import { View, Text, Switch } from 'react-native';
 import React, { useState } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import Schedule from './schedule';
@@ -7,12 +7,12 @@ import {
   Programacion,
   ProgramacionType,
 } from '@/data/domain/cicloFiltrado';
-import { ciclosFiltradoMock } from '@/data/mock/cicloFiltradoMock';
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
-import { piscinaService } from '@/services/piscina.service';
 import { useAuth } from '@/context/authContext';
 import { Clock, Filter } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
+import { programacionService } from '@/services/programacion.service';
 
 const ProgramacionFiltrado = ({
   programacion,
@@ -31,13 +31,14 @@ const ProgramacionFiltrado = ({
     dias: [],
     activa: true,
     tipo: ProgramacionType.FILTRADO,
+    ejecutando: false,
   };
 
   const hasCicles = programacion.length > 0;
 
   const handleAddCicle = async (nuevoCiclo: Programacion) => {
     try {
-      const response = await piscinaService.addProgramacion(
+      const response = await programacionService.addProgramacion(
         selectedPool!.id,
         nuevoCiclo
       );
@@ -64,7 +65,7 @@ const ProgramacionFiltrado = ({
 
   const handleEditCicle = async (cicloEditado: Programacion) => {
     try {
-      const response = await piscinaService.updateProgramacion(
+      const response = await programacionService.updateProgramacion(
         selectedPool!.id,
         cicloEditado
       );
@@ -89,7 +90,7 @@ const ProgramacionFiltrado = ({
 
   const handleDeleteCicle = async (cicloId: number) => {
     try {
-      const response = await piscinaService.deleteProgramacion(
+      const response = await programacionService.deleteProgramacion(
         selectedPool!.id,
         cicloId,
       );
@@ -112,6 +113,56 @@ const ProgramacionFiltrado = ({
     }
   };
 
+    const handleActivarCicle = async (cicloId: number) => {
+      try {
+        const response = await programacionService.activarProgramacion(
+          selectedPool!.id,
+          cicloId
+        );
+        Toast.show({
+          type: 'success',
+          text1: 'Ciclo activado',
+          text2: 'El ciclo se ha activado correctamente',
+          position: 'bottom',
+          bottomOffset: 80,
+        });
+        actualizarPiscina();
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'El ciclo no se ha podido activar correctamente',
+          position: 'bottom',
+          bottomOffset: 80,
+        });
+      }
+    };
+  
+    const handleDesactivarCicle = async (cicloId: number) => {
+      try {
+        const response = await programacionService.desactivarProgramacion(
+          selectedPool!.id,
+          cicloId
+        );
+        Toast.show({
+          type: 'success',
+          text1: 'Ciclo desactivado',
+          text2: 'El ciclo se ha desactivado correctamente',
+          position: 'bottom',
+          bottomOffset: 80,
+        });
+        actualizarPiscina();
+      } catch (error) {
+        Toast.show({
+          type: 'error',
+          text1: 'Error',
+          text2: 'El ciclo no se ha podido desactivar correctamente',
+          position: 'bottom',
+          bottomOffset: 80,
+        });
+      }
+    };
+
   return (
     <ScreenCard>
       <View className="flex-row items-center  mb-4">
@@ -128,12 +179,12 @@ const ProgramacionFiltrado = ({
             Ciclos programados
           </Text>
         </View>
-        <Pressable
+        <CustomPressable
           className="border border-gray-200 rounded-md p-2 items-center justify-center"
           onPress={() => setModalVisible(true)}
         >
           <Text className="font-geist text-text text-base">+ Añadir</Text>
-        </Pressable>
+        </CustomPressable>
         {modalVisible && (
           <ModalProgramacion
             visible={modalVisible}
@@ -150,9 +201,11 @@ const ProgramacionFiltrado = ({
           {programacion.map((ciclo) => (
             <Schedule
               cicle={ciclo}
+              key={ciclo.id}
               editCicle={handleEditCicle}
               deleteCicle={handleDeleteCicle}
-              key={ciclo.id}
+              activarCicle={handleActivarCicle}
+              desactivarCicle={handleDesactivarCicle}
             />
           ))}
         </View>

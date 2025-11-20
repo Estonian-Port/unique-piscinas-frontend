@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, ScrollView, Pressable, Image } from 'react-native';
+import { View, Text, ScrollView, Image } from 'react-native';
 import { Screen } from '@/components/utiles/Screen';
 import { router } from 'expo-router';
 import { useAuth } from '@/context/authContext';
 import ModalLogout from '@/components/utiles/modalLogout';
 import ModalEditarPerfil from '@/components/profile/modalEditarPerfil';
 import ModalEditarPassword from '@/components/profile/modalEditarPassword';
-import { Edit2, LogOut } from 'react-native-feather';
+import { Edit2, LogIn, LogOut } from 'react-native-feather';
+import CustomPressable from '@/components/utiles/customPressable';
 
 const Profile = () => {
   const { usuario: user, logout } = useAuth();
@@ -16,7 +17,7 @@ const Profile = () => {
 
   useEffect(() => {
     if (!user) {
-      router.replace('/');
+      router.replace('/login');
     }
   }, [user]);
 
@@ -62,20 +63,20 @@ const Profile = () => {
             <Text className="font-geist text-text">{user.celular}</Text>
           </View>
         </View>
-        <View className="w-11/12 md:w-1/3 self-center items-center">
-          <Pressable className="flex-row mt-2 rounded-lg bg-purple-unique p-4 w-full mb-2 justify-center"
+        <View className="w-11/12 md:w-1/3 self-center">
+          <CustomPressable className="flex-row mt-2 rounded-lg bg-purple-unique p-4 w-full mb-2 justify-center"
           onPress={() => setModalEditVisible(true)}>
-            <Edit2 color="#9ca3af" />
+            <Edit2 color="#ffffff" />
             <Text className="ml-2 font-geist-semi-bold text-white text-lg text-center">
               Editar datos personales
             </Text>
-          </Pressable>
-          <Pressable className="rounded-lg bg-red-alert p-4 w-full mb-2" onPress={() => setModalPasswordVisible(true)}>
+          </CustomPressable>
+          <CustomPressable className="rounded-lg bg-red-alert p-4 w-full mb-2" onPress={() => setModalPasswordVisible(true)}>
             <Text className="font-geist-semi-bold text-white text-lg text-center">
               Cambiar contraseña
             </Text>
-          </Pressable>
-          <Pressable
+          </CustomPressable>
+          <CustomPressable
             className="flex-row items-center justify-center mt-6 rounded-lg p-4 w-full"
             onPress={() => setModalLogoutVisible(true)}
           >
@@ -83,7 +84,7 @@ const Profile = () => {
             <Text className="ml-2 font-geist-semi-bold text-gray-400 text-lg text-center">
               Cerrar sesión
             </Text>
-          </Pressable>
+          </CustomPressable>
         </View>
         <ModalLogout
           visible={modalLogoutVisible}

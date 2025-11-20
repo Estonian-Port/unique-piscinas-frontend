@@ -5,9 +5,9 @@ import {
   Modal,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
 } from 'react-native';
 import Toast from 'react-native-toast-message';
+import CustomPressable from '../utiles/customPressable';
 
 type ModalResetearContadorProps = {
   visible: boolean;
@@ -41,24 +41,24 @@ const ModalResetearContador = ({
               componente.
             </Text>
             <View className="flex-row justify-between gap-3 mt-5">
-              <Pressable
+              <CustomPressable
                 onPress={onClose}
-                className="bg-grayish-unique rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-grayish-unique rounded-lg mr-1 items-center justify-center h-12"
+                containerClassName='w-1/2'
               >
                 <Text className="text-text text-center font-geist-semi-bold">
                   Cancelar
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 onPress={onSave}
-                className="bg-red-alert rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-red-alert rounded-lg ml-1 items-center justify-center h-12"
+                containerClassName='w-1/2'
               >
-                <View className="flex-row items-center justify-center">
-                  <Text className="text-white text-center font-geist-semi-bold ml-2">
-                    Aceptar
-                  </Text>
-                </View>
-              </Pressable>
+                <Text className="text-white text-center font-geist-semi-bold">
+                  Aceptar
+                </Text>
+              </CustomPressable>
             </View>
           </View>
         </View>
