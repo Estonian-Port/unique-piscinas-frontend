@@ -13,10 +13,14 @@ const Schedule = ({
   cicle,
   editCicle,
   deleteCicle,
+  activarCicle,
+  desactivarCicle,
 }: {
   cicle: Programacion;
   editCicle: (cicloEditado: Programacion) => void;
   deleteCicle: (cicloId: number) => void;
+  activarCicle: (cicloId: number) => void;
+  desactivarCicle: (cicloId: number) => void;
 }) => {
   const daysOfWeek: Day[] = [
     Day.LUNES,
@@ -36,33 +40,39 @@ const Schedule = ({
   };
 
   const deleteSchedule = () => {
-    deleteCicle(cicle.id);
+    deleteCicle(cicle.id!!);
     setOpenModalDelete(false);
   };
 
   const cambiarEstado = (nuevoEstado: boolean) => {
     setIsActive(nuevoEstado);
-    const cicloActualizado: Programacion = {
-      ...cicle,
-      activa: nuevoEstado,
-    };
-    editCicle(cicloActualizado);
-  }
+    if (nuevoEstado) {
+      activarCicle(cicle.id!!);
+    } else {
+      desactivarCicle(cicle.id!!);
+    }
+  };
 
   return (
-    <View className="w-full rounded-md bg-white p-2 border border-gray-200">
+    <View
+      className={`w-full rounded-md p-2 border ${
+        cicle.ejecutando ? 'border-yellow-400' : 'bg-white border-gray-200'
+      }`}
+    >
       <View className="flex-row flex-1 justify-between">
         <View className="flex-row items-center">
-          <Clock height={14} width={14}  color="black" />
-          <Text className="font-geist text-text text-sm mx-2">
+          <Clock height={14} width={14} color="black" />
+          <Text
+            className={`text-text text-sm mx-2 ${
+              cicle.ejecutando ? 'font-geist-bold' : 'font-geist'
+            }`}
+          >
             {cicle.horaInicio} - {cicle.horaFin} horas
           </Text>
         </View>
         {cicle.tipo === ProgramacionType.FILTRADO && (
           <View className="flex-row items-center justify-center border border-gray-200 rounded-xl p-0.5">
-            <Text className="font-geist text-text text-sm mx-1">
-              Filtrar
-            </Text>
+            <Text className="font-geist text-text text-sm mx-1">Filtrar</Text>
           </View>
         )}
       </View>

@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, TextInput, Pressable } from 'react-native';
+import { View, Text, ScrollView, TextInput, Pressable, KeyboardAvoidingView, Platform } from 'react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { useAuth } from '@/context/authContext';
 import { router } from 'expo-router';
@@ -7,6 +7,7 @@ import { usuarioService } from '@/services/usuario.service';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Eye, EyeOff } from 'react-native-feather';
+import CustomPressable from '@/components/utiles/customPressable';
 
 export interface UsuarioAlta {
   id: number;
@@ -52,7 +53,7 @@ const Registro = () => {
 
   useEffect(() => {
     if (!usuario) {
-      router.replace('/');
+      router.replace('/login');
     }
   }, [usuario]);
 
@@ -88,157 +89,172 @@ const Registro = () => {
   const initialValues = getInitialValues();
 
   return (
-    <Formik
-      innerRef={formikRef}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={async (values) => {
-        const usuarioModificado = {
-          ...usuarioAlta,
-          id: usuario.id,
-          nombre: values.nombre,
-          apellido: values.apellido,
-          celular: Number(values.celular),
-          nuevoPassword: values.nuevoPassword,
-          confirmacionPassword: values.confirmacionPassword,
-        };
-
-        await handleSave(usuarioModificado);
-      }}
-      enableReinitialize={false}
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={{ flex: 1 }}
+      keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
     >
-      {({
-        handleChange,
-        handleBlur,
-        handleSubmit,
-        values,
-        errors,
-        touched,
-      }) => (
-        <ScrollView className="bg-white">
-          <View className="flex-1 items-center justify-center h-full p-4">
-            <Text className="font-geist-semi-bold text-2xl text-text mb-2 self-center">
-              Bienvenido a Unique
-            </Text>
-            <Text className="font-geist text-sm text-text">
-              Por única vez te pediremos que completes tus datos personales y
-              cambies tu contraseña por cuestiones de seguridad.
-            </Text>
-            <View className="justify-between w-full px-5">
-              <Text className="font-geist-semi-bold text-text text-sm mt-5">
-                Nombre
-              </Text>
-              <TextInput
-                className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                value={values.nombre}
-                onChangeText={handleChange('nombre')}
-                onBlur={handleBlur('nombre')}
-                placeholder="Ingrese su nombre"
-              />
-              {touched.nombre && errors.nombre && (
-                <Text className="text-red-500 mt-2">{errors.nombre}</Text>
-              )}
+      <Formik
+        innerRef={formikRef}
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={async (values) => {
+          const usuarioModificado = {
+            ...usuarioAlta,
+            id: usuario.id,
+            nombre: values.nombre,
+            apellido: values.apellido,
+            celular: Number(values.celular),
+            nuevoPassword: values.nuevoPassword,
+            confirmacionPassword: values.confirmacionPassword,
+          };
 
-              <Text className="font-geist-semi-bold text-text text-sm mt-5">
-                Apellido
+          await handleSave(usuarioModificado);
+        }}
+        enableReinitialize={false}
+      >
+        {({
+          handleChange,
+          handleBlur,
+          handleSubmit,
+          values,
+          errors,
+          touched,
+        }) => (
+          <ScrollView 
+            className="bg-white"
+            contentContainerStyle={{ flexGrow: 1 }}
+            keyboardShouldPersistTaps="handled"
+          >
+            <View className="flex-1 items-center justify-center p-4">
+              <Text className="font-geist-semi-bold text-2xl text-text mb-2 self-center">
+                Bienvenido a Unique
               </Text>
-              <TextInput
-                className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                value={values.apellido}
-                onChangeText={handleChange('apellido')}
-                onBlur={handleBlur('apellido')}
-                placeholder="Ingrese su apellido"
-              />
-              {touched.apellido && errors.apellido && (
-                <Text className="text-red-500 mt-2">{errors.apellido}</Text>
-              )}
-
-              <Text className="font-geist-semi-bold text-text text-sm mt-5">
-                Celular
+              <Text className="font-geist text-sm text-text mb-4">
+                Por única vez te pediremos que completes tus datos personales y
+                cambies tu contraseña por cuestiones de seguridad.
               </Text>
-              <TextInput
-                className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                value={values.celular === '0' ? '' : values.celular}
-                onChangeText={handleChange('celular')}
-                onBlur={handleBlur('celular')}
-                placeholder="Ingrese su celular"
-                keyboardType="numeric"
-              />
-              {touched.celular && errors.celular && (
-                <Text className="text-red-500 mt-2">{errors.celular}</Text>
-              )}
-
-              <Text className="font-geist-semi-bold text-text text-sm mt-5">
-                Password
-              </Text>
-              <View className="relative">
+              <View className="justify-between w-full px-5">
+                <Text className="font-geist-semi-bold text-text text-sm mt-5">
+                  Nombre
+                </Text>
                 <TextInput
                   className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                  value={values.nuevoPassword}
-                  onChangeText={handleChange('nuevoPassword')}
-                  onBlur={handleBlur('nuevoPassword')}
-                  placeholder="Ingrese su nueva contraseña"
-                  secureTextEntry={!showPassword}
+                  value={values.nombre}
+                  onChangeText={handleChange('nombre')}
+                  onBlur={handleBlur('nombre')}
+                  placeholder="Ingrese su nombre"
+                  placeholderTextColor="#9CA3AF"
                 />
-                <Pressable
-                  className="absolute right-4 top-4"
-                  onPress={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? (
-                    <EyeOff width={20} height={20} />
-                  ) : (
-                    <Eye width={20} height={20} />
-                  )}
-                </Pressable>
-              </View>
-              {touched.nuevoPassword && errors.nuevoPassword && (
-                <Text className="text-red-500 mt-2">
-                  {errors.nuevoPassword}
-                </Text>
-              )}
+                {touched.nombre && errors.nombre && (
+                  <Text className="text-red-500 mt-2">{errors.nombre}</Text>
+                )}
 
-              <Text className="font-geist-semi-bold text-text text-sm mt-5">
-                Reingrese su password
-              </Text>
-              <View className="relative">
+                <Text className="font-geist-semi-bold text-text text-sm mt-5">
+                  Apellido
+                </Text>
                 <TextInput
                   className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                  value={values.confirmacionPassword}
-                  onChangeText={handleChange('confirmacionPassword')}
-                  onBlur={handleBlur('confirmacionPassword')}
-                  placeholder="Reingrese su nueva contraseña"
-                  secureTextEntry={!showPassword}
+                  value={values.apellido}
+                  onChangeText={handleChange('apellido')}
+                  onBlur={handleBlur('apellido')}
+                  placeholder="Ingrese su apellido"
+                  placeholderTextColor="#9CA3AF"
                 />
-                <Pressable
-                  className="absolute right-4 top-4"
-                  onPress={() => setShowPassword((prev) => !prev)}
-                >
-                  {showPassword ? (
-                    <EyeOff width={20} height={20} />
-                  ) : (
-                    <Eye width={20} height={20} />
-                  )}
-                </Pressable>
-              </View>
-              {touched.confirmacionPassword && errors.confirmacionPassword && (
-                <Text className="text-red-500 mt-2">
-                  {errors.confirmacionPassword}
-                </Text>
-              )}
+                {touched.apellido && errors.apellido && (
+                  <Text className="text-red-500 mt-2">{errors.apellido}</Text>
+                )}
 
-              <Pressable
-                className="mt-6 rounded-lg bg-gray-400 p-4 w-3/5 self-center"
-                onPress={handleSubmit as any}
-              >
-                <Text className="font-geist-semi-bold text-text text-lg text-center">
-                  Guardar cambios
+                <Text className="font-geist-semi-bold text-text text-sm mt-5">
+                  Celular
                 </Text>
-              </Pressable>
+                <TextInput
+                  className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
+                  value={values.celular === '0' ? '' : values.celular}
+                  onChangeText={handleChange('celular')}
+                  onBlur={handleBlur('celular')}
+                  placeholder="Ingrese su celular"
+                  placeholderTextColor="#9CA3AF"
+                  keyboardType="numeric"
+                />
+                {touched.celular && errors.celular && (
+                  <Text className="text-red-500 mt-2">{errors.celular}</Text>
+                )}
+
+                <Text className="font-geist-semi-bold text-text text-sm mt-5">
+                  Password
+                </Text>
+                <View className="relative">
+                  <TextInput
+                    className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
+                    value={values.nuevoPassword}
+                    onChangeText={handleChange('nuevoPassword')}
+                    onBlur={handleBlur('nuevoPassword')}
+                    placeholder="Ingrese su nueva contraseña"
+                    placeholderTextColor="#9CA3AF"
+                    secureTextEntry={!showPassword}
+                  />
+                  <Pressable
+                    className="absolute right-4 top-4"
+                    onPress={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? (
+                      <EyeOff width={20} height={20} />
+                    ) : (
+                      <Eye width={20} height={20} />
+                    )}
+                  </Pressable>
+                </View>
+                {touched.nuevoPassword && errors.nuevoPassword && (
+                  <Text className="text-red-500 mt-2">
+                    {errors.nuevoPassword}
+                  </Text>
+                )}
+
+                <Text className="font-geist-semi-bold text-text text-sm mt-5">
+                  Reingrese su password
+                </Text>
+                <View className="relative">
+                  <TextInput
+                    className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
+                    value={values.confirmacionPassword}
+                    onChangeText={handleChange('confirmacionPassword')}
+                    onBlur={handleBlur('confirmacionPassword')}
+                    placeholder="Reingrese su nueva contraseña"
+                    placeholderTextColor="#9CA3AF"
+                    secureTextEntry={!showPassword}
+                  />
+                  <Pressable
+                    className="absolute right-4 top-4"
+                    onPress={() => setShowPassword((prev) => !prev)}
+                  >
+                    {showPassword ? (
+                      <EyeOff width={20} height={20} />
+                    ) : (
+                      <Eye width={20} height={20} />
+                    )}
+                  </Pressable>
+                </View>
+                {touched.confirmacionPassword && errors.confirmacionPassword && (
+                  <Text className="text-red-500 mt-2">
+                    {errors.confirmacionPassword}
+                  </Text>
+                )}
+
+                <CustomPressable
+                  className="mt-6 mb-8 rounded-lg bg-gray-400 p-4 w-3/5 self-center"
+                  onPress={handleSubmit as any}
+                >
+                  <Text className="font-geist-semi-bold text-text text-lg text-center">
+                    Guardar cambios
+                  </Text>
+                </CustomPressable>
+              </View>
             </View>
-          </View>
-        </ScrollView>
-      )}
-    </Formik>
+          </ScrollView>
+        )}
+      </Formik>
+    </KeyboardAvoidingView>
   );
 };
 

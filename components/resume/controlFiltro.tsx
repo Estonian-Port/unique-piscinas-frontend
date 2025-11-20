@@ -8,20 +8,22 @@ import type {
   PiscinaResume,
 } from '@/data/domain/piscina';
 import ModalBarrefondo from './modalBarrefondo';
-import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Box, Circle, Droplet, Eye, Info } from 'react-native-feather';
+import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 
 interface ControlFiltroProps {
   piscina: PiscinaResume;
   entradaAgua: entradaAgua[];
   funcionFiltro: funcionFiltro | null;
   setPiscina: Dispatch<SetStateAction<PiscinaResume | null>>;
+  onUpdate?: () => Promise<void> | void;
 }
 
 export default function ControlFiltro({
   piscina,
   setPiscina,
+  onUpdate,
 }: ControlFiltroProps) {
   const [funcionActiva, setFuncionActiva] = useState(piscina.funcionActiva);
   const [modalBarrefondoVisible, setModalBarrefondoVisible] = useState(false);
@@ -76,7 +78,7 @@ export default function ControlFiltro({
 
   const actualizarEntradaDeAgua = async (entradasActivas: entradaAgua[]) => {
     try {
-      const response = await piscinaService.actualizarEntradaDeAgua(
+      const response = await estadoPiscinaService.actualizarEntradaDeAgua(
         piscina.id,
         entradasActivas
       );
@@ -91,6 +93,7 @@ export default function ControlFiltro({
       setBarrefondoActivo(nuevasEntradas.includes('Barrefondo'));
       setSkimmerActivo(nuevasEntradas.includes('Skimmer'));
       setTanqueActivo(nuevasEntradas.includes('Tanque'));
+      await onUpdate?.();
     } catch (error) {
       Toast.show({
         type: 'error',
@@ -104,7 +107,7 @@ export default function ControlFiltro({
   const actualizarFuncionFiltro = async (funcion: funcionFiltro) => {
     try {
       if (funcion === piscina.funcionActiva) {
-        const response = await piscinaService.actualizarFuncionFiltro(
+        const response = await estadoPiscinaService.actualizarFuncionFiltro(
           piscina.id,
           'REPOSO'
         );
@@ -114,8 +117,9 @@ export default function ControlFiltro({
           funcionActiva: 'REPOSO',
         }));
         actualizarEntradaDeAgua([]);
+        await onUpdate?.();
       } else {
-        const response = await piscinaService.actualizarFuncionFiltro(
+        const response = await estadoPiscinaService.actualizarFuncionFiltro(
           piscina.id,
           funcion
         );
@@ -124,6 +128,7 @@ export default function ControlFiltro({
           ...prevPiscina!,
           funcionActiva: funcion,
         }));
+        await onUpdate?.();
       }
     } catch (error) {
       console.error(error);
@@ -133,7 +138,7 @@ export default function ControlFiltro({
   const verificarFuncionFiltro = async (entradas: entradaAgua[]) => {
     if (!entradas || entradas.length === 0) {
       try {
-        await piscinaService.actualizarFuncionFiltro(piscina.id, 'REPOSO');
+        await estadoPiscinaService.actualizarFuncionFiltro(piscina.id, 'REPOSO');
         setFuncionActiva('REPOSO');
         setPiscina((prevPiscina) => ({
           ...prevPiscina!,
@@ -221,14 +226,14 @@ export default function ControlFiltro({
           Control de Filtro
         </Text>
 
-        {hayEntradaDeAguaSeleccionada ? (
-          <View className="bg-green-200 rounded-full p-2">
+        {piscina.funcionActiva != 'REPOSO' ? (
+          <View className="bg-green-200 rounded-full p-2 border border-green-300">
             <Text className="font-geist-semi-bold text-sm text-text">
               Activado
             </Text>
           </View>
         ) : (
-          <View className="bg-red-200 rounded-full p-2">
+          <View className="bg-yellow-100 rounded-full p-2 border border-yellow-200">
             <Text className="font-geist-semi-bold text-sm text-text">
               Desactivado
             </Text>
@@ -315,7 +320,7 @@ export default function ControlFiltro({
 
       {/*MENSAJE DE ADVERTENCIA */}
       {!hayEntradaDeAguaSeleccionada && (
-        <View className="flex-row items-start bg-yellow-50 border-l-4 border-yellow-400 rounded-md shadow-sm p-4 my-4 mx-1">
+        <View className="flex-row items-start bg-yellow-50 border-l-4 border-yellow-400 rounded-md shadow-sm p-4 mt-4 mx-1">
           <View className="mt-0.5">
             <Info color="#b45309" />
           </View>
@@ -325,6 +330,8 @@ export default function ControlFiltro({
           </Text>
         </View>
       )}
+
+      <View className="bg-gray-200 h-px mt-5 w-full"/>
 
       {/*MODO DE FILTRO */}
       <FuncionFiltroScreen

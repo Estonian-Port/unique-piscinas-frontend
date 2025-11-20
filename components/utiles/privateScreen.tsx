@@ -11,7 +11,7 @@ const PrivateScreen = ({ children }: PrivateScreenProps) => {
 
   useEffect(() => {
     if (!user) {
-      router.replace('/index');
+      router.replace('/login');
     }
   }, [user]);
 

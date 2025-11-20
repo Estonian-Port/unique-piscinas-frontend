@@ -7,10 +7,11 @@ import NavBar from '@/components/utiles/navBar';
 import { AuthProvider } from '@/context/authContext';
 import Toast from 'react-native-toast-message';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 
 export default function RootLayout() {
   const pathname = usePathname();
-  const isLoginScreen = pathname === "/";
+  const isLoginScreen = pathname === "/login";
   
   const [fontsLoaded] = useFonts({
     "Geist-ExtraLight": require("../assets/fonts/Geist-ExtraLight.ttf"),
@@ -37,6 +38,7 @@ export default function RootLayout() {
           backgroundColor: isLoginScreen ? '#222247' : '#FFFFFF' 
         }}
       >
+        <StatusBar style="dark" />
         <NavBar />
         <Slot />
         <Toast />

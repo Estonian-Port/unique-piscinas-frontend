@@ -1,5 +1,5 @@
-import { View, Text, Pressable, Switch } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, Switch } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import {
   dateToLocalTimeString,
   Programacion,
@@ -10,76 +10,86 @@ import Schedule from './schedule';
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { piscinaService } from '@/services/piscina.service';
 import { Clock, Sliders } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
+import { estadoPiscinaService } from '@/services/estadoPiscina.service';
+import { programacionService } from '@/services/programacion.service';
 
 const ProgramacionIluminacion = ({
   programacion,
   actualizarPiscina,
+  luzManual,
 }: {
   programacion: Programacion[];
   actualizarPiscina: () => Promise<void>;
+  luzManual: boolean;
 }) => {
   const { selectedPool } = useAuth();
-  const [isManual, setIsManual] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
+  const [localLuzManual, setLocalLuzManual] = useState<boolean>(!!luzManual);
+
+  // sincronizar cuando la prop cambie (ej. al refetch desde padre)
+  useEffect(() => {
+    setLocalLuzManual(!!luzManual);
+  }, [luzManual]);
 
   const programacionVacia: Programacion = {
-    id: 0,
+    id: null,
     horaInicio: dateToLocalTimeString(new Date()),
     horaFin: dateToLocalTimeString(new Date()),
     dias: [],
     activa: true,
     tipo: ProgramacionType.ILUMINACION,
+    ejecutando: false,
   };
 
   const hasCicles = programacion.length > 0;
 
-  const handleLucesManual = (value: boolean) => {
+  const handleLucesManual = async (value: boolean) => {
     if (!selectedPool) return;
-    if (value) {
-      try {
-        piscinaService.encenderLucesManual(selectedPool.id);
+    // optimista: actualizar UI inmediatamente
+    setLocalLuzManual(value);
+
+    try {
+      if (value) {
+        await estadoPiscinaService.encenderLucesManual(selectedPool.id);
         Toast.show({
           type: 'success',
           text1: 'Luces activadas',
           position: 'bottom',
           bottomOffset: 80,
         });
-      } catch (error) {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'No se han podido activar las luces',
-          position: 'bottom',
-          bottomOffset: 80,
-        });
-      }
-    } else {
-      try {
-        piscinaService.apagarLucesManual(selectedPool.id);
+      } else {
+        await estadoPiscinaService.apagarLucesManual(selectedPool.id);
         Toast.show({
           type: 'success',
           text1: 'Luces desactivadas',
           position: 'bottom',
           bottomOffset: 80,
         });
-      } catch (error) {
-        Toast.show({
-          type: 'error',
-          text1: 'Error',
-          text2: 'No se han podido desactivar las luces',
-          position: 'bottom',
-          bottomOffset: 80,
-        });
       }
+
+      // recargar datos desde el padre para que todo el UI refleje el estado real
+      await actualizarPiscina();
+    } catch (error) {
+      // revertir el estado local en caso de error
+      setLocalLuzManual(!value);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: value
+          ? 'No se han podido activar las luces'
+          : 'No se han podido desactivar las luces',
+        position: 'bottom',
+        bottomOffset: 80,
+      });
+      console.error('Error toggling luces manual:', error);
     }
-    setIsManual(value);
   };
 
   const handleAddCicle = async (nuevoCiclo: Programacion) => {
     try {
-      const response = await piscinaService.addProgramacion(
+      const response = await programacionService.addProgramacion(
         selectedPool!.id,
         nuevoCiclo
       );
@@ -106,7 +116,7 @@ const ProgramacionIluminacion = ({
 
   const handleEditCicle = async (cicloEditado: Programacion) => {
     try {
-      const response = await piscinaService.updateProgramacion(
+      const response = await programacionService.updateProgramacion(
         selectedPool!.id,
         cicloEditado
       );
@@ -131,7 +141,7 @@ const ProgramacionIluminacion = ({
 
   const handleDeleteCicle = async (cicloId: number) => {
     try {
-      const response = await piscinaService.deleteProgramacion(
+      const response = await programacionService.deleteProgramacion(
         selectedPool!.id,
         cicloId
       );
@@ -154,6 +164,56 @@ const ProgramacionIluminacion = ({
     }
   };
 
+  const handleActivarCicle = async (cicloId: number) => {
+    try {
+      const response = await programacionService.activarProgramacion(
+        selectedPool!.id,
+        cicloId
+      );
+      Toast.show({
+        type: 'success',
+        text1: 'Ciclo activado',
+        text2: 'El ciclo se ha activado correctamente',
+        position: 'bottom',
+        bottomOffset: 80,
+      });
+      actualizarPiscina();
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'El ciclo no se ha podido activar correctamente',
+        position: 'bottom',
+        bottomOffset: 80,
+      });
+    }
+  };
+
+  const handleDesactivarCicle = async (cicloId: number) => {
+    try {
+      const response = await programacionService.desactivarProgramacion(
+        selectedPool!.id,
+        cicloId
+      );
+      Toast.show({
+        type: 'success',
+        text1: 'Ciclo desactivado',
+        text2: 'El ciclo se ha desactivado correctamente',
+        position: 'bottom',
+        bottomOffset: 80,
+      });
+      actualizarPiscina();
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'El ciclo no se ha podido desactivar correctamente',
+        position: 'bottom',
+        bottomOffset: 80,
+      });
+    }
+  };
+
   return (
     <ScreenCard>
       <View className="flex-row items-center  mb-4">
@@ -163,7 +223,7 @@ const ProgramacionIluminacion = ({
         </Text>
       </View>
 
-      <View className="flex-row items-center justify-between">
+      <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center">
           <Sliders color="light-blue" />
           <Text className="font-geist-semi-bold text-text text-base ml-1">
@@ -172,10 +232,10 @@ const ProgramacionIluminacion = ({
         </View>
         <Switch
           trackColor={{ false: '#d3d3d3', true: '#000000' }}
-          thumbColor={isManual ? '#fcdb99' : '#ffffff'}
+          thumbColor={localLuzManual ? '#fcdb99' : '#ffffff'}
           ios_backgroundColor="#d3d3d3"
           onValueChange={(value) => handleLucesManual(value)}
-          value={isManual}
+          value={localLuzManual}
         />
       </View>
 
@@ -186,12 +246,12 @@ const ProgramacionIluminacion = ({
             Horarios programados
           </Text>
         </View>
-        <Pressable
+        <CustomPressable
           className="border border-gray-200 rounded-md p-2 items-center justify-center"
           onPress={() => setModalVisible(true)}
         >
           <Text className="font-geist text-text text-base">+ Añadir</Text>
-        </Pressable>
+        </CustomPressable>
         <ModalProgramacion
           visible={modalVisible}
           onClose={() => setModalVisible(false)}
@@ -209,6 +269,8 @@ const ProgramacionIluminacion = ({
               key={ciclo.id}
               editCicle={handleEditCicle}
               deleteCicle={handleDeleteCicle}
+              activarCicle={handleActivarCicle}
+              desactivarCicle={handleDesactivarCicle}
             />
           ))}
         </View>

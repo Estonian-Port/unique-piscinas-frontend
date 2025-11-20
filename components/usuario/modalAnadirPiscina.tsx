@@ -4,13 +4,13 @@ import {
   Modal,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { administracionService } from '@/services/administracion.service';
 import { PiscinaListItem } from '@/data/domain/piscina';
 import Toast from 'react-native-toast-message';
+import CustomPressable from '../utiles/customPressable';
 
 type ModalAnadirPiscinaProps = {
   visible: boolean;
@@ -97,25 +97,25 @@ const ModalAnadirPiscina = ({
               <Text style={{ padding: 10, color: '#888' }}>No hay piscinas disponibles</Text>
             )}
           />
-          <View className="flex-row justify-between gap-3 mt-5">
-            <Pressable
+          <View className="flex-row justify-between mt-5">
+            <CustomPressable
               onPress={onClose}
-              className="bg-grayish-unique rounded-lg flex-1 items-center justify-center h-12"
+              className="bg-grayish-unique rounded-lg mr-1 items-center justify-center h-12"
+              containerClassName='w-1/2'
             >
               <Text className="text-text text-center font-geist-semi-bold">
                 Cancelar
               </Text>
-            </Pressable>
-            <Pressable
+            </CustomPressable>
+            <CustomPressable
               onPress={save}
-              className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+              className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
+              containerClassName='w-1/2'
             >
-              <View className="flex-row items-center justify-center">
-                <Text className="text-white text-center font-geist-semi-bold ml-2">
+                <Text className="text-white text-center font-geist-semi-bold">
                   Añadir Piscina
                 </Text>
-              </View>
-            </Pressable>
+            </CustomPressable>
           </View>
           </View>
         </View>

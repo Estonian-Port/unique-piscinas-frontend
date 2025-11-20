@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Modal,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   TextInput,
@@ -13,20 +12,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Bomba } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-
-export const marcasBomba = [
-  { id: 1, name: 'Astral' },
-  { id: 2, name: 'Hayward' },
-  { id: 3, name: 'Pentair' },
-  { id: 4, name: 'Otra' },
-];
-
-export const modelosBomba = [
-  { id: 1, name: 'Victoria Plus' },
-  { id: 2, name: 'Sena' },
-  { id: 3, name: 'Glass Plus' },
-  { id: 4, name: 'Otro' },
-];
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   marcaBomba: Yup.string().required('Seleccione una marca de bomba'),
@@ -48,8 +34,6 @@ const ModalEditarBomba = ({
   bomba: Bomba;
   onSave: (bombaEditada: Bomba) => void;
 }) => {
-  const [openMarcaBomba, setOpenMarcaBomba] = useState(false);
-  const [openModeloBomba, setOpenModeloBomba] = useState(false);
 
   return (
     <Modal
@@ -78,6 +62,7 @@ const ModalEditarBomba = ({
         {({
           handleChange,
           handleSubmit,
+          handleBlur,
           values,
           setFieldValue,
           errors,
@@ -90,7 +75,7 @@ const ModalEditarBomba = ({
           >
             <View className="flex-1 justify-center items-center bg-black/50">
               <View className="bg-white p-6 rounded-lg w-4/5 max-w-md">
-                <Text className="text-lg font-geist-semi-bold text-text mb-4">
+                <Text className="text-xl font-geist-semi-bold text-text">
                   Editar Bomba
                 </Text>
 
@@ -98,46 +83,13 @@ const ModalEditarBomba = ({
                   Marca
                 </Text>
 
-                <DropDownPicker
-                  open={openMarcaBomba}
+                <TextInput
+                  className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
                   value={values.marcaBomba}
-                  items={marcasBomba.map((item) => ({
-                    label: item.name,
-                    value: item.name,
-                  }))}
-                  setOpen={setOpenMarcaBomba}
-                  setValue={(callback) => {
-                    const val = callback(values.marcaBomba);
-                    setFieldValue('marcaBomba', val);
-                  }}
-                  placeholder="Seleccione una marca"
-                  zIndex={4000}
-                  zIndexInverse={1000}
-                  listMode="SCROLLVIEW"
-                  style={{
-                    borderColor: '#d1d5db', // un violeta más notorio
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    backgroundColor: '#fff',
-                    paddingVertical: 12,
-                    paddingHorizontal: 10,
-                  }}
-                  dropDownContainerStyle={{
-                    borderColor: '#d1d5db',
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    backgroundColor: '#f3f4f6',
-                  }}
-                  selectedItemContainerStyle={{
-                    backgroundColor: '#ede9fe', // violeta claro para el seleccionado
-                  }}
-                  selectedItemLabelStyle={{
-                    fontWeight: 'bold',
-                    color: '#7c3aed',
-                  }}
-                  placeholderStyle={{
-                    color: '#333333',
-                  }}
+                  onChangeText={handleChange('marcaBomba')}
+                  onBlur={handleBlur('marcaBomba')}
+                  placeholder="Ingrese la marca de la bomba"
+                  placeholderTextColor="#9CA3AF"
                 />
                 {errors.marcaBomba && touched.marcaBomba && (
                   <Text className="text-red-500">{errors.marcaBomba}</Text>
@@ -147,46 +99,13 @@ const ModalEditarBomba = ({
                   Modelo
                 </Text>
 
-                <DropDownPicker
-                  open={openModeloBomba}
+                <TextInput
+                  className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
                   value={values.modeloBomba}
-                  items={modelosBomba.map((item) => ({
-                    label: item.name,
-                    value: item.name,
-                  }))}
-                  setOpen={setOpenModeloBomba}
-                  setValue={(callback) => {
-                    const val = callback(values.modeloBomba);
-                    setFieldValue('modeloBomba', val);
-                  }}
-                  placeholder="Seleccione un modelo"
-                  zIndex={4000}
-                  zIndexInverse={1000}
-                  listMode="SCROLLVIEW"
-                  style={{
-                    borderColor: '#d1d5db', // un violeta más notorio
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    backgroundColor: '#fff',
-                    paddingVertical: 12,
-                    paddingHorizontal: 10,
-                  }}
-                  dropDownContainerStyle={{
-                    borderColor: '#d1d5db',
-                    borderWidth: 2,
-                    borderRadius: 6,
-                    backgroundColor: '#f3f4f6',
-                  }}
-                  selectedItemContainerStyle={{
-                    backgroundColor: '#ede9fe', // violeta claro para el seleccionado
-                  }}
-                  selectedItemLabelStyle={{
-                    fontWeight: 'bold',
-                    color: '#7c3aed',
-                  }}
-                  placeholderStyle={{
-                    color: '#333333',
-                  }}
+                  onChangeText={handleChange('modeloBomba')}
+                  onBlur={handleBlur('modeloBomba')}
+                  placeholder="Ingrese el modelo de la bomba"
+                  placeholderTextColor="#9CA3AF"
                 />
                 {errors.modeloBomba && touched.modeloBomba && (
                   <Text className="text-red-500">{errors.modeloBomba}</Text>
@@ -197,8 +116,9 @@ const ModalEditarBomba = ({
                 </Text>
 
                 <TextInput
-                  className="border border-gray-300 rounded-md p-2 mb-4"
+                  className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
                   placeholder="Potencia en CV"
+                  placeholderTextColor="#9CA3AF"
                   keyboardType="numeric"
                   onChangeText={handleChange('potenciaCV')}
                   value={String(values.potenciaCV)}
@@ -207,28 +127,30 @@ const ModalEditarBomba = ({
                   <Text className="text-red-500">{errors.potenciaCV}</Text>
                 )}
 
-                <View className="flex-row justify-between gap-3 mt-3">
-                  <Pressable
+                <View className="flex-row justify-between mt-3">
+                  <CustomPressable
                     onPress={onClose}
-                    className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                    containerClassName='w-1/2'
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
-                  </Pressable>
-                  <Pressable
+                  </CustomPressable>
+                  <CustomPressable  
                     disabled={!dirty}
                     onPress={handleSubmit as any}
-                    className={`bg-purple-unique rounded-lg flex-1 items-center justify-center h-12 ${
+                    className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
+                    containerClassName='w-1/2'
                   >
                     <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold ml-2">
+                      <Text className="text-white text-center font-geist-semi-bold">
                         Guardar cambios
                       </Text>
                     </View>
-                  </Pressable>
+                  </CustomPressable>
                 </View>
               </View>
             </View>

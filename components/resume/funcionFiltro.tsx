@@ -1,6 +1,6 @@
 import { funcionFiltro } from '@/data/domain/piscina';
 import type React from 'react';
-import { View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { View, Text, Pressable, TouchableOpacity } from 'react-native';
 import {
   Filter,
   RefreshCw,

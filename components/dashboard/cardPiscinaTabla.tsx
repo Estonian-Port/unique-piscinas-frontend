@@ -1,7 +1,7 @@
 import { View, Text, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
-import { Link, router } from 'expo-router';
+import { router } from 'expo-router';
 import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
 import { useAuth } from '@/context/authContext';
 import {
@@ -18,6 +18,7 @@ import {
 } from 'react-native-feather';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
+import CustomPressable from '../utiles/customPressable';
 
 // Componente para mostrar el estado del pH con color contextual
 const PhIndicator = ({ value }: { value: number }) => {
@@ -84,13 +85,13 @@ const EquipmentItem = ({
   return (
     <View className="items-center bg-gray-50 p-3 rounded-lg">
       <MaterialIcons name={getIcon()} size={24} color={getStatusColor()} />
-      <Text className="font-geist text-text text-xs mt-1">{tipo}</Text>
+      <Text className="font-geist text-text text-xs mt-1 text-center">{tipo}</Text>
       <View
         className="mt-1 px-2 py-1 rounded-full"
         style={{ backgroundColor: getStatusColor() + '20' }}
       >
         <Text
-          className="text-xs font-geist-semi-bold"
+          className="text-xs font-geist-semi-bold text-center"
           style={{ color: getStatusColor() }}
         >
           {estado}
@@ -182,7 +183,7 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
             <View className="flex-row items-center">
               <User height={16} width={16} color="#666" className="mr-2" />
               <Text className="text-gray-500 font-geist text-sm mr-2">
-                Propietario:
+                Administrador:
               </Text>
               <Text className="text-text font-geist-semi-bold text-sm">
                 {pool.nombreAdministrador}
@@ -215,24 +216,26 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
             </View>
 
             <View className="flex-row justify-between mt-2">
-              <Pressable
+              <CustomPressable
                 className="bg-grayish-unique rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
                 onPress={handleLecturaManual}
+                containerClassName='w-1/2'
               >
                 <Book height={16} width={16} className="mr-2" />
                 <Text className="text-black font-geist-semi-bold text-sm">
                   Nueva lectura
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 className="bg-grayish-unique rounded-lg py-3 flex-1 flex-row items-center justify-center"
                 onPress={handleLecturas}
+                containerClassName='w-1/2'
               >
                 <Clock height={16} width={16} className="mr-2" />
                 <Text className="text-black font-geist-semi-bold text-sm">
                   Ver historial
                 </Text>
-              </Pressable>
+              </CustomPressable>
             </View>
           </View>
 
@@ -260,33 +263,36 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
           {/* Acciones */}
 
           <View className="flex-row justify-between mt-2">
-            <Pressable
+            <CustomPressable
               className="bg-gray-900 rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
               onPress={handleFicha}
+              containerClassName='w-1/3'
             >
               <Info height={16} width={16} color="#fff" />
               <Text className="text-white font-geist-semi-bold text-sm ml-2">
                 Ficha
               </Text>
-            </Pressable>
-            <Pressable
+            </CustomPressable>
+            <CustomPressable
               className="bg-gray-900 rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
               onPress={handlePanel}
+              containerClassName='w-1/3'
             >
               <Eye height={16} width={16} color="#fff" />
               <Text className="text-white font-geist-semi-bold text-sm ml-2">
                 Panel
               </Text>
-            </Pressable>
-            <Pressable
+            </CustomPressable>
+            <CustomPressable
               className="bg-gray-900 rounded-lg py-3 flex-1 flex-row items-center justify-center"
               onPress={handleEquipos}
+              containerClassName='w-1/3'
             >
               <Settings height={16} width={16} color="#fff" />
               <Text className="text-white font-geist-semi-bold text-sm ml-2">
                 Equipos
               </Text>
-            </Pressable>
+            </CustomPressable>
           </View>
         </>
       )}

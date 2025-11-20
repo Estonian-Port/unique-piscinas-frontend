@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Switch, Pressable } from 'react-native';
+import { View, Text, TextInput, Switch } from 'react-native';
 import React, { useState } from 'react';
 import RadioButton from '../../utiles/radioButton';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -6,10 +6,11 @@ import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { PiscinaNueva } from '@/data/domain/piscina';
 import { Activity, Database, Thermometer, Zap } from 'react-native-feather';
+import CustomPressable from '@/components/utiles/customPressable';
 
 export type TipoBomba = 'Bomba única' | 'Doble bomba' | 'Bomba de velocidad variable';
 export type TipoFiltro = 'Arena' | 'Vidrio' | 'Cartucho';
-export type TipoCalefaccion = 'Bomba de calor' | 'Bomba a gas';
+export type TipoCalefaccion = 'Bomba de calor' | 'Calentador de gas';
 
 export const marcasBomba = [
   { id: 1, name: 'Astral' },
@@ -153,7 +154,8 @@ const EquiposNuevaPiscina = ({
         onChangeText={(number) => setPotenciaCV(number)}
         keyboardType="numeric"
         placeholder="Ej: 15"
-      ></TextInput>
+        placeholderTextColor="#9CA3AF"
+      />
 
       <Text className="font-geist-semi-bold text-text text-lg mt-2">
         Filtro
@@ -220,7 +222,8 @@ const EquiposNuevaPiscina = ({
         onChangeText={(number) => setDiametroFiltro(number)}
         keyboardType="numeric"
         placeholder="Ej: 500"
-      ></TextInput>
+        placeholderTextColor="#9CA3AF"
+      />
 
       <Text className="font-geist text-text text-base mt-3">Arena (kg)</Text>
       <TextInput
@@ -229,7 +232,8 @@ const EquiposNuevaPiscina = ({
         onChangeText={(number) => setArena(number)}
         keyboardType="numeric"
         placeholder="Ej: 75"
-      ></TextInput>
+        placeholderTextColor="#9CA3AF"
+      />
 
       <Text className="font-geist-semi-bold text-text text-lg mt-2">
         Tratamiento
@@ -353,9 +357,9 @@ const EquiposNuevaPiscina = ({
             />
 
             <RadioButton
-              value={'Bomba a gas'}
-              label={'Bomba a gas'}
-              selected={tipoCalefaccion == 'Bomba a gas'}
+              value={'Calentador de gas'}
+              label={'Calentador de gas'}
+              selected={tipoCalefaccion == 'Calentador de gas'}
               onPress={(value) => setTipoCalefaccion(value)}
             />
 
@@ -365,7 +369,8 @@ const EquiposNuevaPiscina = ({
               value={marcaCalefaccion}
               onChangeText={(marca) => setMarcaCalefaccion(marca)}
               placeholder="Ej: Hayward"
-            ></TextInput>
+              placeholderTextColor="#9CA3AF"
+            />
 
             <Text className="font-geist text-text text-base mt-3">Modelo</Text>
             <TextInput
@@ -373,7 +378,8 @@ const EquiposNuevaPiscina = ({
               value={modeloCalefaccion}
               onChangeText={(modelo) => setModeloCalefaccion(modelo)}
               placeholder="Ej: EnergyLine Pro"
-            ></TextInput>
+              placeholderTextColor="#9CA3AF"
+            />
 
             <Text className="font-geist text-text text-base mt-3">
               Potencia (Kw)
@@ -384,31 +390,32 @@ const EquiposNuevaPiscina = ({
               onChangeText={(number) => setPotenciaCalefaccion(number)}
               keyboardType="numeric"
               placeholder="Ej: 13.5"
-            ></TextInput>
+              placeholderTextColor="#9CA3AF"
+            />
           </View>
         )}
       </View>
       <View className="flex-row items-center justify-center gap-1 mt-5">
         <Link asChild href="/dashboard">
-          <Pressable
+          <CustomPressable
             onPress={onCancel}
             className="border border-gray-200 rounded-md p-2 items-center justify-center w-1/3"
           >
             <Text className="text-text font-geist text-base">Cancelar</Text>
-          </Pressable>
+          </CustomPressable>
         </Link>
-        <Pressable
+        <CustomPressable
           onPress={onBack}
           className="border border-gray-200 rounded-md p-2 items-center justify-center bg-grayish-unique w-1/3"
         >
           <Text className="text-text text-base font-geist">Atrás</Text>
-        </Pressable>
-        <Pressable
+        </CustomPressable>
+        <CustomPressable
           onPress={onSave}
           className="border border-gray-200 rounded-md p-2 items-center justify-center bg-gold-unique w-1/3"
         >
           <Text className="text-white text-base font-geist">Guardar</Text>
-        </Pressable>
+        </CustomPressable>
       </View>
     </View>
   );

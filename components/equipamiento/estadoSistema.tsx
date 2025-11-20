@@ -5,6 +5,25 @@ import PressureGauge from './pressure';
 import { PiscinaEquipamiento } from '@/data/domain/piscina';
 
 const EstadoSistema = ({ pool }: { pool: PiscinaEquipamiento }) => {
+  const formatDateTime = (iso?: string) => {
+    if (!iso) return null;
+    try {
+      // Normalizar microsegundos (mantener 3 dígitos de milisegundos) para evitar problemas de parseo
+      const normalized = iso.replace(/\.(\d{3})\d+/, '.$1');
+      const date = new Date(normalized);
+      if (isNaN(date.getTime())) return iso; // fallback al string original
+
+      const dd = String(date.getDate()).padStart(2, '0');
+      const mm = String(date.getMonth() + 1).padStart(2, '0');
+      const yyyy = date.getFullYear();
+      const hh = String(date.getHours()).padStart(2, '0');
+      const min = String(date.getMinutes()).padStart(2, '0');
+
+      return `${dd}/${mm}/${yyyy} ${hh}:${min}`;
+    } catch (e) {
+      return iso;
+    }
+  };
   return (
     <ScreenCard>
       <Text className="font-geist-semi-bold text-text text-3xl mb-3">
@@ -58,7 +77,9 @@ const EstadoSistema = ({ pool }: { pool: PiscinaEquipamiento }) => {
           Última actividad:
         </Text>
         <Text className="font-geist text-base text-text">
-          {pool.ultimaActividad ? pool.ultimaActividad : 'Sin actividad registrada'}
+          {pool.ultimaActividad
+            ? formatDateTime(pool.ultimaActividad)
+            : 'Sin actividad registrada'}
         </Text>
       </View>
 

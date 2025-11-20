@@ -21,7 +21,7 @@ const FuncionFiltroScreen = ({
 
   return (
     <SafeAreaView className="flex-1 bg-white">
-      <View className="flex-1 items-center justify-center p-4">
+      <View className="flex-1 items-center justify-center">
         <Text className="text-2xl mb-8 text-text font-geist-semi-bold">
           Función del Filtro
         </Text>

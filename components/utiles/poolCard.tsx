@@ -3,6 +3,7 @@ import React from 'react';
 import { Link, router } from 'expo-router';
 import { PiscinaListItem } from '@/data/domain/piscina';
 import { useAuth } from '@/context/authContext';
+import CustomPressable from './customPressable';
 
 const PoolCard = ({ piscina }: { piscina: PiscinaListItem }) => {
   const { seleccionarPiscina } = useAuth();
@@ -14,7 +15,7 @@ const PoolCard = ({ piscina }: { piscina: PiscinaListItem }) => {
 
   return (
     <Link asChild href={`/(tabs)/resume`}>
-      <Pressable
+      <CustomPressable
         className="bg-purple-unique rounded-sm shadow-sm w-full flex-row items-center"
         onPress={handlePress}
         style={{ overflow: 'visible' }}
@@ -29,7 +30,7 @@ const PoolCard = ({ piscina }: { piscina: PiscinaListItem }) => {
         <Text className="font-geist-semi-bold text-gold-unique text-xl">
           {piscina.direccion}
         </Text>
-      </Pressable>
+      </CustomPressable>
     </Link>
   );
 };

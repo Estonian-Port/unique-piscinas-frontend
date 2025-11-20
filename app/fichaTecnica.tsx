@@ -99,8 +99,8 @@ export default function FichaTecnica() {
         <Screen>
           <View className="p-5 w-11/12">
             {/* Header */}
-            <View className="mb-6">
-              <Text className="font-geist text-gray-600 text-sm">
+            <View className="mb-4">
+              <Text className="font-geist-semi-bold text-text text-lg">
                 Ficha Técnica
               </Text>
             </View>
@@ -114,7 +114,7 @@ export default function FichaTecnica() {
               <InfoRow label="Ciudad" value={pool.ciudad} />
               <InfoRow label="Código placa" value={pool.codigoPlaca.toString()} />
               <InfoRow
-                label="Usuario administrador"
+                label="Administrador"
                 value={
                   pool.nombreAdministrador != null
                     ? pool.nombreAdministrador

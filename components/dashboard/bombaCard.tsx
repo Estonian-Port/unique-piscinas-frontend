@@ -49,7 +49,7 @@ const BombaCard = ({
           <View className="flex-row items-center">
             <Droplet color={'cyan'} />
             <Text className="text-text font-geist-semi-bold text-lg">
-              Bomba de filtración
+              Bomba {bomba.tipo}
             </Text>
           </View>
           <Pressable className="ml-2" onPress={() => setModalEditOpen(true)}>
@@ -75,26 +75,26 @@ const BombaCard = ({
           {bomba.potencia}
         </Text>
       </View>
-      <View className="flex-row items-center justify-between">
-        <Text className="text-text font-geist text-base">Estado:</Text>
-        <View
-          className={`rounded-full px-2 ${
-            bomba.activa ? 'bg-green-500' : 'bg-red-500'
-          }`}
-        >
-          <Text className="font-geist-semi-bold text-white text-sm">
-            {bomba.activa ? 'Activa' : 'Inactiva'}
-          </Text>
+      {bomba.tipo === 'Principal' && (
+        <View className="flex-row items-center justify-between">
+          <Text className="text-text font-geist text-base">Estado:</Text>
+          <View
+            className={`rounded-full px-2 ${
+              bomba.activa ? 'bg-green-500' : 'bg-gray-500'
+            }`}
+          >
+            <Text className="font-geist-semi-bold text-white text-sm">
+              {bomba.activa ? 'Activa' : 'Inactiva'}
+            </Text>
+          </View>
         </View>
-      </View>
-      {modalEditOpen && (
-        <ModalEditarBomba
-          visible={modalEditOpen}
-          bomba={bomba}
-          onClose={() => setModalEditOpen(false)}
-          onSave={handleSaveBomba}
-        />
       )}
+      <ModalEditarBomba
+        visible={modalEditOpen}
+        bomba={bomba}
+        onClose={() => setModalEditOpen(false)}
+        onSave={handleSaveBomba}
+      />
     </ScreenCard>
   );
 };

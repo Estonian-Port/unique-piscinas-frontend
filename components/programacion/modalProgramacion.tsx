@@ -17,6 +17,7 @@ import {
 import TimeInput from '../utiles/timeInput';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   dias: Yup.array().min(1, 'Selecciona al menos un día'),
@@ -142,12 +143,12 @@ const ModalProgramacion = ({
                   )}
                   <View className="flex-row justify-around w-full mb-3">
                     <TimeInput
-                      title="Hora de encendido"
+                      title="Hora inicio"
                       timeSchedule={values.horaInicio}
                       onChange={(date) => setFieldValue('horaInicio', date)}
                     />
                     <TimeInput
-                      title="Hora de apagado"
+                      title="Hora fin"
                       timeSchedule={values.horaFin}
                       onChange={(date) => setFieldValue('horaFin', date)}
                     />
@@ -158,25 +159,25 @@ const ModalProgramacion = ({
                     </Text>
                   )}
 
-                  <View className="flex-row justify-between gap-3 mt-3">
-                    <Pressable
+                  <View className="flex-row justify-between mt-3">
+                    <CustomPressable
                       onPress={onClose}
-                      className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                      containerClassName='w-1/2'
                     >
                       <Text className="text-white text-center font-geist-semi-bold">
                         Cancelar
                       </Text>
-                    </Pressable>
-                    <Pressable
+                    </CustomPressable>
+                    <CustomPressable
                       onPress={handleSubmit as any}
-                      className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-purple-unique rounded-lg items-center justify-center h-12"
+                      containerClassName='w-1/2'
                     >
-                      <View className="flex-row items-center justify-center">
-                        <Text className="text-white text-center font-geist-semi-bold ml-2">
+                        <Text className="text-white text-center font-geist-semi-bold ml-1">
                           Guardar
                         </Text>
-                      </View>
-                    </Pressable>
+                    </CustomPressable>
                   </View>
                 </View>
               </View>

@@ -26,7 +26,7 @@ const Header = ({ usuario, piscina }: HeaderProps) => {
             Volumen de la piscina: {piscina.volumen} m3
           </Text>
         </View>
-        {usuario.piscinasId.length > 1 && !usuario.isAdmin && <BotonCambio />}
+        {usuario.piscinasId.length > 1 && usuario.rol !== 'ADMIN' && <BotonCambio />}
       </View>
     </>
   );

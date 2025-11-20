@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable, TextInput } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import React, { useState, useMemo, useEffect, use } from 'react';
 import LecturaCard from '@/components/dashboard/lecturaCard';
 import {
@@ -13,6 +13,7 @@ import {
 import { piscinaService } from '@/services/piscina.service';
 import { useAuth } from '@/context/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import CustomPressable from '@/components/utiles/customPressable';
 
 export type Lectura = {
   id: number;
@@ -77,7 +78,6 @@ const HistorialLecturas = () => {
       }
     };
     fetchLecturas();
-    console.log('Lecturas cargadas', lecturas);
   }, [selectedPool]);
 
   // Filtrar lecturas por mes y error
@@ -151,10 +151,10 @@ const HistorialLecturas = () => {
           Mediciones de parámetros del agua por mes
         </Text>
 
-                {/* Navegador de meses */}
+        {/* Navegador de meses */}
         <View className="bg-white rounded-xl p-4 mb-4 border border-gray-200">
           <View className="flex-row items-center justify-between">
-            <Pressable
+            <CustomPressable
               className={`p-2 rounded-lg ${
                 puedeIrAnterior ? 'bg-blue-50' : 'bg-gray-100'
               }`}
@@ -162,7 +162,7 @@ const HistorialLecturas = () => {
               disabled={!puedeIrAnterior}
             >
               <ChevronsLeft color={puedeIrAnterior ? '#2563eb' : '#9ca3af'} />
-            </Pressable>
+            </CustomPressable>
             <View className="flex-1 mx-4">
               <Text className="font-geist-semi-bold text-lg text-gray-900 text-center">
                 {formatearMesAño(mesSeleccionado.año, mesSeleccionado.mes)}
@@ -171,7 +171,7 @@ const HistorialLecturas = () => {
                 {lecturasFiltradas.length} lecturas
               </Text>
             </View>
-            <Pressable
+            <CustomPressable
               className={`p-2 rounded-lg ${
                 puedeIrSiguiente ? 'bg-blue-50' : 'bg-gray-100'
               }`}
@@ -179,7 +179,7 @@ const HistorialLecturas = () => {
               disabled={!puedeIrSiguiente}
             >
               <ChevronsRight color={puedeIrSiguiente ? '#2563eb' : '#9ca3af'} />
-            </Pressable>
+            </CustomPressable>
           </View>
         </View>
 
@@ -188,7 +188,7 @@ const HistorialLecturas = () => {
             <Text className="font-geist text-gray-700">Ordenar:</Text>
             {/* Segmented control para ordenar */}
             <View className="flex-row border border-gray-200 rounded-lg overflow-hidden">
-              <Pressable
+              <CustomPressable
                 className={`px-4 py-2 ${
                   sortDirection === 'desc' ? 'bg-blue-500' : 'bg-white'
                 }`}
@@ -203,8 +203,8 @@ const HistorialLecturas = () => {
                 >
                   Más recientes
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 className={`px-4 py-2 ${
                   sortDirection === 'asc' ? 'bg-blue-500' : 'bg-white'
                 }`}
@@ -219,14 +219,14 @@ const HistorialLecturas = () => {
                 >
                   Más antiguos
                 </Text>
-              </Pressable>
+              </CustomPressable>
             </View>
           </View>
           {/* Nuevo segmented control para errores */}
           <View>
             <Text className="font-geist text-gray-700">Filtrar:</Text>
             <View className="flex-row border border-gray-200 rounded-lg overflow-hidden">
-              <Pressable
+              <CustomPressable
                 className={`px-3 py-2 ${
                   filtroErrores === 'todas' ? 'bg-blue-500' : 'bg-white'
                 }`}
@@ -241,8 +241,8 @@ const HistorialLecturas = () => {
                 >
                   Todas
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 className={`px-3 py-2 ${
                   filtroErrores === 'errores' ? 'bg-red-500' : 'bg-white'
                 }`}
@@ -257,8 +257,8 @@ const HistorialLecturas = () => {
                 >
                   Erróneas
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 className={`px-3 py-2 ${
                   filtroErrores === 'validas' ? 'bg-green-500' : 'bg-white'
                 }`}
@@ -273,7 +273,7 @@ const HistorialLecturas = () => {
                 >
                   Válidas
                 </Text>
-              </Pressable>
+              </CustomPressable>
             </View>
           </View>
         </View>

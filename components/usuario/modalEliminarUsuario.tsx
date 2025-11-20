@@ -4,13 +4,13 @@ import {
   Modal,
   KeyboardAvoidingView,
   Platform,
-  Pressable,
 } from 'react-native';
 import React from 'react';
 import Toast from 'react-native-toast-message';
 import { usuarioService } from '@/services/usuario.service';
 import { useAuth } from '@/context/authContext';
 import { AlertCircle } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 type ModalEliminarUsuarioProps = {
   visible: boolean;
@@ -71,33 +71,32 @@ const ModalEliminarUsuario = ({
             </Text>
             {piscinasAsignadas && (
               <View className="bg-yellow-200 border-l-4 border-yellow-600 p-3 my-4 rounded-md flex-row items-center">
-                <AlertCircle color="#b45309" height={20} width={20} style={{ marginRight: 8 }}/>
                 <Text className="text-yellow-800 font-geist-semi-bold">
-                  ATENCIÓN. Este usuario tiene piscinas asignadas. Si lo
+                  ATENCIÓN: Este usuario tiene piscinas asignadas. Si lo
                   elimina, estas piscinas quedarán sin un administrador
                   asignado.
                 </Text>
               </View>
             )}
-            <View className="flex-row justify-between gap-3 mt-5">
-              <Pressable
+            <View className="flex-row justify-between mt-5">
+              <CustomPressable
                 onPress={onClose}
-                className="bg-grayish-unique rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-grayish-unique rounded-lg mr-1 items-center justify-center h-12"
+                containerClassName='w-1/2'
               >
                 <Text className="text-text text-center font-geist-semi-bold">
                   Cancelar
                 </Text>
-              </Pressable>
-              <Pressable
+              </CustomPressable>
+              <CustomPressable
                 onPress={save}
-                className="bg-red-alert rounded-lg flex-1 items-center justify-center h-12"
+                className="bg-red-alert rounded-lg ml-1 items-center justify-center h-12"
+                containerClassName='w-1/2'
               >
-                <View className="flex-row items-center justify-center">
-                  <Text className="text-white text-center font-geist-semi-bold ml-2">
+                  <Text className="text-white text-center font-geist-semi-bold">
                     Eliminar
                   </Text>
-                </View>
-              </Pressable>
+              </CustomPressable>
             </View>
           </View>
         </View>

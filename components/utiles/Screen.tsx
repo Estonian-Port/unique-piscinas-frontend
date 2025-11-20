@@ -5,5 +5,5 @@ export function Screen({ children }: { children: any }) {
 }
 
 export function ScreenTabs({ children }: { children: any }) {
-  return <View className="flex-1 items-center justify-center h-full mb-24">{children}</View>;
+  return <View className="flex-1 items-center justify-center h-full mb-16">{children}</View>;
 }

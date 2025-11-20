@@ -14,7 +14,7 @@ const TimeInput = ({title, timeSchedule, onChange} : {title:string, timeSchedule
   };
 
   return (
-    <View className="items-center justify-center p-2">
+    <View className="items-center justify-center p-2 w-1/2">
       <Pressable 
         onPress={() => setPickerVisible(true)}
         className="items-center"

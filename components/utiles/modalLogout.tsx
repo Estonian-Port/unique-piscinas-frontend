@@ -1,6 +1,7 @@
 import React from 'react';
-import { Modal, View, Text, TouchableOpacity, Pressable } from 'react-native';
+import { Modal, View, Text, Pressable } from 'react-native';
 import { X } from 'react-native-feather';
+import CustomPressable from './customPressable';
 
 type ModalLogoutProps = {
   visible: boolean;
@@ -27,26 +28,26 @@ const ModalLogout = ({ visible, message, onClose, onCerrarSesion }: ModalLogoutP
         {/* Contenedor del modal */}
         <View className="bg-white p-6 rounded-lg w-4/5 md:w-1/3 z-10">
           {/* Cruz de cierre */}
-          <TouchableOpacity
+          <Pressable
             onPress={onClose}
             className="absolute top-4 right-4 p-2 z-20"
           >
             <X color="#9ca3af" />
-          </TouchableOpacity>
+          </Pressable>
 
           <Text className="text-lg font-geist-bold text-center mb-4">
             {message}
           </Text>
 
           {/* Botón cerrar sesión */}
-          <TouchableOpacity
+          <CustomPressable
             onPress={onCerrarSesion}
             className="bg-red-400 p-4 rounded-lg"
           >
             <Text className="text-white text-center font-geist-semi-bold">
               Cerrar sesión
             </Text>
-          </TouchableOpacity>
+          </CustomPressable>
         </View>
       </View>
     </Modal>

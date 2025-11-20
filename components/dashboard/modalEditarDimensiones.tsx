@@ -13,6 +13,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Checkbox from 'expo-checkbox';
 import { FastForward, Grid } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   largo: Yup.number()
@@ -127,7 +128,7 @@ const ModalEditarDimensiones = ({
             >
               <View className="flex-1 justify-center items-center bg-black/50">
                 <View className="bg-white p-6 rounded-lg w-4/5 max-w-md">
-                  <Text className="text-lg font-geist-semi-bold text-text mb-4">
+                  <Text className="text-lg font-geist-semi-bold text-text text-center">
                     Editar Dimensiones
                   </Text>
 
@@ -172,6 +173,7 @@ const ModalEditarDimensiones = ({
                     onBlur={handleBlur('largo')}
                     keyboardType="numeric"
                     placeholder="Ej: 10"
+                    placeholderTextColor="#9CA3AF"
                   />
                   {touched.largo && errors.largo && (
                     <Text className="text-red-500 mt-2">{errors.largo}</Text>
@@ -187,6 +189,7 @@ const ModalEditarDimensiones = ({
                     onBlur={handleBlur('ancho')}
                     keyboardType="numeric"
                     placeholder="Ej: 5"
+                    placeholderTextColor="#9CA3AF"
                   />
                   {touched.ancho && errors.ancho && (
                     <Text className="text-red-500 mt-2">{errors.ancho}</Text>
@@ -202,6 +205,7 @@ const ModalEditarDimensiones = ({
                     onBlur={handleBlur('profundidad')}
                     keyboardType="numeric"
                     placeholder="Ej: 1.5"
+                    placeholderTextColor="#9CA3AF"
                   />
                   {touched.profundidad && errors.profundidad && (
                     <Text className="text-red-500 mt-2">
@@ -213,13 +217,13 @@ const ModalEditarDimensiones = ({
                     <Text className="font-geist text-text text-base">
                       Volumen (m³)
                     </Text>
-                    <Pressable
+                    <CustomPressable
                       className="p-2 border border-gray-200 rounded-md flex-row items-center justify-center gap-2"
                       onPress={calcularVolumen}
                     >
                       <FastForward />
                       <Text className="font-geist text-text">Calcular</Text>
-                    </Pressable>
+                    </CustomPressable>
                   </View>
 
                   <TextInput
@@ -229,6 +233,7 @@ const ModalEditarDimensiones = ({
                     onBlur={handleBlur('volumen')}
                     keyboardType="numeric"
                     placeholder="Ej: 75"
+                    placeholderTextColor="#9CA3AF"
                   />
                   {touched.volumen && errors.volumen && (
                     <Text className="text-red-500 mt-2">{errors.volumen}</Text>
@@ -246,6 +251,7 @@ const ModalEditarDimensiones = ({
                         onBlur={handleBlur('volumenTC')}
                         keyboardType="numeric"
                         placeholder="Ej: 15"
+                        placeholderTextColor="#9CA3AF"
                       />
                       {touched.volumenTC && errors.volumenTC && (
                         <Text className="text-red-500 mt-2">
@@ -255,26 +261,28 @@ const ModalEditarDimensiones = ({
                     </>
                   )}
 
-                  <View className="flex-row justify-between gap-3 mt-3">
-                    <Pressable
-                      onPress={onClose}
-                      className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
-                    >
-                      <Text className="text-white text-center font-geist-semi-bold">
-                        Cancelar
+                <View className="flex-row justify-between mt-5">
+                  <CustomPressable
+                    onPress={onClose}
+                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                    containerClassName='w-1/2'
+                  >
+                    <Text className="text-white text-center font-geist-semi-bold">
+                      Cancelar
+                    </Text>
+                  </CustomPressable>
+                  <CustomPressable
+                    onPress={handleSubmit as any}
+                    className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
+                    containerClassName='w-1/2'
+                  >
+                    <View className="flex-row items-center justify-center">
+                      <Text className="text-white text-center font-geist-semi-bold ml-2">
+                        Guardar
                       </Text>
-                    </Pressable>
-                    <Pressable
-                      onPress={handleSubmit as any}
-                      className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
-                    >
-                      <View className="flex-row items-center justify-center">
-                        <Text className="text-white text-center font-geist-semi-bold ml-2">
-                          Guardar cambios
-                        </Text>
-                      </View>
-                    </Pressable>
-                  </View>
+                    </View>
+                  </CustomPressable>
+                </View>
                 </View>
               </View>
             </KeyboardAvoidingView>

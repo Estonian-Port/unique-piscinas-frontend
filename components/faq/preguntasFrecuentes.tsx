@@ -1,28 +1,36 @@
-import { View, Text } from 'react-native'
-import React from 'react'
-import { ScreenCard } from '../utiles/ScreenCard'
-import FAQItem from './faqItem'
-import { faqsMock } from '@/data/mock/faqMock'
-import { HelpCircle } from 'react-native-feather'
-import { FAQ } from '@/data/domain/faq'
+import { View, Text } from 'react-native';
+import { ScreenCard } from '../utiles/ScreenCard';
+import FAQItem from './faqItem';
+import { faqsMock } from '@/data/mock/faqMock';
+import { HelpCircle } from 'react-native-feather';
+import type { FAQ } from '@/data/domain/faq';
 
 const PreguntasFrecuentes = () => {
-    const faqs : FAQ[] = faqsMock
+  const faqs: FAQ[] = faqsMock;
 
   return (
-    <ScreenCard>
-        <View className='flex-row items-center justify-start mb-3'>
-            <HelpCircle color={'#a59064'} />
-            <Text className="font-geist-semi-bold text-2xl text-text ml-2">Preguntas Frecuentes</Text>
-        </View>
-        {faqs.map((faq, index) => (
-          <FAQItem
-            faq={faq}
-            key={index} 
+    <View className='p-2'>
+      <View className='p-2 mb-2'>
+        <View className="flex-row items-center justify-start">
+          <HelpCircle
+            color={'#D4AF37'}
+            width={28}
+            height={28}
+            strokeWidth={2.5}
           />
-        ))}
-    </ScreenCard>
-  )
-}
+          <Text className="font-geist-semi-bold text-2xl text-text ml-3">
+            Preguntas Frecuentes
+          </Text>
+        </View>
+      </View>
 
-export default PreguntasFrecuentes
+      <View className="py-3">
+        {faqs.map((faq, index) => (
+          <FAQItem faq={faq} key={index} />
+        ))}
+      </View>
+    </View>
+  );
+};
+
+export default PreguntasFrecuentes;

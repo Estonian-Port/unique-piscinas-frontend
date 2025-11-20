@@ -7,6 +7,7 @@ import { UsuarioCambioPassword, UsuarioLogin } from '@/data/domain/user';
 import { usuarioService } from '@/services/usuario.service';
 import Toast from 'react-native-toast-message';
 import { Eye, EyeOff } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   passwordActual: Yup.string().required('La contraseña actual es obligatoria'),
@@ -107,7 +108,7 @@ const ModalEditarPassword = ({
                     onChangeText={handleChange('passwordActual')}
                     onBlur={handleBlur('passwordActual')}
                     placeholder="Ingrese su contraseña actual"
-                    placeholderTextColor="#9ca3af"
+                    placeholderTextColor="#9CA3AF"
                     secureTextEntry={!showPassword}
                   />
                   <Pressable
@@ -184,25 +185,27 @@ const ModalEditarPassword = ({
                       {errors.confirmacionPassword}
                     </Text>
                   )}
-                <View className="flex-row justify-between gap-3 mt-5">
-                  <Pressable
+                <View className="flex-row justify-between mt-5">
+                  <CustomPressable
                     onPress={onClose}
-                    className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-gray-400 rounded-lg items-center justify-center h-14 mr-1"
+                    containerClassName='w-1/2'
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
-                  </Pressable>
-                  <Pressable
+                  </CustomPressable>
+                  <CustomPressable
                     onPress={handleSubmit as any}
-                    className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-purple-unique rounded-lg items-center justify-center h-14 ml-1"
+                    containerClassName='w-1/2'
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold px-1">
                         Cambiar Password
                       </Text>
                     </View>
-                  </Pressable>
+                  </CustomPressable>
                 </View>
               </View>
             </View>

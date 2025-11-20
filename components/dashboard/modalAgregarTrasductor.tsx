@@ -5,17 +5,15 @@ import {
   KeyboardAvoidingView,
   Platform,
   Modal,
-  Pressable,
 } from 'react-native';
 import React, { useState } from 'react';
 import { GermicidaNuevo, PiscinaEquipos } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { marcasTrasductor } from './modalEditarGermicida';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Activity } from 'react-native-feather';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   trasductorMarca: Yup.string().required('Seleccione una marca del trasductor'),
@@ -49,12 +47,16 @@ const ModalAgregarTrasductor = ({
 
   const handleNewTrasductor = async (newTrasductor: GermicidaNuevo) => {
     try {
-      const response = await piscinaService.addGermicida(piscina.id, newTrasductor);
+      const response = await piscinaService.addGermicida(
+        piscina.id,
+        newTrasductor
+      );
       actualizarPiscina(); // Actualiza la piscina después de agregar el germicida
       Toast.show({
         type: 'success',
         text1: 'Trasductor agregado',
-        text2: response.message || 'El trasductor se ha agregado correctamente.',
+        text2:
+          response.message || 'El trasductor se ha agregado correctamente.',
         position: 'bottom',
       });
     } catch (error) {
@@ -66,7 +68,7 @@ const ModalAgregarTrasductor = ({
       });
       console.error('Error adding trasductor:', error);
     }
-  }
+  };
 
   return (
     <Modal
@@ -92,7 +94,7 @@ const ModalAgregarTrasductor = ({
             marca: values.trasductorMarca,
             datoExtra: Number(values.trasductorPotencia),
             tiempoVidaUtil: Number(values.trasductorTiempoVidaUtil),
-            activa: true,
+            activa: false,
           };
           handleNewTrasductor(nuevoTrasductor);
           onClose();
@@ -126,51 +128,17 @@ const ModalAgregarTrasductor = ({
                         Trasductor de ultrasonido
                       </Text>
                     </View>
-                    <View className="items-start w-4/5 my-2">
+                    <View className="items-start w-full my-2">
                       <Text className="text-text text-sm font-geist">
                         Marca
                       </Text>
-                      <DropDownPicker
-                        open={openMarcaTrasductor}
+                      <TextInput
+                        className="border-2 border-gray-300 rounded-md py-4 px-3 w-full"
                         value={values.trasductorMarca}
-                        items={marcasTrasductor.map((item) => ({
-                          label: item.name,
-                          value: item.name, // Cambiado para consistencia
-                        }))}
-                        setOpen={setOpenMarcaTrasductor}
-                        setValue={(callback) => {
-                          const val = callback(values.trasductorMarca);
-                          setFieldValue('trasductorMarca', val);
-                          setFieldTouched('trasductorMarca', true);
-                        }}
-                        placeholder="Seleccione una marca"
-                        zIndex={1000}
-                        zIndexInverse={3000}
-                        listMode="SCROLLVIEW"
-                        style={{
-                          borderColor: '#d1d5db', // un violeta más notorio
-                          borderWidth: 2,
-                          borderRadius: 6,
-                          backgroundColor: '#fff',
-                          paddingVertical: 12,
-                          paddingHorizontal: 10,
-                        }}
-                        dropDownContainerStyle={{
-                          borderColor: '#d1d5db',
-                          borderWidth: 2,
-                          borderRadius: 6,
-                          backgroundColor: '#f3f4f6',
-                        }}
-                        selectedItemContainerStyle={{
-                          backgroundColor: '#ede9fe', // violeta claro para el seleccionado
-                        }}
-                        selectedItemLabelStyle={{
-                          fontWeight: 'bold',
-                          color: '#7c3aed',
-                        }}
-                        placeholderStyle={{
-                          color: '#333333',
-                        }}
+                        onChangeText={handleChange('trasductorMarca')}
+                        onBlur={handleBlur('trasductorMarca')}
+                        placeholder="Ingrese la marca del trasductor"
+                        placeholderTextColor="#9CA3AF"
                       />
                       {errors.trasductorMarca && touched.trasductorMarca && (
                         <Text className="text-red-500 text-xs mt-1">
@@ -188,6 +156,7 @@ const ModalAgregarTrasductor = ({
                           onBlur={handleBlur('trasductorPotencia')}
                           keyboardType="numeric"
                           placeholder="Ej: 15"
+                          placeholderTextColor="#9CA3AF"
                         />
                         {errors.trasductorPotencia &&
                           touched.trasductorPotencia && (
@@ -209,6 +178,7 @@ const ModalAgregarTrasductor = ({
                           onBlur={handleBlur('trasductorTiempoVidaUtil')}
                           keyboardType="numeric"
                           placeholder="Ej: 150"
+                          placeholderTextColor="#9CA3AF"
                         />
                         {errors.trasductorTiempoVidaUtil &&
                           touched.trasductorTiempoVidaUtil && (
@@ -220,25 +190,25 @@ const ModalAgregarTrasductor = ({
                     </View>
                   </View>
 
-                  <View className="flex-row justify-between gap-3 mt-3">
-                    <Pressable
+                  <View className="flex-row justify-between mt-3">
+                    <CustomPressable
                       onPress={onClose}
-                      className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-gray-400 rounded-lg mr-1 items-center justify-center h-12"
+                      containerClassName="w-1/2"
                     >
                       <Text className="text-text text-center font-geist-semi-bold">
                         Cancelar
                       </Text>
-                    </Pressable>
-                    <Pressable
+                    </CustomPressable>
+                    <CustomPressable
                       onPress={handleSubmit as any}
-                      className="bg-purple-unique rounded-lg flex-1 items-center justify-center h-12"
+                      className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
+                      containerClassName="w-1/2"
                     >
-                      <View className="flex-row items-center justify-center">
-                        <Text className="text-white text-center font-geist-semi-bold ml-2">
-                          Guardar cambios
-                        </Text>
-                      </View>
-                    </Pressable>
+                      <Text className="text-white text-center font-geist-semi-bold">
+                        Guardar cambios
+                      </Text>
+                    </CustomPressable>
                   </View>
                 </View>
               </View>

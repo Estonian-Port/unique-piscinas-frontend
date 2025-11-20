@@ -1,8 +1,8 @@
-import { View, Text, ScrollView, TextInput, Pressable } from 'react-native';
-import React from 'react';
+import { View, Text, ScrollView, TextInput } from 'react-native';
 import { Screen } from '@/components/utiles/Screen';
 import { leo } from '@/data/mock/userMock';
 import PrivateScreen from '@/components/utiles/privateScreen';
+import CustomPressable from '@/components/utiles/customPressable';
 
 const ChangePass = () => {
   const user = leo;
@@ -31,11 +31,11 @@ const ChangePass = () => {
               className="border w-3/5 h-10 rounded-lg mt-2 px-2"
               placeholder={user.lastname}
             />
-            <Pressable className="mt-10 rounded-lg bg-gray-400 p-4 w-3/5">
+            <CustomPressable className="mt-10 rounded-lg bg-gray-400 p-4 w-3/5">
               <Text className="font-geist-semi-bold text-text text-lg text-center">
                 Guardar cambios
               </Text>
-            </Pressable>
+            </CustomPressable>
           </View>
         </Screen>
       </ScrollView>

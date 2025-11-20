@@ -3,7 +3,6 @@ import {
   View,
   Text,
   Modal,
-  Pressable,
   KeyboardAvoidingView,
   Platform,
   TextInput,
@@ -12,8 +11,9 @@ import { Calefaccion } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import RadioButton from '../utiles/radioButton';
+import CustomPressable from '../utiles/customPressable';
 
-export type TipoCalefaccion = 'Bomba de calor' | 'Bomba a gas';
+export type TipoCalefaccion = 'Bomba de calor' | 'Calentador de gas';
 
 const validationSchema = Yup.object().shape({
   marcaCalefaccion: Yup.string().required(
@@ -78,7 +78,7 @@ const ModalEditarCalefaccion = ({
           setFieldTouched,
           errors,
           touched,
-          dirty
+          dirty,
         }) => (
           <KeyboardAvoidingView
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -99,7 +99,7 @@ const ModalEditarCalefaccion = ({
                   onChangeText={handleChange('marcaCalefaccion')}
                   onBlur={handleBlur('marcaCalefaccion')}
                   placeholder="Ej: Hayward"
-                  placeholderTextColor={'#888'}
+                  placeholderTextColor="#9CA3AF"
                 />
                 {touched.marcaCalefaccion && errors.marcaCalefaccion && (
                   <Text className="text-red-500 mt-2">
@@ -117,7 +117,7 @@ const ModalEditarCalefaccion = ({
                   onChangeText={handleChange('modeloCalefaccion')}
                   onBlur={handleBlur('modeloCalefaccion')}
                   placeholder="Ej: EnergyLine Pro"
-                  placeholderTextColor={'#888'}
+                  placeholderTextColor="#9CA3AF"
                 />
                 {touched.modeloCalefaccion && errors.modeloCalefaccion && (
                   <Text className="text-red-500 mt-2">
@@ -136,7 +136,7 @@ const ModalEditarCalefaccion = ({
                   onBlur={handleBlur('potenciaCalefaccion')}
                   keyboardType="numeric"
                   placeholder="Ej: 13.5"
-                  placeholderTextColor={'#888'}
+                  placeholderTextColor="#9CA3AF"
                 />
                 {touched.potenciaCalefaccion && errors.potenciaCalefaccion && (
                   <Text className="text-red-500 mt-2">
@@ -144,28 +144,30 @@ const ModalEditarCalefaccion = ({
                   </Text>
                 )}
 
-                <View className="flex-row justify-between gap-3 mt-3">
-                  <Pressable
+                <View className="flex-row justify-between mt-3">
+                  <CustomPressable
                     onPress={onClose}
-                    className="bg-gray-400 rounded-lg flex-1 items-center justify-center h-12"
+                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                    containerClassName="w-1/2"
                   >
-                    <Text className="text-white text-center font-geist-semi-bold">
+                    <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
-                  </Pressable>
-                  <Pressable
+                  </CustomPressable>
+                  <CustomPressable
                     disabled={!dirty}
                     onPress={handleSubmit as any}
-                    className={`bg-purple-unique rounded-lg flex-1 items-center justify-center h-12 ${
+                    className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
+                    containerClassName="w-1/2"
                   >
                     <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold ml-2">
+                      <Text className="text-white text-center font-geist-semi-bold">
                         Guardar cambios
                       </Text>
                     </View>
-                  </Pressable>
+                  </CustomPressable>
                 </View>
               </View>
             </View>

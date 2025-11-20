@@ -1,4 +1,4 @@
-import { View, Text, TextInput, Pressable } from 'react-native';
+import { View, Text, TextInput } from 'react-native';
 import React, { useRef, useCallback, useEffect } from 'react';
 import { useFocusEffect } from '@react-navigation/native';
 import { ScreenCard } from '../utiles/ScreenCard';
@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { NuevoUsuario } from '@/data/domain/user';
 import { usuarioService } from '@/services/usuario.service';
 import Toast from 'react-native-toast-message';
+import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -18,7 +19,7 @@ const usuarioVacio: NuevoUsuario = {
   email: '',
 };
 
-const NuevoUsuarioForm = () => {
+const NuevoUsuarioForm = ({ onCreated }: { onCreated: () => void }) => {
   const formikRef = useRef<any>(null);
 
   useFocusEffect(
@@ -34,7 +35,7 @@ const NuevoUsuarioForm = () => {
     try {
       formikActions.setSubmitting(true);
 
-      const response = await usuarioService.altaUsuario(usuario)
+      const response = await usuarioService.altaUsuario(usuario);
       Toast.show({
         type: 'success',
         text1: 'Usuario creado',
@@ -42,11 +43,13 @@ const NuevoUsuarioForm = () => {
         position: 'bottom',
       });
       formikActions.resetForm();
+      if (onCreated) onCreated();
     } catch (error) {
       Toast.show({
         type: 'error',
         text1: 'Error al crear usuario',
-        text2: 'Hubo un problema al crear el usuario. Por favor, inténtelo de nuevo.',
+        text2:
+          'Hubo un problema al crear el usuario. Por favor, inténtelo de nuevo.',
         position: 'bottom',
       });
     } finally {
@@ -104,6 +107,7 @@ const NuevoUsuarioForm = () => {
             onChangeText={handleChange('email')}
             onBlur={handleBlur('email')}
             placeholder="correo@ejemplo.com"
+            placeholderTextColor="#9CA3AF"
             keyboardType="email-address"
             autoCapitalize="none"
             autoCorrect={false}
@@ -119,7 +123,7 @@ const NuevoUsuarioForm = () => {
             finalizar el registro.
           </Text>
 
-          <Pressable
+          <CustomPressable
             className={`rounded-md py-2 px-4 mt-4 self-end ${
               isSubmitting ? 'bg-gray-400' : 'bg-black'
             }`}
@@ -129,7 +133,7 @@ const NuevoUsuarioForm = () => {
             <Text className="font-geist-semi-bold text-sm text-center text-white">
               {isSubmitting ? 'Creando...' : 'Dar de alta usuario'}
             </Text>
-          </Pressable>
+          </CustomPressable>
         </ScreenCard>
       )}
     </Formik>
