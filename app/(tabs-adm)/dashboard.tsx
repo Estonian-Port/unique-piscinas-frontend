@@ -5,7 +5,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
 import StatCard from '@/components/dashboard/statCard';
 import PiscinasRegistradas from '@/components/dashboard/piscinasRegistradas';
@@ -16,6 +16,7 @@ import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
 import PrivateScreen from '@/components/utiles/privateScreen';
 import WebTabBar from '@/components/utiles/webTabBar';
 import CustomPressable from '@/components/utiles/customPressable';
+import { useFocusEffect } from 'expo-router';
 
 const Dashboard = () => {
   const { usuario } = useAuth();
@@ -25,34 +26,35 @@ const Dashboard = () => {
     PiscinaRegistrada[]
   >([]);
 
-  useEffect(() => {
-    const fetchStats = async () => {
-      try {
-        const data = await administracionService.getEstadisticas(usuario!.id);
-        setStats(data);
-      } catch (error) {
-        console.error('Error cargando las estadísticas:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+  useFocusEffect(
+    useCallback(() => {
+      let isActive = true;
 
-    const fetchPiscinas = async () => {
-      try {
-        const data = await administracionService.getPiscinasRegistradas(
-          usuario!.id
-        );
-        setPiscinasRegistradas(data);
-      } catch (error) {
-        console.error('Error cargando las piscinas registradas:', error);
-      }
-    };
+      const fetchData = async () => {
+        if (!usuario) return;
+        setLoading(true);
+        try {
+          const [estadisticas, piscinas] = await Promise.all([
+            administracionService.getEstadisticas(usuario.id),
+            administracionService.getPiscinasRegistradas(usuario.id),
+          ]);
+          if (!isActive) return;
+          setStats(estadisticas);
+          setPiscinasRegistradas(piscinas);
+        } catch (error) {
+          console.error('Error cargando datos en focus:', error);
+        } finally {
+          if (isActive) setLoading(false);
+        }
+      };
 
-    if (usuario) {
-      fetchStats();
-      fetchPiscinas();
-    }
-  }, [usuario]);
+      fetchData();
+
+      return () => {
+        isActive = false;
+      };
+    }, [usuario])
+  );
 
   if (loading || !stats) {
     return (
