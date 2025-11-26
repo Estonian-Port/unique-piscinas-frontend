@@ -6,7 +6,7 @@ import ModalEditarGermicida from './modalEditarGermicida';
 import Toast from 'react-native-toast-message';
 import { piscinaService } from '@/services/piscina.service';
 import ModalEliminarEquipamiento from './modalEliminarEquipamiento';
-import { Delete, Edit2, RefreshCw } from 'react-native-feather';
+import { Delete, Edit2, RefreshCw, Trash2 } from 'react-native-feather';
 import ModalResetearContador from './modalResetearContador';
 import CustomPressable from '../utiles/customPressable';
 
@@ -110,7 +110,7 @@ const GermicidaCard = ({
               className="ml-2"
               onPress={() => setModalDeleteOpen(true)}
             >
-              <Delete />
+              <Trash2 />
             </Pressable>
           </View>
         </View>

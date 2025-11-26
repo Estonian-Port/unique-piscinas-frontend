@@ -6,7 +6,16 @@ import ModalEliminarUsuario from './modalEliminarUsuario';
 import { router } from 'expo-router';
 import { UsuarioRegistrado } from '@/data/domain/user';
 import { useAuth } from '@/context/authContext';
-import { ChevronDown, ChevronUp, Delete, Eye, Mail, MinusCircle, Phone } from 'react-native-feather';
+import {
+  ChevronDown,
+  ChevronUp,
+  Delete,
+  Eye,
+  Mail,
+  MinusCircle,
+  Phone,
+  Trash2,
+} from 'react-native-feather';
 import CustomPressable from '../utiles/customPressable';
 
 const UserItem = ({
@@ -40,17 +49,33 @@ const UserItem = ({
         className="flex-row justify-between items-center"
         onPress={onToggleExpand}
       >
-        <View>
-          <Text className="font-geist-semi-bold text-text text-base">
+        <View className="flex-1 mr-2">
+          <Text
+            numberOfLines={1}
+            ellipsizeMode="tail"
+            className="font-geist-semi-bold text-text text-base shrink-1"
+          >
             {usuario.nombre + ' ' + usuario.apellido}
           </Text>
-          <View className="flex-row gap-1 items-center">
-            <Mail height={12} width={12}  />
-            <Text className="font-geist text-gray-500 text-sm">{usuario.email}</Text>
+          <View className="flex-row gap-1 items-center mr-2">
+            <Mail height={12} width={12} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              className="font-geist text-gray-500 text-sm shrink-1"
+            >
+              {usuario.email}
+            </Text>
           </View>
-          <View className="flex-row gap-1 items-center">
-            <Phone height={12} width={12}  />
-            <Text className="font-geist text-gray-500 text-sm">{usuario.celular}</Text>
+          <View className="flex-row gap-1 items-center mr-2">
+            <Phone height={12} width={12} />
+            <Text
+              numberOfLines={1}
+              ellipsizeMode="tail"
+              className="font-geist text-gray-500 text-sm shrink-1"
+            >
+              {usuario.celular}
+            </Text>
           </View>
         </View>
         <View className="flex-row items-center justify-between gap-3">
@@ -69,7 +94,7 @@ const UserItem = ({
             </Text>
           </View>
           <Pressable onPress={() => setModalEliminarUsuario(true)}>
-            <Delete height={26} width={26}  color={'red'}/>
+            <Trash2 height={26} width={26} color={'red'} />
           </Pressable>
           {modalEliminarUsuario && (
             <ModalEliminarUsuario
@@ -83,9 +108,9 @@ const UserItem = ({
             />
           )}
           {isExpanded ? (
-            <ChevronUp height={20} width={20}  color="#333" />
+            <ChevronUp height={20} width={20} color="#333" />
           ) : (
-            <ChevronDown height={20} width={20}  color="#333" />
+            <ChevronDown height={20} width={20} color="#333" />
           )}
         </View>
       </Pressable>
@@ -143,7 +168,7 @@ const UserItem = ({
                     className="justify-center items-center h-12 w-12"
                     onPress={() => setModalDesvincularPiscina(true)}
                   >
-                    <MinusCircle height={20} width={20}/>
+                    <MinusCircle height={20} width={20} />
                   </Pressable>
                   {modalDesvincularPiscina && (
                     <ModalDesvincularPiscina
@@ -151,7 +176,9 @@ const UserItem = ({
                       idUsuario={usuario.id}
                       visible={modalDesvincularPiscina}
                       onClose={() => setModalDesvincularPiscina(false)}
-                      onActualizarPiscinasAsignadas={onActualizarPiscinasAsignadas}
+                      onActualizarPiscinasAsignadas={
+                        onActualizarPiscinasAsignadas
+                      }
                     />
                   )}
                 </View>

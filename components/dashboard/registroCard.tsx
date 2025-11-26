@@ -5,7 +5,7 @@ import ModalEditarRegistro from './modalEditarRegistro';
 import ModalEliminarEquipamiento from './modalEliminarEquipamiento';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Calendar, Delete, Edit2, Info, Settings, Tool } from 'react-native-feather';
+import { Calendar, Delete, Edit2, Info, Settings, Tool, Trash2 } from 'react-native-feather';
 
 const RegistroCard = ({
   registro,
@@ -51,7 +51,7 @@ const RegistroCard = ({
             <Edit2 color="#FFF" />
           </Pressable>
           <Pressable onPress={() => setModalDeleteActivo(true)}>
-            <Delete color="#FFF" />
+            <Trash2 color="#FFF" />
           </Pressable>
         </View>
       </View>

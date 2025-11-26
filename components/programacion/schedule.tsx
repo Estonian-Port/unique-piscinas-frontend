@@ -7,7 +7,7 @@ import {
 } from '@/data/domain/cicloFiltrado';
 import ModalProgramacion from './modalProgramacion';
 import ModalEliminarProgramacion from './modalEliminarProgramacion';
-import { Clock, Delete, Edit2 } from 'react-native-feather';
+import { Clock, Delete, Edit2, Trash2 } from 'react-native-feather';
 
 const Schedule = ({
   cicle,
@@ -117,7 +117,7 @@ const Schedule = ({
             />
           )}
           <Pressable onPress={() => setOpenModalDelete(true)}>
-            <Delete color="red" />
+            <Trash2 color="red" />
           </Pressable>
           {openModalDelete && (
             <ModalEliminarProgramacion
