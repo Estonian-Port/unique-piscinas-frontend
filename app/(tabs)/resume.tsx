@@ -17,6 +17,7 @@ import {
 } from '@/components/utiles/climaIconMapper';
 import { useCallback, useEffect, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
+import BombasExtra from '@/components/resume/bombasExtra';
 
 export default function Resume() {
   const { usuario, selectedPool } = useAuth();
@@ -58,6 +59,16 @@ export default function Resume() {
     );
   }
 
+  const tieneBombasExtra = piscina.bombas.some(
+    (bomba) => bomba.tipo === 'Hidromasaje' || bomba.tipo === 'Cascada'
+  );
+  const bombasExtra = piscina.bombas
+    .filter((bomba) => bomba.tipo === 'Hidromasaje' || bomba.tipo === 'Cascada')
+    .sort((a, b) => {
+      const order = ['Cascada', 'Hidromasaje'];
+      return order.indexOf(a.tipo) - order.indexOf(b.tipo);
+    });
+
   const icono = climaIconComponent(clima.estadoClima);
   const color = climaIconColor(clima.estadoClima);
 
@@ -89,6 +100,13 @@ export default function Resume() {
               onUpdate={fetchData}
             />
             <Indicadores piscina={piscina} />
+            {tieneBombasExtra && (
+              <BombasExtra
+                bombas={bombasExtra}
+                setPiscina={setPiscina}
+                poolId={piscina.id}
+              />
+            )}
           </View>
         </ScreenTabs>
       </ScrollView>

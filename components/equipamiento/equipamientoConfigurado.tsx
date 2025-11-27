@@ -32,7 +32,6 @@ const EquipamientoConfigurado = ({ pool }: { pool: PiscinaEquipamiento }) => {
         <BombaCard
           key={bomba.id}
           bomba={bomba}
-          esBombaPrincipal={bomba.id === pool.bombas[0].id}
         />
       ))}
 

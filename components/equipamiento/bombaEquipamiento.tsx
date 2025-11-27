@@ -5,17 +5,15 @@ import { Bomba } from '@/data/domain/piscina';
 
 const BombaCard = ({
   bomba,
-  esBombaPrincipal,
 }: {
   bomba: Bomba;
-  esBombaPrincipal: boolean;
 }) => {
   return (
     <View className="flex-row items-center justify-between mb-1">
       <View className="flex-row items-center self-start">
         <IndicadorEstado verde={bomba.activa} gris={!bomba.activa} />
         <Text className="font-geist text-text text-base ml-2">
-          {esBombaPrincipal ? 'Bomba Principal' : 'Bomba Secundaria'}
+          {'Bomba ' + bomba.tipo}
         </Text>
       </View>
       <View

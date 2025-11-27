@@ -83,6 +83,7 @@ export interface PiscinaResume {
   diferenciaPh: number;
   entradaAgua: entradaAgua[];
   funcionActiva: funcionFiltro;
+  bombas: Bomba[];
   sistemasGermicidas: Germicida[];
   calefaccion: Calefaccion | null;
   esDesbordante: boolean;
