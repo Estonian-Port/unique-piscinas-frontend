@@ -4,8 +4,9 @@ import {
   ScrollView,
   Text,
   View,
+  RefreshControl,
 } from 'react-native';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
 import StatCard from '@/components/dashboard/statCard';
 import PiscinasRegistradas from '@/components/dashboard/piscinasRegistradas';
@@ -22,39 +23,60 @@ const Dashboard = () => {
   const { usuario } = useAuth();
   const [stats, setStats] = useState<StatDashboard>();
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [piscinasRegistradas, setPiscinasRegistradas] = useState<
     PiscinaRegistrada[]
   >([]);
+  
+  const hasLoadedRef = useRef(false);
 
+  const fetchData = useCallback(async (isInitialLoad = false) => {
+    if (!usuario) return;
+    
+    if (isInitialLoad) {
+      setLoading(true);
+    } else {
+      setRefreshing(true);
+    }
+
+    try {
+      const [estadisticas, piscinas] = await Promise.all([
+        administracionService.getEstadisticas(usuario.id),
+        administracionService.getPiscinasRegistradas(usuario.id),
+      ]);
+      
+      setStats(estadisticas);
+      setPiscinasRegistradas(piscinas);
+    } catch (error) {
+      console.error('Error cargando datos en focus:', error);
+    } finally {
+      setLoading(false);
+      setRefreshing(false);
+    }
+  }, [usuario]);
+
+  // Carga inicial solo una vez
+  useEffect(() => {
+    if (!hasLoadedRef.current) {
+      hasLoadedRef.current = true;
+      fetchData(true);
+    }
+  }, [fetchData]);
+
+  // Refrescar cuando la pantalla obtiene foco
   useFocusEffect(
     useCallback(() => {
-      let isActive = true;
-
-      const fetchData = async () => {
-        if (!usuario) return;
-        setLoading(true);
-        try {
-          const [estadisticas, piscinas] = await Promise.all([
-            administracionService.getEstadisticas(usuario.id),
-            administracionService.getPiscinasRegistradas(usuario.id),
-          ]);
-          if (!isActive) return;
-          setStats(estadisticas);
-          setPiscinasRegistradas(piscinas);
-        } catch (error) {
-          console.error('Error cargando datos en focus:', error);
-        } finally {
-          if (isActive) setLoading(false);
-        }
-      };
-
-      fetchData();
-
-      return () => {
-        isActive = false;
-      };
-    }, [usuario])
+      // Solo refrescar si ya se hizo la carga inicial
+      if (hasLoadedRef.current) {
+        fetchData(false);
+      }
+    }, [fetchData])
   );
+
+  // Pull to refresh
+  const onRefresh = useCallback(() => {
+    fetchData(false);
+  }, [fetchData]);
 
   if (loading || !stats) {
     return (
@@ -66,7 +88,9 @@ const Dashboard = () => {
 
   return (
     <PrivateScreen>
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView 
+        className="flex-1 bg-white"
+      >
         <ScreenTabs>
           <View className="w-11/12">
             <Text className="self-start font-geist-bold text-3xl text-text m-5">

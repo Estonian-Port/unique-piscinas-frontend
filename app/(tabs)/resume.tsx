@@ -15,7 +15,7 @@ import {
   climaIconColor,
   climaIconComponent,
 } from '@/components/utiles/climaIconMapper';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useFocusEffect } from 'expo-router';
 import BombasExtra from '@/components/resume/bombasExtra';
 
@@ -23,33 +23,60 @@ export default function Resume() {
   const { usuario, selectedPool } = useAuth();
   const [piscina, setPiscina] = useState<PiscinaResume | null>(null);
   const [loading, setLoading] = useState(true);
-
   const [clima, setClima] = useState<ClimaResponse | null>(null);
 
-  const fetchData = useCallback(async () => {
-    if (!selectedPool) return;
-    try {
-      setLoading(true);
-      const [poolData, poolPh, climaData] = await Promise.all([
-        piscinaService.getPiscinaResume(selectedPool.id),
-        piscinaService.getPiscinaResumePhById(selectedPool.id),
-        climaService.getClima(),
-      ]);
+  const hasLoadedRef = useRef(false);
 
-      setPiscina({ ...poolData, ...poolPh });
-      setClima(climaData);
-    } catch (error) {
-      console.error('Error al cargar datos:', error);
-    } finally {
-      setLoading(false);
+  const fetchData = useCallback(
+    async (isInitialLoad = false) => {
+      if (!selectedPool) return;
+
+      try {
+        // Solo mostrar loading completo en la carga inicial
+        if (isInitialLoad) {
+          setLoading(true);
+        }
+
+        const [poolData, poolPh, climaData] = await Promise.all([
+          piscinaService.getPiscinaResume(selectedPool.id),
+          piscinaService.getPiscinaResumePhById(selectedPool.id),
+          climaService.getClima(),
+        ]);
+
+        setPiscina({ ...poolData, ...poolPh });
+        setClima(climaData);
+      } catch (error) {
+        console.error('Error al cargar datos:', error);
+      } finally {
+        if (isInitialLoad) {
+          setLoading(false);
+        }
+      }
+    },
+    [selectedPool]
+  );
+
+  // Carga inicial solo una vez
+  useEffect(() => {
+    if (!hasLoadedRef.current && selectedPool) {
+      hasLoadedRef.current = true;
+      fetchData(true);
     }
-  }, [selectedPool]);
+  }, [fetchData, selectedPool]);
 
+  // Refrescar cuando la pantalla obtiene foco (sin loading completo)
   useFocusEffect(
     useCallback(() => {
-      fetchData();
-    }, [fetchData])
+      if (hasLoadedRef.current && selectedPool) {
+        fetchData(false);
+      }
+    }, [fetchData, selectedPool])
   );
+
+  // Resetear cuando cambia la piscina seleccionada
+  useEffect(() => {
+    hasLoadedRef.current = false;
+  }, [selectedPool?.id]);
 
   if (loading || !usuario || !selectedPool || !piscina || !clima) {
     return (
@@ -89,7 +116,7 @@ export default function Resume() {
               location={'Buenos Aires, Argentina'}
               weatherStatus={clima.estadoClima}
               humidity={clima.humedad}
-              wind={12} // si después agregás viento al microservicio, acá lo cambiás
+              wind={12}
             />
 
             <ControlFiltro
@@ -103,8 +130,8 @@ export default function Resume() {
             {tieneBombasExtra && (
               <BombasExtra
                 bombas={bombasExtra}
-                setPiscina={setPiscina}
                 poolId={piscina.id}
+                onUpdate={fetchData}
               />
             )}
           </View>

@@ -1,30 +1,43 @@
 import { View, Text, Switch } from 'react-native';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { Bomba, PiscinaResume } from '@/data/domain/piscina';
 import { ScreenCard } from '../utiles/ScreenCard';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
+import Toast from 'react-native-toast-message';
 
 const BombaItem = ({
   bomba,
   poolId,
-  setPiscina,
+  onUpdate,
 }: {
   bomba: Bomba;
   poolId: number;
-  setPiscina: Dispatch<SetStateAction<PiscinaResume | null>>;
+  onUpdate?: () => Promise<void> | void;
 }) => {
-  const [bombaActiva, setBombaActiva] = useState(bomba.activa);
+  const [updating, setUpdating] = useState(false);
 
   const handleSwitchRequest = async (valor: boolean) => {
+    if (updating) return; // Prevenir clicks múltiples
+
     try {
-      const response = await estadoPiscinaService.actualizarEstadoBombaExtra(
+      setUpdating(true);
+      await estadoPiscinaService.actualizarEstadoBombaExtra(
         poolId,
         bomba.id,
         valor
       );
-      setBombaActiva(valor);
+
+      await onUpdate?.();
     } catch (error) {
       console.error('Error al actualizar estado de bomba extra:', error);
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'No se pudo actualizar la bomba.',
+        position: 'bottom',
+      });
+    } finally {
+      setUpdating(false);
     }
   };
 
@@ -34,14 +47,15 @@ const BombaItem = ({
     }`;
 
   return (
-    <View className={cardStyle(bombaActiva)}>
+    <View className={cardStyle(bomba.activa)}>
       <Text className="font-geist-semi-bold text-text mr-2">{bomba.tipo}</Text>
       <Switch
         trackColor={{ false: '#d3d3d3', true: '#000000' }}
-        thumbColor={bombaActiva ? '#fcdb99' : '#ffffff'}
+        thumbColor={bomba.activa ? '#fcdb99' : '#ffffff'}
         ios_backgroundColor="#d3d3d3"
-        value={bombaActiva}
-        onValueChange={(v) => handleSwitchRequest(v)}
+        value={bomba.activa}
+        onValueChange={handleSwitchRequest}
+        disabled={updating}
       />
     </View>
   );
@@ -49,12 +63,12 @@ const BombaItem = ({
 
 const BombasExtra = ({
   bombas,
-  setPiscina,
   poolId,
+  onUpdate,
 }: {
   bombas: Bomba[];
-  setPiscina: Dispatch<SetStateAction<PiscinaResume | null>>;
   poolId: number;
+  onUpdate?: () => Promise<void> | void;
 }) => {
   return (
     <ScreenCard>
@@ -67,7 +81,7 @@ const BombasExtra = ({
             key={index}
             bomba={bomba}
             poolId={poolId}
-            setPiscina={setPiscina}
+            onUpdate={onUpdate}
           />
         ))}
       </View>
