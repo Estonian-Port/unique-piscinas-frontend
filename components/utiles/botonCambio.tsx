@@ -15,7 +15,7 @@ const BotonCambio = () => {
             </View>
           </CustomPressable>
       ) : (
-        <CustomPressable className="border rounded-md bg-[#222247] items-center justify-center px-4">
+        <CustomPressable className="border rounded-md bg-[#222247] items-center justify-center p-2">
           <Repeat color="#fff" className="font-geist-semi-bold text-center py-2 px-4"/>
         </CustomPressable>
       )}

@@ -100,15 +100,15 @@ const EquipmentItem = ({
   );
 };
 
-// 👇 Props actualizadas: recibe isExpanded y onToggle
+// Props actualizadas: recibe isExpanded y onToggle
 const PoolTableCard = ({ 
   pool, 
   isExpanded, 
   onToggle 
 }: { 
   pool: PiscinaRegistrada;
-  isExpanded: boolean; // 👈 Controlado desde el padre
-  onToggle: () => void; // 👈 Callback para cambiar estado
+  isExpanded: boolean;
+  onToggle: () => void;
 }) => {
   const { seleccionarPiscina } = useAuth();
 
@@ -166,7 +166,7 @@ const PoolTableCard = ({
       {/* Encabezado con nombre y tipo */}
       <Pressable
         className="flex-row items-center"
-        onPress={onToggle} // 👈 Usa el callback del padre
+        onPress={onToggle}
       >
         <Text
           className="font-geist-semi-bold text-text text-lg flex-1"

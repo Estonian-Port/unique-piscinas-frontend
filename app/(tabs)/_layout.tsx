@@ -4,11 +4,9 @@ import TabIcon from '../../components/utiles/tabIcon';
 import { Platform } from 'react-native';
 
 const _Layout = () => {
-  return (
-    Platform.OS === "web" ? (
+  return Platform.OS === 'web' ? (
     <Stack screenOptions={{ headerShown: false }} />
   ) : (
-
     <Tabs
       screenOptions={{
         tabBarShowLabel: false,
@@ -16,15 +14,28 @@ const _Layout = () => {
           width: '100%',
           height: '100%',
           justifyContent: 'center',
-          alignItems: 'center',          
+          alignItems: 'center',
         },
         tabBarStyle: {
-          height: 52,
+          height: 60,
           position: 'absolute',
+          backgroundColor: '#FFFFFF',
+          borderTopWidth: 1,
+          borderTopColor: '#E5E7EB', // Gris suave
+          shadowColor: '#000',
+          shadowOffset: {
+            width: 0,
+            height: -3,
+          },
+          shadowOpacity: 0.1,
+          shadowRadius: 6,
+          elevation: 10,
+          borderTopLeftRadius: 20,
+          borderTopRightRadius: 20,
           overflow: 'hidden',
-          borderWidth: 1,
-          borderTopColor: '#222247',
         },
+        tabBarActiveTintColor: '#222247', // Color del icono activo
+        tabBarInactiveTintColor: '#9CA3AF', // Color del icono inactivo
       }}
     >
       <Tabs.Screen
@@ -53,7 +64,11 @@ const _Layout = () => {
           title: 'Programación',
           headerShown: false,
           tabBarIcon: ({ focused }) => (
-            <TabIcon focused={focused} icon="calendar-month" title="Programación" />
+            <TabIcon
+              focused={focused}
+              icon="calendar-month"
+              title="Programación"
+            />
           ),
         }}
       />
@@ -68,7 +83,7 @@ const _Layout = () => {
         }}
       />
     </Tabs>
-  ));
+  );
 };
 
 export default _Layout;

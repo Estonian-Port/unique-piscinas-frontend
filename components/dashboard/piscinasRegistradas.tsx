@@ -8,7 +8,7 @@ import CustomPressable from '../utiles/customPressable';
 
 const PiscinasRegistradas = ({pools} : {pools: PiscinaRegistrada[]}) => {
   const [searchQuery, setSearchQuery] = useState("");
-  // 👇 Estado para controlar cuál piscina está expandida (solo UNA a la vez)
+  // Estado para controlar cuál piscina está expandida (solo UNA a la vez)
   const [expandedPoolId, setExpandedPoolId] = useState<number | null>(null);
 
   // Filtrar piscinas según la búsqueda
@@ -18,7 +18,7 @@ const PiscinasRegistradas = ({pools} : {pools: PiscinaRegistrada[]}) => {
       pool.nombreAdministrador.toLowerCase().includes(searchQuery.toLowerCase()),
   );
 
-  // 👇 Función para manejar la expansión/colapso
+  // Función para manejar la expansión/colapso
   const handleToggleExpand = (poolId: number) => {
     // Si ya está expandida, colapsarla. Si no, expandir esta y colapsar las demás
     setExpandedPoolId(expandedPoolId === poolId ? null : poolId);
@@ -59,8 +59,8 @@ const PiscinasRegistradas = ({pools} : {pools: PiscinaRegistrada[]}) => {
           <PoolTableCard 
             key={pool.id} 
             pool={pool}
-            isExpanded={expandedPoolId === pool.id} // 👈 Pasar si está expandida
-            onToggle={() => handleToggleExpand(pool.id)} // 👈 Callback para toggle
+            isExpanded={expandedPoolId === pool.id}
+            onToggle={() => handleToggleExpand(pool.id)}
           />
         ))}
 
