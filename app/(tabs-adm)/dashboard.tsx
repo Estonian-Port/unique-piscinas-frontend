@@ -4,7 +4,6 @@ import {
   ScrollView,
   Text,
   View,
-  RefreshControl,
 } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
@@ -16,7 +15,6 @@ import { administracionService } from '@/services/administracion.service';
 import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
 import PrivateScreen from '@/components/utiles/privateScreen';
 import WebTabBar from '@/components/utiles/webTabBar';
-import CustomPressable from '@/components/utiles/customPressable';
 import { useFocusEffect } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 

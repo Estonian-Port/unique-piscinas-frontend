@@ -15,7 +15,7 @@ import {
   Tag,
   User,
   Settings,
-} from 'react-native-feather';
+} from 'lucide-react-native';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import CustomPressable from '../utiles/customPressable';

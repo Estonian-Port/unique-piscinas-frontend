@@ -1,7 +1,6 @@
 import { View, Text, Pressable } from 'react-native';
-import React from 'react';
 import { Link } from 'expo-router';
-import { User } from 'react-native-feather';
+import { User } from 'lucide-react-native';
 
 const BotonPerfil = ({ nombreUsuario }: { nombreUsuario: string }) => {
   return (

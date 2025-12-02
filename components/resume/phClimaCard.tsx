@@ -1,7 +1,6 @@
 import { View, Text } from 'react-native';
-import { MaterialIcons } from '@expo/vector-icons';
 import { ScreenCard } from '../utiles/ScreenCard';
-import { Droplet, Wind } from 'react-native-feather';
+import { Droplet, Droplets } from 'lucide-react-native';
 import { climaStatusLabel } from '../utiles/climaIconMapper';
 
 type PhClimaProps = {
@@ -36,7 +35,12 @@ const PhClimaCard = ({
       <View className="flex-row">
         {/* PH */}
         <View className="bg-white p-2 border-r-gray-200 flex-1">
-          <Text className="font-geist-semi-bold text-text text-lg mb-3">pH</Text>
+          <View className="flex-row items-center mb-3">
+            <Droplets color="#000" width={20}/>
+            <Text className="font-geist-semi-bold text-text text-lg">
+              pH
+            </Text>
+          </View>
           <Text className="font-geist-semi-bold text-text text-3xl">{ph}</Text>
           <Text className="font-geist-light text-text text-sm">
             {diferenciaPh.toFixed(2)} desde la última medición
@@ -72,15 +76,10 @@ const PhClimaCard = ({
             </View>
           </View>
           <Text className="font-geist-light text-text text-sm">{location}</Text>
-          <Text className="font-geist-semi-bold text-text text-xl">
+          <Text className="font-geist-semi-bold text-text text-xl mt-1">
             {climaStatusLabel(weatherStatus)}
           </Text>
-          <View className="mt-2 gap-3">
-            <View className="flex-row items-center">
-              <Droplet color="#9B5278" />
-              <Text className="text-text text-sm ml-1">Humedad: {humidity}%</Text>
-            </View>
-          </View>
+          <Text className="text-text text-sm mt-1">Humedad: {humidity}%</Text>
         </View>
       </View>
     </ScreenCard>

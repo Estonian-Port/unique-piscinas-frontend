@@ -12,7 +12,7 @@ import { PiscinaFichaTecnica } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Checkbox from 'expo-checkbox';
-import { FastForward, Grid } from 'react-native-feather';
+import { FastForward } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({

@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { piscinaService } from '@/services/piscina.service';
 import ModalEditarCalefaccion from './modalEditarCalefaccion';
 import ModalEliminarEquipamiento from './modalEliminarEquipamiento';
-import { Delete, Edit2, Thermometer, Trash2 } from 'react-native-feather';
+import { Edit2, Thermometer, Trash2 } from 'lucide-react-native';
 
 const CalefaccionCard = ({
   calefaccion,

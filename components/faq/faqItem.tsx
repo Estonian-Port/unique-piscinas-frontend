@@ -1,7 +1,7 @@
 import type { FAQ } from '@/data/domain/faq';
 import { useState } from 'react';
 import { Pressable, View, Text } from 'react-native';
-import { ChevronDown, ChevronUp } from 'react-native-feather';
+import { ChevronDown, ChevronUp } from 'lucide-react-native';
 
 const FAQItem = ({ faq }: { faq: FAQ }) => {
   const [isExpanded, setIsExpanded] = useState(false);

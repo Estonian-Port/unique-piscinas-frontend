@@ -1,6 +1,6 @@
-import { View, Text, ScrollView, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import React, { useState } from 'react';
-import { Calendar, ChevronDown, ChevronUp, Circle, Clock, Droplet, Settings, Thermometer, Zap } from 'react-native-feather';
+import { Calendar, ChevronDown, ChevronUp, Circle, Clock, Droplet, Settings, Thermometer, Zap } from 'lucide-react-native';
 
 type Lectura = {
   id: number;

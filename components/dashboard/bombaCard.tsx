@@ -5,7 +5,7 @@ import { Bomba, PiscinaEquipos } from '@/data/domain/piscina';
 import ModalEditarBomba from './modalEditarBomba';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Droplet, Edit2 } from 'react-native-feather';
+import { Droplet, Edit2 } from 'lucide-react-native';
 
 const BombaCard = ({
   piscina,

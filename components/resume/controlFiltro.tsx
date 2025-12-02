@@ -15,7 +15,7 @@ import type {
 } from '@/data/domain/piscina';
 import ModalBarrefondo from './modalBarrefondo';
 import Toast from 'react-native-toast-message';
-import { Box, Circle, Droplet, Eye, Info } from 'react-native-feather';
+import { Barrel, Droplet, Info, Torus, Unlink2 } from 'lucide-react-native';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 
 interface ControlFiltroProps {
@@ -255,7 +255,7 @@ export default function ControlFiltro({
           }`}
           onPress={handleBarrefondoPress}
         >
-          <Circle />
+          <Torus />
           <Text className="font-geist-semi-bold text-base text-text mt-2">
             Barrefondo
           </Text>
@@ -290,7 +290,7 @@ export default function ControlFiltro({
             }`}
             onPress={handleTanquePress}
           >
-            <Box />
+            <Barrel />
             <Text className="font-geist-semi-bold text-base text-text mt-2">
               Tanque
             </Text>
@@ -305,7 +305,7 @@ export default function ControlFiltro({
             onPress={handleSkimmerPress}
             disabled={piscina.funcionActiva === 'DESAGOTAR'}
           >
-            <Eye />
+            <Unlink2 />
             <Text className="font-geist-semi-bold text-base text-text mt-2">
               Skimmer
             </Text>

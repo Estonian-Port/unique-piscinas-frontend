@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Activity } from 'react-native-feather';
+import { Activity } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({

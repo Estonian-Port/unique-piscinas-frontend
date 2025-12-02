@@ -13,7 +13,7 @@ import PasosFormulario from './pasosFormulario';
 import { PiscinaNueva } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { FastForward } from 'react-native-feather';
+import { FastForward } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
 

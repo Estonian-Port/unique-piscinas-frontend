@@ -5,7 +5,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { PiscinaNueva } from '@/data/domain/piscina';
-import { Activity, Database, Thermometer, Zap } from 'react-native-feather';
+import { Activity, Database, Thermometer, Zap } from 'lucide-react-native';
 import CustomPressable from '@/components/utiles/customPressable';
 
 export type TipoBomba = 'Bomba única' | 'Doble bomba' | 'Bomba de velocidad variable';

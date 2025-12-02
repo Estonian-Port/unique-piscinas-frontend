@@ -7,13 +7,12 @@ import {
   Keyboard,
 } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { PiscinaNueva, GermicidaNuevo } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { Activity, Database, Zap } from 'react-native-feather';
+import { Activity, Database, Zap } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
 

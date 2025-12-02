@@ -1,11 +1,10 @@
 import { View, Text, ScrollView, Pressable } from 'react-native';
 import React, { useState, useMemo, useEffect } from 'react';
 import LecturaCard from '@/components/dashboard/lecturaCard';
-import { ChevronsLeft, ChevronsRight } from 'react-native-feather';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react-native';
 import { piscinaService } from '@/services/piscina.service';
 import { useAuth } from '@/context/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomPressable from '@/components/utiles/customPressable';
 
 export type Lectura = {
   id: number;

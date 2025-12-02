@@ -13,7 +13,7 @@ import PasosFormulario from './pasosFormulario';
 import { CalefaccionNueva, PiscinaNueva } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
-import { Thermometer } from 'react-native-feather';
+import { Thermometer } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
 

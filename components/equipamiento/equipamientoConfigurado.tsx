@@ -1,11 +1,10 @@
 import { View, Text } from 'react-native';
-import React from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import { PiscinaEquipamiento } from '@/data/domain/piscina';
 import BombaCard from './bombaEquipamiento';
 import FiltroCard from './filtroEquipamiento';
 import GermicidaEquipamiento from './germicidaEquipamiento';
-import { Filter, Info, Power, Settings } from 'react-native-feather';
+import { Bomb, Filter, Info, Power, Settings } from 'lucide-react-native';
 import Divider from '../utiles/divider';
 
 const EquipamientoConfigurado = ({ pool }: { pool: PiscinaEquipamiento }) => {
@@ -23,7 +22,7 @@ const EquipamientoConfigurado = ({ pool }: { pool: PiscinaEquipamiento }) => {
       </View>
 
       <View className="flex-row items-center self-start my-2">
-        <Power color={'#60C3FF'} />
+        <Bomb width={15} />
         <Text className="font-geist-semi-bold text-text text-lg ml-2">
           Bombas
         </Text>
@@ -36,7 +35,7 @@ const EquipamientoConfigurado = ({ pool }: { pool: PiscinaEquipamiento }) => {
       ))}
 
       <View className="flex-row items-center self-start my-2">
-        <Filter color={'#60C3FF'} />
+        <Filter width={15} />
         <Text className="font-geist-semi-bold text-text text-lg ml-2">
           Filtro
         </Text>

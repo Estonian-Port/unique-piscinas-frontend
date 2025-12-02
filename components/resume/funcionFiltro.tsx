@@ -8,7 +8,8 @@ import {
   Droplet,
   RotateCcw,
   Power,
-} from 'react-native-feather';
+  Bubbles,
+} from 'lucide-react-native';
 import { Image } from 'react-native';
 import Toast from 'react-native-toast-message';
 
@@ -164,7 +165,7 @@ const PanelFuncionesFiltro = ({
 
         <ControlButton
           icon={
-            <Droplet
+            <Bubbles
               stroke={funcionActiva === 'ENJUAGAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}

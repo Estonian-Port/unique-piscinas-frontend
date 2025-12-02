@@ -10,7 +10,7 @@ import Schedule from './schedule';
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { Clock, Sliders } from 'react-native-feather';
+import { Clock, Sliders } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 import { programacionService } from '@/services/programacion.service';

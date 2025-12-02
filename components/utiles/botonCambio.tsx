@@ -1,7 +1,6 @@
 import { Platform, Text, View } from 'react-native';
-import React from 'react';
 import { Link } from 'expo-router';
-import { Repeat } from 'react-native-feather';
+import { Repeat } from 'lucide-react-native';
 import CustomPressable from './customPressable';
 
 const BotonCambio = () => {

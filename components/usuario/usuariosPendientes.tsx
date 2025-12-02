@@ -4,7 +4,7 @@ import { useAuth } from '@/context/authContext';
 import { UsuarioPendiente } from '@/data/domain/user';
 import { administracionService } from '@/services/administracion.service';
 import { ScreenCard } from '../utiles/ScreenCard';
-import { RefreshCcw, Trash2 } from 'react-native-feather';
+import { RefreshCcw, Trash2 } from 'lucide-react-native';
 import ModalEliminarInvitacion from './modalEliminarInvitacion';
 import { usuarioService } from '@/services/usuario.service';
 import Toast from 'react-native-toast-message';

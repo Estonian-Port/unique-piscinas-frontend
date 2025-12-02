@@ -7,7 +7,7 @@ import {
 } from '@/data/domain/cicloFiltrado';
 import ModalProgramacion from './modalProgramacion';
 import ModalEliminarProgramacion from './modalEliminarProgramacion';
-import { Clock, Delete, Edit2, Trash2 } from 'react-native-feather';
+import { Clock, Edit2, Trash2 } from 'lucide-react-native';
 
 const Schedule = ({
   cicle,

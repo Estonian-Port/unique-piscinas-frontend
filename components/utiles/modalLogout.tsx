@@ -1,6 +1,5 @@
-import React from 'react';
 import { Modal, View, Text, Pressable } from 'react-native';
-import { X } from 'react-native-feather';
+import { X } from 'lucide-react-native';
 import CustomPressable from './customPressable';
 
 type ModalLogoutProps = {

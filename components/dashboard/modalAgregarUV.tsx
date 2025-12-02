@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Switch,
   TextInput,
   KeyboardAvoidingView,
   Platform,
@@ -12,7 +11,7 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Toast from 'react-native-toast-message';
 import { piscinaService } from '@/services/piscina.service';
-import { Zap } from 'react-native-feather';
+import { Zap } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({

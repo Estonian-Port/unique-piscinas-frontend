@@ -1,4 +1,4 @@
-import { Cloud, CloudLightning, CloudRain, Sun } from 'react-native-feather';
+import { Cloud, CloudLightning, CloudRain, Sun } from 'lucide-react-native';
 
 export const climaIconComponent = (estado: string) => {
   const iconSize = 40;

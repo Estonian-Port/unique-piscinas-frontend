@@ -9,13 +9,12 @@ import { useAuth } from '@/context/authContext';
 import {
   ChevronDown,
   ChevronUp,
-  Delete,
   Eye,
   Mail,
   MinusCircle,
   Phone,
   Trash2,
-} from 'react-native-feather';
+} from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const UserItem = ({

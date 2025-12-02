@@ -8,7 +8,7 @@ import ModalEditarNotas from '@/components/dashboard/modalEditarNotas';
 import PrivateScreen from '@/components/utiles/privateScreen';
 import { useAuth } from '@/context/authContext';
 import { administracionService } from '@/services/administracion.service';
-import { Edit2 } from 'react-native-feather';
+import { Edit2 } from 'lucide-react-native';
 
 export default function FichaTecnica() {
   const { usuario, selectedPool } = useAuth();

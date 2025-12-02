@@ -5,11 +5,9 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import React from 'react';
 import Toast from 'react-native-toast-message';
 import { usuarioService } from '@/services/usuario.service';
 import { useAuth } from '@/context/authContext';
-import { AlertCircle } from 'react-native-feather';
 import CustomPressable from '../utiles/customPressable';
 
 type ModalEliminarUsuarioProps = {

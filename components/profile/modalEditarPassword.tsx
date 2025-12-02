@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {View,Text,Pressable,TextInput,Modal,KeyboardAvoidingView, Platform,} from 'react-native';
 import { useAuth } from '@/context/authContext';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { UsuarioCambioPassword, UsuarioLogin } from '@/data/domain/user';
+import { UsuarioCambioPassword } from '@/data/domain/user';
 import { usuarioService } from '@/services/usuario.service';
 import Toast from 'react-native-toast-message';
-import { Eye, EyeOff } from 'react-native-feather';
+import { Eye, EyeOff } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
