@@ -174,7 +174,7 @@ const ProgramacionFiltrado = ({
 
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <Clock color="light-blue" />
+          <Clock />
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Ciclos programados
           </Text>

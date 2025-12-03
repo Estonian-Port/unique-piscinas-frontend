@@ -138,9 +138,9 @@ const Login = () => {
                     onPress={() => setShowPassword((prev) => !prev)}
                   >
                     {showPassword ? (
-                      <EyeOff width={20} height={20} stroke="#666" />
+                      <EyeOff width={20} height={20} color="#666" />
                     ) : (
-                      <Eye width={20} height={20} stroke="#666" />
+                      <Eye width={20} height={20} color="#666" />
                     )}
                   </Pressable>
                 </View>

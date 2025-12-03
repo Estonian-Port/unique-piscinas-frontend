@@ -1,7 +1,6 @@
 import { View, Text, TextInput, Platform, Keyboard } from 'react-native';
 import React, { useState, useEffect, useRef } from 'react';
 import RadioButton from '../../utiles/radioButton';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { FiltroNuevo, PiscinaNueva } from '@/data/domain/piscina';
@@ -9,6 +8,7 @@ import * as Yup from 'yup';
 import { Formik, FormikProps } from 'formik';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 export type TipoFiltro = 'Arena' | 'Vidrio' | 'Cartucho';
 
@@ -16,18 +16,40 @@ const validationSchema = Yup.object().shape({
   tipoFiltro: Yup.string().required('Seleccione un tipo de filtro'),
   marcaFiltro: Yup.string().required('Ingrese la marca del filtro'),
   modeloFiltro: Yup.string().required('Ingrese el modelo del filtro'),
-  diametro: Yup.number()
+  diametro: Yup.string()
     .required('Ingrese el diámetro del filtro')
-    .typeError('El diámetro debe ser un número')
-    .min(0.1, 'El diámetro debe ser mayor que 0'),
-  datoExtra: Yup.number()
+    .test('is-number', 'El diámetro debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El diámetro debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  datoExtra: Yup.string()
     .required('Este campo es obligatorio para este tipo de filtro')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El valor debe ser mayor que 0'),
-  tiempoDeVidaUtil: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El valor debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  tiempoDeVidaUtil: Yup.string()
     .required('Ingrese el tiempo de vida útil del filtro')
-    .typeError('El tiempo de vida útil debe ser un número')
-    .min(1, 'El tiempo de vida útil debe ser mayor que 0'),
+    .test('is-number', 'El tiempo de vida útil debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test(
+      'is-positive',
+      'El tiempo de vida útil debe ser mayor que 0',
+      (value) => {
+        if (!value) return false;
+        return parseFloat(normalizeNumericInput(value)) >= 1;
+      }
+    ),
 });
 
 interface FormValues {
@@ -104,10 +126,12 @@ const FiltroNuevaPiscina = ({
             tipo: values.tipoFiltro as TipoFiltro,
             marca: values.marcaFiltro,
             modelo: values.modeloFiltro,
-            diametro: Number(values.diametro),
-            datoExtra: values.datoExtra ? Number(values.datoExtra) : 0,
+            diametro: parseFloat(normalizeNumericInput(values.diametro)),
+            datoExtra: values.datoExtra
+              ? parseFloat(normalizeNumericInput(values.datoExtra))
+              : 0,
             tiempoDeVidaUtil: values.tiempoDeVidaUtil
-              ? Number(values.tiempoDeVidaUtil)
+              ? parseFloat(normalizeNumericInput(values.tiempoDeVidaUtil))
               : 0,
           };
 
@@ -143,7 +167,10 @@ const FiltroNuevaPiscina = ({
                 extraScrollHeight={Platform.OS === 'ios' ? 150 : 100}
                 extraHeight={Platform.OS === 'ios' ? 150 : 200}
                 keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{ flexGrow: 1, paddingBottom: keyboardOpen ? 100 : 50 }}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  paddingBottom: keyboardOpen ? 100 : 50,
+                }}
                 enableResetScrollToCoords={false}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}

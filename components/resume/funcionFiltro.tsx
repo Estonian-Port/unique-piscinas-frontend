@@ -42,11 +42,11 @@ const ControlButton = ({
     <View className={`${positionStyles}`}>
       <TouchableOpacity
         onPress={onPress}
-        className={`items-center justify-center w-20 h-20 rounded-full bg-grayish-unique
+        className={`items-center justify-center w-20 h-20 rounded-full
         ${
           isSelected
             ? 'border-2 border-grayish-unique bg-purple-unique'
-            : 'border border-gray-400'
+            : 'border border-gray-400 bg-grayish-unique'
         }`}
         style={{ opacity: !activo ? 0.4 : 1 }}
         disabled={!activo}
@@ -109,7 +109,7 @@ const PanelFuncionesFiltro = ({
             onPress={resetearSistema}
           >
             <Power
-              stroke={hayFuncionActiva ? '#D30000' : '#ceccd9'}
+              color={hayFuncionActiva ? '#D30000' : '#ceccd9'}
               width={32}
               height={32}
             />
@@ -136,7 +136,7 @@ const PanelFuncionesFiltro = ({
         <ControlButton
           icon={
             <Filter
-              stroke={funcionActiva === 'FILTRAR' ? '#FFF' : '#4e4965'}
+              color={funcionActiva === 'FILTRAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}
             />
@@ -151,7 +151,7 @@ const PanelFuncionesFiltro = ({
         <ControlButton
           icon={
             <RefreshCw
-              stroke={funcionActiva === 'RETROLAVAR' ? '#FFF' : '#4e4965'}
+              color={funcionActiva === 'RETROLAVAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}
             />
@@ -166,7 +166,7 @@ const PanelFuncionesFiltro = ({
         <ControlButton
           icon={
             <Bubbles
-              stroke={funcionActiva === 'ENJUAGAR' ? '#FFF' : '#4e4965'}
+              color={funcionActiva === 'ENJUAGAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}
             />
@@ -181,7 +181,7 @@ const PanelFuncionesFiltro = ({
         <ControlButton
           icon={
             <Trash2
-              stroke={funcionActiva === 'DESAGOTAR' ? '#FFF' : '#4e4965'}
+              color={funcionActiva === 'DESAGOTAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}
             />
@@ -196,7 +196,7 @@ const PanelFuncionesFiltro = ({
         <ControlButton
           icon={
             <RotateCcw
-              stroke={funcionActiva === 'RECIRCULAR' ? '#FFF' : '#4e4965'}
+              color={funcionActiva === 'RECIRCULAR' ? '#FFF' : '#4e4965'}
               width={24}
               height={24}
             />

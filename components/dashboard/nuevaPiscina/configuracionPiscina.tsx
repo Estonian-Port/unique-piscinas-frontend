@@ -16,32 +16,67 @@ import { Formik, FormikProps } from 'formik';
 import { FastForward } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
-  largo: Yup.number()
+  largo: Yup.string()
     .required('El largo es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El largo debe ser mayor que 0'),
-  ancho: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El largo debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  ancho: Yup.string()
     .required('El ancho es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El ancho debe ser mayor que 0'),
-  profundidad: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El ancho debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  profundidad: Yup.string()
     .required('La profundidad es obligatoria')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'La profundidad debe ser mayor que 0'),
-  volumen: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La profundidad debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  volumen: Yup.string()
     .required('El volumen es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El volumen debe ser mayor que 0'),
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El volumen debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
   desbordante: Yup.boolean(),
-  volumenTC: Yup.number().when('desbordante', {
+  volumenTC: Yup.string().when('desbordante', {
     is: true,
     then: (schema) =>
       schema
         .required('El volumen T.C. es obligatorio')
-        .typeError('El valor debe ser un número')
-        .min(0.1, 'El volumen T.C. debe ser mayor que 0'),
+        .test('is-number', 'El valor debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test(
+          'is-positive',
+          'El volumen T.C. debe ser mayor que 0',
+          (value) => {
+            if (!value) return false;
+            return parseFloat(normalizeNumericInput(value)) > 0.1;
+          }
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -114,12 +149,14 @@ const ConfiguracionPiscina = ({
         onSubmit={(values) => {
           setNuevaPiscina({
             ...nuevaPiscina,
-            largo: parseFloat(values.largo),
-            ancho: parseFloat(values.ancho),
-            profundidad: parseFloat(values.profundidad),
-            volumen: parseFloat(values.volumen),
+            largo: parseFloat(normalizeNumericInput(values.largo)),
+            ancho: parseFloat(normalizeNumericInput(values.ancho)),
+            profundidad: parseFloat(normalizeNumericInput(values.profundidad)),
+            volumen: parseFloat(normalizeNumericInput(values.volumen)),
             esDesbordante: values.desbordante,
-            volumenTC: values.desbordante ? parseFloat(values.volumenTC) : 0,
+            volumenTC: values.desbordante
+              ? parseFloat(normalizeNumericInput(values.volumenTC))
+              : 0,
           });
           onNext();
         }}
@@ -143,9 +180,11 @@ const ConfiguracionPiscina = ({
           const calcularVolumen = () => {
             const { largo, ancho, profundidad } = values;
             if (largo && ancho && profundidad) {
-              const largoNum = parseFloat(largo);
-              const anchoNum = parseFloat(ancho);
-              const profundidadNum = parseFloat(profundidad);
+              const largoNum = parseFloat(normalizeNumericInput(largo));
+              const anchoNum = parseFloat(normalizeNumericInput(ancho));
+              const profundidadNum = parseFloat(
+                normalizeNumericInput(profundidad)
+              );
 
               if (
                 !isNaN(largoNum) &&
@@ -170,7 +209,10 @@ const ConfiguracionPiscina = ({
                 extraScrollHeight={Platform.OS === 'ios' ? 50 : 50}
                 extraHeight={Platform.OS === 'ios' ? 10 : 100}
                 keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{ flexGrow: 1, paddingBottom: keyboardOpen ? 100 : 0 }}
+                contentContainerStyle={{
+                  flexGrow: 1,
+                  paddingBottom: keyboardOpen ? 100 : 0,
+                }}
                 enableResetScrollToCoords={false}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}

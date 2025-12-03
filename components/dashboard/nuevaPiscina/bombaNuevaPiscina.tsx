@@ -7,7 +7,6 @@ import {
   Keyboard,
 } from 'react-native';
 import React, { useRef, useState, useEffect } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { BombaNuevo, PiscinaNueva } from '@/data/domain/piscina';
@@ -17,14 +16,21 @@ import Checkbox from 'expo-checkbox';
 import Divider from '@/components/utiles/divider';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   marcaBombaPrimaria: Yup.string().required('Seleccione una marca de bomba'),
   modeloBombaPrimaria: Yup.string().required('Seleccione un modelo de bomba'),
-  potenciaCVPrimaria: Yup.number()
+  potenciaCVPrimaria: Yup.string()
     .required('Ingrese la potencia en CV')
-    .typeError('La potencia debe ser un número')
-    .min(1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) >= 1;
+    }),
 
   marcaBombaSecundaria: Yup.string().when('tieneBombaSecundaria', {
     is: true,
@@ -36,13 +42,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Ingrese el modelo de la bomba'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  potenciaCVSecundaria: Yup.number().when('tieneBombaSecundaria', {
+  potenciaCVSecundaria: Yup.string().when('tieneBombaSecundaria', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia en CV')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) >= 1;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   tieneBombaSecundaria: Yup.boolean(),
@@ -57,13 +69,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Ingrese el modelo de la bomba'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  potenciaCVHidromasaje: Yup.number().when('tieneBombaHidromasaje', {
+  potenciaCVHidromasaje: Yup.string().when('tieneBombaHidromasaje', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia en CV')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) >= 1;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   tieneBombaHidromasaje: Yup.boolean(),
@@ -78,13 +96,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Ingrese el modelo de la bomba'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  potenciaCVCascada: Yup.number().when('tieneBombaCascada', {
+  potenciaCVCascada: Yup.string().when('tieneBombaCascada', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia en CV')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) >= 1;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   tieneBombaCascada: Yup.boolean(),
@@ -209,7 +233,9 @@ const BombaNuevaPiscina = ({
             id: null,
             marca: values.marcaBombaPrimaria,
             modelo: values.modeloBombaPrimaria,
-            potencia: parseFloat(values.potenciaCVPrimaria),
+            potencia: parseFloat(
+              normalizeNumericInput(values.potenciaCVPrimaria)
+            ),
             activa: false,
             tipo: 'PRINCIPAL',
           };
@@ -221,7 +247,9 @@ const BombaNuevaPiscina = ({
               id: null,
               marca: values.marcaBombaSecundaria,
               modelo: values.modeloBombaSecundaria,
-              potencia: parseFloat(values.potenciaCVSecundaria),
+              potencia: parseFloat(
+                normalizeNumericInput(values.potenciaCVSecundaria)
+              ),
               activa: false,
               tipo: 'SECUNDARIA',
             };
@@ -233,7 +261,9 @@ const BombaNuevaPiscina = ({
               id: null,
               marca: values.marcaBombaCascada,
               modelo: values.modeloBombaCascada,
-              potencia: parseFloat(values.potenciaCVCascada),
+              potencia: parseFloat(
+                normalizeNumericInput(values.potenciaCVCascada)
+              ),
               activa: false,
               tipo: 'CASCADA',
             };
@@ -245,7 +275,9 @@ const BombaNuevaPiscina = ({
               id: null,
               marca: values.marcaBombaHidromasaje,
               modelo: values.modeloBombaHidromasaje,
-              potencia: parseFloat(values.potenciaCVHidromasaje),
+              potencia: parseFloat(
+                normalizeNumericInput(values.potenciaCVHidromasaje)
+              ),
               activa: false,
               tipo: 'HIDROMASAJE',
             };

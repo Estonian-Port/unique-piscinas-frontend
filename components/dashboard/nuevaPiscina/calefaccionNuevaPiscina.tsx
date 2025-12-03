@@ -16,6 +16,7 @@ import { Formik, FormikProps } from 'formik';
 import { Thermometer } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 export type TipoCalefaccion = 'Bomba de calor' | 'Calentador de gas';
 
@@ -35,16 +36,21 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Seleccione un modelo de calefacción'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  potenciaCalefaccion: Yup.number()
-    .typeError('La potencia debe ser un número')
-    .when('tieneCalefaccion', {
-      is: true,
-      then: (schema) =>
-        schema
-          .required('Ingrese la potencia de la calefacción')
-          .min(0.1, 'La potencia debe ser mayor que 0'),
-      otherwise: (schema) => schema.notRequired(),
-    }),
+  potenciaCalefaccion: Yup.string().when('tieneCalefaccion', {
+    is: true,
+    then: (schema) =>
+      schema
+        .required('Ingrese la potencia de la calefacción')
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) > 0;
+        }),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   tieneCalefaccion: Yup.boolean(),
 });
 
@@ -124,7 +130,9 @@ const CalefaccionNuevaPiscina = ({
               tipo: parsearTipo(values.tipoCalefaccion),
               marca: values.marcaCalefaccion,
               modelo: values.modeloCalefaccion,
-              potencia: parseFloat(values.potenciaCalefaccion),
+              potencia: parseFloat(
+                normalizeNumericInput(values.potenciaCalefaccion)
+              ),
               activa: false,
             };
 
@@ -342,12 +350,9 @@ const CalefaccionNuevaPiscina = ({
                         )}
                     </View>
                   </View>
-
-                  {/* Padding inferior para dar espacio sobre los botones fijos */}
                 </View>
               </KeyboardAwareScrollView>
 
-              {/* Botones fijos en la parte inferior */}
               <View className="border-t border-gray-200 bg-white px-4 py-3 absolute bottom-0 left-0 right-0">
                 <View className="flex-row items-center justify-center gap-3">
                   <Link asChild href="/dashboard">

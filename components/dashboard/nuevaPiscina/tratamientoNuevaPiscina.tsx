@@ -15,6 +15,7 @@ import { Formik, FormikProps } from 'formik';
 import { Activity, Database, Zap } from 'lucide-react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import CustomPressable from '@/components/utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   uvMarca: Yup.string().when('uvSwitch', {
@@ -22,13 +23,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Ingrese la marca de la lámpara UV'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  uvPotencia: Yup.number().when('uvSwitch', {
+  uvPotencia: Yup.string().when('uvSwitch', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) > 0;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   ionizadorMarca: Yup.string().when('ionizadorSwitch', {
@@ -50,13 +57,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Ingrese la marca del trasductor'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  trasductorPotencia: Yup.number().when('trasductorSwitch', {
+  trasductorPotencia: Yup.string().when('trasductorSwitch', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia del trasductor')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) > 0;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   trasductorTiempoVidaUtil: Yup.number().when('trasductorSwitch', {
@@ -199,7 +212,7 @@ const TratamientoNuevaPiscina = ({
               tipo: 'UV',
               marca: values.uvMarca,
               activa: true,
-              datoExtra: parseFloat(values.uvPotencia),
+              datoExtra: parseFloat(normalizeNumericInput(values.uvPotencia)),
               tiempoVidaUtil: parseInt(values.uvTiempoVidaUtil),
             };
             sistemaGermicida.push(uv);
@@ -223,7 +236,9 @@ const TratamientoNuevaPiscina = ({
               tipo: 'TRASDUCTOR',
               marca: values.trasductorMarca,
               activa: true,
-              datoExtra: parseFloat(values.trasductorPotencia),
+              datoExtra: parseFloat(
+                normalizeNumericInput(values.trasductorPotencia)
+              ),
               tiempoVidaUtil: parseInt(values.trasductorTiempoVidaUtil),
             };
             sistemaGermicida.push(trasductor);
@@ -584,12 +599,10 @@ const TratamientoNuevaPiscina = ({
                     </View>
                   </View>
 
-                  {/* Padding inferior para dar espacio sobre los botones fijos */}
                   <View style={{ height: keyboardOpen ? 20 : 0 }} />
                 </View>
               </KeyboardAwareScrollView>
 
-              {/* Botones fijos en la parte inferior */}
               <View className="border-t border-gray-200 bg-white px-4 py-3 absolute bottom-0 left-0 right-0">
                 <View className="flex-row items-center justify-center gap-3">
                   <Link asChild href="/dashboard">
