@@ -116,7 +116,7 @@ export default function FichaTecnica() {
               <InfoRow
                 label="Administrador"
                 value={
-                  pool.nombreAdministrador != null
+                  pool.nombreAdministrador
                     ? pool.nombreAdministrador
                     : 'No asignado'
                 }

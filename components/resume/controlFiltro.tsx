@@ -5,6 +5,7 @@ import React, {
   Dispatch,
   SetStateAction,
   useRef,
+  useMemo,
 } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import FuncionFiltroScreen from './funcionFiltroScreen';
@@ -15,7 +16,7 @@ import type {
 } from '@/data/domain/piscina';
 import ModalBarrefondo from './modalBarrefondo';
 import Toast from 'react-native-toast-message';
-import { Barrel, Droplet, Info, Torus, Unlink2 } from 'lucide-react-native';
+import { Box, Circle, Droplet, Eye, Info } from 'react-native-feather';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 
 interface ControlFiltroProps {
@@ -86,21 +87,30 @@ export default function ControlFiltro({
   const actualizarFuncionFiltro = async (funcion: funcionFiltro) => {
     try {
       if (funcion === piscina.funcionActiva) {
-        // Desactivar función actual
         await estadoPiscinaService.actualizarFuncionFiltro(
           piscina.id,
           'REPOSO'
         );
 
-        // Esperar a que se actualice la entrada de agua
         await actualizarEntradaDeAgua([]);
       } else {
-        // Activar nueva función
         await estadoPiscinaService.actualizarFuncionFiltro(piscina.id, funcion);
+
+        if (funcion !== 'FILTRAR' && funcion !== 'RECIRCULAR') {
+          setPiscina((prevPiscina) => {
+            if (!prevPiscina) return prevPiscina;
+            return {
+              ...prevPiscina,
+              funcionActiva: funcion,
+              sistemasGermicidas: prevPiscina.sistemasGermicidas.map((g) => ({
+                ...g,
+                activo: false,
+              })),
+            };
+          });
+        }
       }
 
-      // Siempre refrescar después de cambiar función
-      // Esto asegura que los sistemas germicidas se actualicen
       await onUpdate?.();
     } catch (error) {
       console.error(error);
@@ -200,11 +210,25 @@ export default function ControlFiltro({
     }
   };
 
-  // Variables derivadas del estado de piscina
-  const isFondoActivo = piscina.entradaAgua?.includes('Fondo');
-  const isBarrefondoActivo = piscina.entradaAgua?.includes('Barrefondo');
-  const isSkimmerActivo = piscina.entradaAgua?.includes('Skimmer');
-  const isTanqueActivo = piscina.entradaAgua?.includes('Tanque');
+  const isFondoActivo = useMemo(
+    () => piscina.entradaAgua?.includes('Fondo') ?? false,
+    [piscina.entradaAgua]
+  );
+
+  const isBarrefondoActivo = useMemo(
+    () => piscina.entradaAgua?.includes('Barrefondo') ?? false,
+    [piscina.entradaAgua]
+  );
+
+  const isSkimmerActivo = useMemo(
+    () => piscina.entradaAgua?.includes('Skimmer') ?? false,
+    [piscina.entradaAgua]
+  );
+
+  const isTanqueActivo = useMemo(
+    () => piscina.entradaAgua?.includes('Tanque') ?? false,
+    [piscina.entradaAgua]
+  );
 
   return (
     <ScreenCard>
@@ -255,7 +279,7 @@ export default function ControlFiltro({
           }`}
           onPress={handleBarrefondoPress}
         >
-          <Torus />
+          <Circle />
           <Text className="font-geist-semi-bold text-base text-text mt-2">
             Barrefondo
           </Text>
@@ -268,6 +292,7 @@ export default function ControlFiltro({
             nuevaEntrada: entradaAgua[],
             funcion: funcionFiltro
           ) => {
+            // 👇 CRÍTICO: Hacer todo en secuencia
             await actualizarEntradaDeAgua(nuevaEntrada);
             if (funcion !== piscina.funcionActiva) {
               await estadoPiscinaService.actualizarFuncionFiltro(
@@ -290,7 +315,7 @@ export default function ControlFiltro({
             }`}
             onPress={handleTanquePress}
           >
-            <Barrel />
+            <Box />
             <Text className="font-geist-semi-bold text-base text-text mt-2">
               Tanque
             </Text>
@@ -305,7 +330,7 @@ export default function ControlFiltro({
             onPress={handleSkimmerPress}
             disabled={piscina.funcionActiva === 'DESAGOTAR'}
           >
-            <Unlink2 />
+            <Eye />
             <Text className="font-geist-semi-bold text-base text-text mt-2">
               Skimmer
             </Text>

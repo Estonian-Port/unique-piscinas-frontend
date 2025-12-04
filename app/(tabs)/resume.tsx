@@ -45,6 +45,9 @@ export default function Resume() {
 
         setPiscina({ ...poolData, ...poolPh });
         setClima(climaData);
+        if (isInitialLoad) {
+          hasLoadedRef.current = true;
+        }
       } catch (error) {
         console.error('Error al cargar datos:', error);
       } finally {
