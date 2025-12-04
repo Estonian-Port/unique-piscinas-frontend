@@ -6,7 +6,7 @@ import {
   Platform,
   Keyboard,
 } from 'react-native';
-import React, { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'expo-router';
 import PasosFormulario from './pasosFormulario';
 import { PiscinaNueva, GermicidaNuevo } from '@/data/domain/piscina';

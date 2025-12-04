@@ -6,12 +6,11 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Germicida } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   uvMarca: Yup.string().when('uvSwitch', {
@@ -19,13 +18,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Seleccione una marca de lámpara UV'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  uvPotencia: Yup.number().when('uvSwitch', {
+  uvPotencia: Yup.string().when('uvSwitch', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) > 0;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
   ionizadorMarca: Yup.string().when('ionizadorSwitch', {
@@ -47,13 +52,19 @@ const validationSchema = Yup.object().shape({
     then: (schema) => schema.required('Seleccione una marca del trasductor'),
     otherwise: (schema) => schema.notRequired(),
   }),
-  trasductorPotencia: Yup.number().when('trasductorSwitch', {
+  trasductorPotencia: Yup.string().when('trasductorSwitch', {
     is: true,
     then: (schema) =>
       schema
         .required('Ingrese la potencia del trasductor')
-        .typeError('La potencia debe ser un número')
-        .min(1, 'La potencia debe ser mayor que 0'),
+        .test('is-number', 'La potencia debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+          if (!value) return false;
+          return parseFloat(normalizeNumericInput(value)) > 0;
+        }),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -253,19 +264,19 @@ const ModalEditarGermicida = ({
                   <CustomPressable
                     onPress={onClose}
                     className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
                   </CustomPressable>
-                  <CustomPressable  
+                  <CustomPressable
                     disabled={!dirty}
                     onPress={handleSubmit as any}
                     className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold">

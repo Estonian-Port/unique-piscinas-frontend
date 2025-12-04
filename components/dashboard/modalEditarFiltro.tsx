@@ -7,12 +7,11 @@ import {
   Platform,
   TextInput,
 } from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
 import { Filtro } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import RadioButton from '../utiles/radioButton';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 export type TipoFiltro = 'Arena' | 'Vidrio' | 'Cartucho';
 
@@ -34,14 +33,26 @@ const validationSchema = Yup.object().shape({
   tipoFiltro: Yup.string().required('Seleccione un tipo de filtro'),
   marcaFiltro: Yup.string().required('Seleccione una marca de filtro'),
   modeloFiltro: Yup.string().required('Seleccione un modelo de filtro'),
-  diametro: Yup.number()
+  diametro: Yup.string()
     .required('Ingrese el diámetro del filtro')
-    .typeError('El diámetro debe ser un número')
-    .min(0.1, 'El diámetro debe ser mayor que 0'),
-  datoExtra: Yup.number()
+    .test('is-number', 'El diámetro debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El diámetro debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  datoExtra: Yup.string()
     .required('Este campo es obligatorio para este tipo de filtro')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El valor debe ser mayor que 0'),
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El valor debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
 });
 
 const ModalEditarFiltro = ({
@@ -80,8 +91,12 @@ const ModalEditarFiltro = ({
             tipo: values.tipoFiltro,
             marca: values.marcaFiltro,
             modelo: values.modeloFiltro,
-            diametro: values.diametro,
-            datoExtra: values.datoExtra,
+            diametro: parseFloat(
+              normalizeNumericInput(values.diametro.toString())
+            ),
+            datoExtra: values.datoExtra
+              ? parseFloat(normalizeNumericInput(values.datoExtra.toString()))
+              : 0,
           });
           onClose();
         }}
@@ -185,19 +200,19 @@ const ModalEditarFiltro = ({
                   <CustomPressable
                     onPress={onClose}
                     className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
                   </CustomPressable>
-                  <CustomPressable  
+                  <CustomPressable
                     disabled={!dirty}
                     onPress={handleSubmit as any}
                     className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold">

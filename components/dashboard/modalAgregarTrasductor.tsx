@@ -14,13 +14,20 @@ import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Activity } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   trasductorMarca: Yup.string().required('Seleccione una marca del trasductor'),
-  trasductorPotencia: Yup.number()
+  trasductorPotencia: Yup.string()
     .required('Ingrese la potencia del trasductor')
-    .typeError('La potencia debe ser un número')
-    .min(1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0;
+    }),
   trasductorTiempoVidaUtil: Yup.number()
     .required('Ingrese el tiempo de vida útil del trasductor')
     .typeError('El tiempo de vida útil debe ser un número')

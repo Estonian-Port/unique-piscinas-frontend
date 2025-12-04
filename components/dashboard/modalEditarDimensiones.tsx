@@ -14,32 +14,67 @@ import { Formik } from 'formik';
 import Checkbox from 'expo-checkbox';
 import { FastForward } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
-  largo: Yup.number()
+  largo: Yup.string()
     .required('El largo es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El largo debe ser mayor que 0'),
-  ancho: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El largo debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  ancho: Yup.string()
     .required('El ancho es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El ancho debe ser mayor que 0'),
-  profundidad: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El ancho debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  profundidad: Yup.string()
     .required('La profundidad es obligatoria')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'La profundidad debe ser mayor que 0'),
-  volumen: Yup.number()
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La profundidad debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
+  volumen: Yup.string()
     .required('El volumen es obligatorio')
-    .typeError('El valor debe ser un número')
-    .min(0.1, 'El volumen debe ser mayor que 0'),
+    .test('is-number', 'El valor debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'El volumen debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0.1;
+    }),
   desbordante: Yup.boolean(),
-  volumenTC: Yup.number().when('desbordante', {
+  volumenTC: Yup.string().when('desbordante', {
     is: true,
     then: (schema) =>
       schema
         .required('El volumen T.C. es obligatorio')
-        .typeError('El valor debe ser un número')
-        .min(0.1, 'El volumen T.C. debe ser mayor que 0'),
+        .test('is-number', 'El valor debe ser un número', (value) => {
+          if (!value) return false;
+          return isValidNumber(value);
+        })
+        .test(
+          'is-positive',
+          'El volumen T.C. debe ser mayor que 0',
+          (value) => {
+            if (!value) return false;
+            return parseFloat(normalizeNumericInput(value)) > 0.1;
+          }
+        ),
     otherwise: (schema) => schema.notRequired(),
   }),
 });
@@ -76,11 +111,13 @@ const ModalEditarDimensiones = ({
           onSave({
             ...pool,
             esDesbordante: values.desbordante,
-            largo: parseFloat(values.largo),
-            ancho: parseFloat(values.ancho),
-            profundidad: parseFloat(values.profundidad),
-            volumen: parseFloat(values.volumen),
-            volumenTC: values.desbordante ? parseFloat(values.volumenTC) : 0,
+            largo: parseFloat(normalizeNumericInput(values.largo)),
+            ancho: parseFloat(normalizeNumericInput(values.ancho)),
+            profundidad: parseFloat(normalizeNumericInput(values.profundidad)),
+            volumen: parseFloat(normalizeNumericInput(values.volumen)),
+            volumenTC: values.desbordante
+              ? parseFloat(normalizeNumericInput(values.volumenTC))
+              : 0,
           });
           onClose();
         }}
@@ -261,28 +298,28 @@ const ModalEditarDimensiones = ({
                     </>
                   )}
 
-                <View className="flex-row justify-between mt-5">
-                  <CustomPressable
-                    onPress={onClose}
-                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
-                  >
-                    <Text className="text-white text-center font-geist-semi-bold">
-                      Cancelar
-                    </Text>
-                  </CustomPressable>
-                  <CustomPressable
-                    onPress={handleSubmit as any}
-                    className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
-                    containerClassName='w-1/2'
-                  >
-                    <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold ml-2">
-                        Guardar
+                  <View className="flex-row justify-between mt-5">
+                    <CustomPressable
+                      onPress={onClose}
+                      className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                      containerClassName="w-1/2"
+                    >
+                      <Text className="text-white text-center font-geist-semi-bold">
+                        Cancelar
                       </Text>
-                    </View>
-                  </CustomPressable>
-                </View>
+                    </CustomPressable>
+                    <CustomPressable
+                      onPress={handleSubmit as any}
+                      className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
+                      containerClassName="w-1/2"
+                    >
+                      <View className="flex-row items-center justify-center">
+                        <Text className="text-white text-center font-geist-semi-bold ml-2">
+                          Guardar
+                        </Text>
+                      </View>
+                    </CustomPressable>
+                  </View>
                 </View>
               </View>
             </KeyboardAvoidingView>
