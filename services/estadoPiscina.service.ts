@@ -39,6 +39,18 @@ class EstadoPiscinaService {
   apagarLucesManual = async (piscinaId: number): Promise<void> => {
     await api.post(`${ESTADO_PISCINA}/apagar-luces-manuales/${piscinaId}`);
   };
+
+  actualizarEstadoBombaExtra = async (
+    piscinaId: number,
+    bombaId: number,
+    estado: boolean
+  ): Promise<PiscinaResume> => {
+    const response = await api.post(
+      `${ESTADO_PISCINA}/actualizar-estado-bomba-extra/${piscinaId}/${bombaId}`,
+      { activa: estado }
+    );
+    return response.data.data;
+  };
 }
 
 export const estadoPiscinaService = new EstadoPiscinaService();

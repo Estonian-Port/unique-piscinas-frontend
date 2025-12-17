@@ -11,37 +11,33 @@ import CustomPressable from '../utiles/customPressable';
 const ModalBarrefondo = ({
   visible,
   onClose,
-  onSave,
-  onSelected,
-  funcionActiva,
+  onConfirm,
   entradasActivas,
 }: {
   visible: boolean;
   onClose: () => void;
-  onSave: (nuevaEntrada: entradaAgua[]) => void;
-  onSelected: (funcion: funcionFiltro) => void;
-  funcionActiva: funcionFiltro;
+  onConfirm: (
+    nuevaEntrada: entradaAgua[],
+    funcion: funcionFiltro
+  ) => Promise<void>;
   entradasActivas: entradaAgua[];
 }) => {
-  const handleFiltrarPress = () => {
-    onSave(['Barrefondo', ...(entradasActivas || [])]);
-    if (funcionActiva !== 'FILTRAR') {
-      onSelected('FILTRAR');
-    }
-    onClose();
+  const handleFiltrarPress = async () => {
+    const nuevasEntradas = [
+      'Barrefondo',
+      ...(entradasActivas || []),
+    ] as entradaAgua[];
+    await onConfirm(nuevasEntradas, 'FILTRAR');
   };
 
-  const handleDesagotarPress = () => {
-    if (entradasActivas.includes('Skimmer')) {
-      const nuevasEntradas = entradasActivas.filter((e) => e !== 'Skimmer');
-      onSave(['Barrefondo', ...nuevasEntradas]);
-    } else {
-      onSave(['Barrefondo', ...(entradasActivas || [])]);
-    }
-    if (funcionActiva !== 'DESAGOTAR') {
-      onSelected('DESAGOTAR');
-    }
-    onClose();
+  const handleDesagotarPress = async () => {
+    // Remover Skimmer si está activo (incompatible con DESAGOTAR)
+    const entradasSinSkimmer = entradasActivas.filter((e) => e !== 'Skimmer');
+    const nuevasEntradas = [
+      'Barrefondo',
+      ...entradasSinSkimmer,
+    ] as entradaAgua[];
+    await onConfirm(nuevasEntradas, 'DESAGOTAR');
   };
 
   return (
@@ -65,7 +61,7 @@ const ModalBarrefondo = ({
               <CustomPressable
                 onPress={onClose}
                 className="bg-gray-400 rounded-lg mr-1 items-center justify-center h-12"
-                containerClassName='w-1/3'
+                containerClassName="w-1/3"
               >
                 <Text className="text-text text-center font-geist-semi-bold">
                   Cancelar
@@ -74,20 +70,20 @@ const ModalBarrefondo = ({
               <CustomPressable
                 onPress={handleFiltrarPress}
                 className="bg-purple-unique rounded-lg mx-1 items-center justify-center h-12"
-                containerClassName='w-1/3'
+                containerClassName="w-1/3"
               >
-                  <Text className="text-white text-center font-geist-semi-bold">
-                    Filtrar
-                  </Text>
+                <Text className="text-white text-center font-geist-semi-bold">
+                  Filtrar
+                </Text>
               </CustomPressable>
               <CustomPressable
                 onPress={handleDesagotarPress}
                 className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
-                containerClassName='w-1/3'
+                containerClassName="w-1/3"
               >
-                  <Text className="text-white text-center font-geist-semi-bold">
-                    Desagotar
-                  </Text>
+                <Text className="text-white text-center font-geist-semi-bold">
+                  Desagotar
+                </Text>
               </CustomPressable>
             </View>
           </View>

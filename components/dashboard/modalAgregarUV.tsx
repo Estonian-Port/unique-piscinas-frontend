@@ -1,7 +1,6 @@
 import {
   View,
   Text,
-  Switch,
   TextInput,
   KeyboardAvoidingView,
   Platform,
@@ -12,15 +11,22 @@ import * as Yup from 'yup';
 import { Formik } from 'formik';
 import Toast from 'react-native-toast-message';
 import { piscinaService } from '@/services/piscina.service';
-import { Zap } from 'react-native-feather';
+import { Zap } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   uvMarca: Yup.string().required('Seleccione una marca de lámpara UV'),
-  uvPotencia: Yup.number()
+  uvPotencia: Yup.string()
     .required('Ingrese la potencia')
-    .typeError('La potencia debe ser un número')
-    .min(1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0;
+    }),
   uvTiempoVidaUtil: Yup.number()
     .required('Ingrese el tiempo de vida útil del UV')
     .typeError('El tiempo de vida útil debe ser un número')

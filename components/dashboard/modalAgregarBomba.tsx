@@ -14,6 +14,7 @@ import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import RadioButton from '../utiles/radioButton';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 export const marcasBomba = [
   { id: 1, name: 'Astral' },
@@ -32,10 +33,16 @@ export const modelosBomba = [
 const validationSchema = Yup.object().shape({
   marcaBomba: Yup.string().required('Seleccione una marca de bomba'),
   modeloBomba: Yup.string().required('Seleccione un modelo de bomba'),
-  potenciaBomba: Yup.number()
+  potenciaBomba: Yup.string()
     .required('Ingrese la potencia en CV')
-    .typeError('La potencia debe ser un número')
-    .min(1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) >= 1;
+    }),
   tipo: Yup.string().required('Seleccione un tipo de bomba'),
 });
 
@@ -88,8 +95,7 @@ const ModalAgregarBomba = ({
     !tieneBombaHidromasaje ? 'Hidromasaje' : null,
   ].filter(Boolean) as string[];
 
-  const tipoPorDefecto =
-    opcionesDisponibles[0];
+  const tipoPorDefecto = opcionesDisponibles[0];
 
   const bombaVacia: BombaNuevo = {
     id: null,
@@ -124,7 +130,7 @@ const ModalAgregarBomba = ({
             id: null,
             marca: values.marcaBomba,
             modelo: values.modeloBomba,
-            potencia: Number(values.potenciaBomba),
+            potencia: parseFloat(normalizeNumericInput(values.potenciaBomba)),
             activa: false,
             tipo: values.tipo,
           };
@@ -247,7 +253,7 @@ const ModalAgregarBomba = ({
                     <CustomPressable
                       onPress={onClose}
                       className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                      containerClassName='w-1/2'
+                      containerClassName="w-1/2"
                     >
                       <Text className="text-text text-center font-geist-semi-bold">
                         Cancelar
@@ -256,7 +262,7 @@ const ModalAgregarBomba = ({
                     <CustomPressable
                       onPress={handleSubmit as any}
                       className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
-                      containerClassName='w-1/2'
+                      containerClassName="w-1/2"
                     >
                       <View className="flex-row items-center justify-center">
                         <Text className="text-white text-center font-geist-semi-bold ml-2">

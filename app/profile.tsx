@@ -6,7 +6,7 @@ import { useAuth } from '@/context/authContext';
 import ModalLogout from '@/components/utiles/modalLogout';
 import ModalEditarPerfil from '@/components/profile/modalEditarPerfil';
 import ModalEditarPassword from '@/components/profile/modalEditarPassword';
-import { Edit2, LogIn, LogOut } from 'react-native-feather';
+import { Edit2, LogIn, LogOut } from 'lucide-react-native';
 import CustomPressable from '@/components/utiles/customPressable';
 
 const Profile = () => {

@@ -10,7 +10,7 @@ import Schedule from './schedule';
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { Clock, Sliders } from 'react-native-feather';
+import { Clock, Sliders } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 import { programacionService } from '@/services/programacion.service';
@@ -225,7 +225,7 @@ const ProgramacionIluminacion = ({
 
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center">
-          <Sliders color="light-blue" />
+          <Sliders />
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Control Manual
           </Text>
@@ -241,7 +241,7 @@ const ProgramacionIluminacion = ({
 
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <Clock color="light-blue" />
+          <Clock />
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Horarios programados
           </Text>

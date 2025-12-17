@@ -1,11 +1,11 @@
-import { View, Text, Switch, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import { Filtro, PiscinaEquipos } from '@/data/domain/piscina';
 import ModalEditarFiltro from './modalEditarFiltro';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Edit2, Filter, RefreshCw } from 'react-native-feather';
+import { Edit2, Filter, RefreshCw } from 'lucide-react-native';
 import ModalResetearContador from './modalResetearContador';
 import CustomPressable from '../utiles/customPressable';
 

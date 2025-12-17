@@ -6,7 +6,7 @@ import Toast from 'react-native-toast-message';
 import { usuarioService } from '@/services/usuario.service';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-import { Eye, EyeOff } from 'react-native-feather';
+import { Eye, EyeOff } from 'lucide-react-native';
 import CustomPressable from '@/components/utiles/customPressable';
 
 export interface UsuarioAlta {

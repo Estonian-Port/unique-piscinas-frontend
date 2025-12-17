@@ -1,8 +1,7 @@
 import { View, Text } from 'react-native';
-import { ScreenCard } from '../utiles/ScreenCard';
 import FAQItem from './faqItem';
 import { faqsMock } from '@/data/mock/faqMock';
-import { HelpCircle } from 'react-native-feather';
+import { HelpCircle } from 'lucide-react-native';
 import type { FAQ } from '@/data/domain/faq';
 
 const PreguntasFrecuentes = () => {

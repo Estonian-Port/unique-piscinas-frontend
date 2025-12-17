@@ -1,4 +1,4 @@
-import { View, Text, Switch } from 'react-native';
+import { View, Text } from 'react-native';
 import React, { useState } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import Schedule from './schedule';
@@ -10,7 +10,7 @@ import {
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { Clock, Filter } from 'react-native-feather';
+import { Clock, Filter } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 import { programacionService } from '@/services/programacion.service';
 
@@ -174,7 +174,7 @@ const ProgramacionFiltrado = ({
 
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <Clock color="light-blue" />
+          <Clock />
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Ciclos programados
           </Text>

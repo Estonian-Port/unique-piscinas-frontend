@@ -14,7 +14,7 @@ import { Formik } from 'formik';
 import { Registro } from '@/data/domain/piscina';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Calendar, Edit, Info, Settings, Tool } from 'react-native-feather';
+import { Calendar, Edit, Info, Settings, Wrench } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 
 const validationSchema = Yup.object().shape({
@@ -204,7 +204,7 @@ const ModalNuevoRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Tool height={16} width={16} color="#666" className="mr-2" />
+                    <Wrench height={16} width={16} color="#666" className="mr-2" />
                     <Text className="text-text text-base font-geist">
                       Técnico
                     </Text>

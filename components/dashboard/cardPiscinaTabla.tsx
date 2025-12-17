@@ -1,5 +1,5 @@
 import { View, Text, Pressable } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
@@ -15,14 +15,13 @@ import {
   Tag,
   User,
   Settings,
-} from 'react-native-feather';
+} from 'lucide-react-native';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import CustomPressable from '../utiles/customPressable';
 
 // Componente para mostrar el estado del pH con color contextual
 const PhIndicator = ({ value }: { value: number }) => {
-  // Determinar el color basado en el valor del pH
   const getColor = () => {
     if (value < 7.2) return '#F44336'; // Ácido - rojo
     if (value > 7.8) return '#2196F3'; // Alcalino - azul
@@ -70,13 +69,13 @@ const EquipmentItem = ({
   const getStatusColor = () => {
     switch (estado) {
       case 'Operativo':
-        return '#4CAF50'; // Verde
+        return '#4CAF50';
       case 'Requiere revisión':
-        return '#FF9800'; // Naranja
+        return '#FF9800';
       case 'Reemplazo urgente':
-        return '#F44336'; // Rojo
+        return '#F44336';
       case 'Mantenimiento':
-        return '#9E9E9E'; // Gris
+        return '#9E9E9E';
       default:
         return '#9E9E9E';
     }
@@ -101,9 +100,17 @@ const EquipmentItem = ({
   );
 };
 
-const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
-  const [isExpanded, setIsExpanded] = useState(false);
-  const { seleccionarPiscina, selectedPool } = useAuth();
+// Props actualizadas: recibe isExpanded y onToggle
+const PoolTableCard = ({ 
+  pool, 
+  isExpanded, 
+  onToggle 
+}: { 
+  pool: PiscinaRegistrada;
+  isExpanded: boolean;
+  onToggle: () => void;
+}) => {
+  const { seleccionarPiscina } = useAuth();
 
   const handleFicha = async () => {
     try {
@@ -111,7 +118,6 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
       router.push('/fichaTecnica');
     } catch (error) {
       console.error('Error seleccionando piscina:', error);
-      // Aquí podrías mostrar un toast de error
     }
   };
 
@@ -160,7 +166,7 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
       {/* Encabezado con nombre y tipo */}
       <Pressable
         className="flex-row items-center"
-        onPress={() => setIsExpanded(!isExpanded)}
+        onPress={onToggle}
       >
         <Text
           className="font-geist-semi-bold text-text text-lg flex-1"
@@ -215,9 +221,9 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
               </Text>
             </View>
 
-            <View className="flex-row justify-between mt-2">
+            <View className="flex-row justify-between mt-2 gap-2">
               <CustomPressable
-                className="bg-grayish-unique rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
+                className="bg-grayish-unique rounded-lg py-3 flex-1 flex-row items-center justify-center"
                 onPress={handleLecturaManual}
                 containerClassName='w-1/2'
               >
@@ -243,7 +249,7 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
           <Text className="text-gray-700 font-geist-semi-bold text-sm mb-3">
             Sistemas germicidas:
           </Text>
-          <View className="flex-row flex-wrap justify-between mb-4 ">
+          <View className="flex-row flex-wrap justify-between mb-4">
             {pool.sistemasGermicidas.map((sistema, index) => (
               <View key={index} className="w-[48%] mb-2">
                 <EquipmentItem
@@ -261,10 +267,9 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
           </View>
 
           {/* Acciones */}
-
-          <View className="flex-row justify-between mt-2">
+          <View className="flex-row justify-between mt-2 mx-0.5 gap-1">
             <CustomPressable
-              className="bg-gray-900 rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
+              className="bg-gray-900 rounded-lg py-3 flex-1 flex-row items-center justify-center"
               onPress={handleFicha}
               containerClassName='w-1/3'
             >
@@ -274,7 +279,7 @@ const PoolTableCard = ({ pool }: { pool: PiscinaRegistrada }) => {
               </Text>
             </CustomPressable>
             <CustomPressable
-              className="bg-gray-900 rounded-lg py-3 flex-1 mr-3 flex-row items-center justify-center"
+              className="bg-gray-900 rounded-lg py-3 flex-1 flex-row items-center justify-center"
               onPress={handlePanel}
               containerClassName='w-1/3'
             >

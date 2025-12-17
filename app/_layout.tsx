@@ -1,4 +1,4 @@
-import { Slot, SplashScreen, usePathname } from 'expo-router';
+import { SplashScreen, Stack } from 'expo-router';
 import './globals.css';
 import { useFonts } from 'expo-font';
 import React, { useEffect } from 'react';
@@ -8,6 +8,7 @@ import { AuthProvider } from '@/context/authContext';
 import Toast from 'react-native-toast-message';
 import { MaterialIcons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
+import { usePathname } from 'expo-router';
 
 export default function RootLayout() {
   const pathname = usePathname();
@@ -40,7 +41,15 @@ export default function RootLayout() {
       >
         <StatusBar style="dark" />
         <NavBar />
-        <Slot />
+        <Stack 
+          screenOptions={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'horizontal',
+            fullScreenGestureEnabled: true,
+          }}
+        >
+        </Stack>
         <Toast />
       </SafeAreaView>
     </AuthProvider>

@@ -14,6 +14,7 @@ import RadioButton from '../utiles/radioButton';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   marcaCalefaccion: Yup.string().required(
@@ -22,10 +23,16 @@ const validationSchema = Yup.object().shape({
   modeloCalefaccion: Yup.string().required(
     'Seleccione un modelo de calefacción'
   ),
-  potenciaCalefaccion: Yup.number()
-    .typeError('La potencia debe ser un número')
+  potenciaCalefaccion: Yup.string()
     .required('Ingrese la potencia de la calefacción')
-    .min(0.1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) > 0;
+    }),
 });
 
 const ModalAgregarCalefaccion = ({
@@ -96,7 +103,9 @@ const ModalAgregarCalefaccion = ({
             tipo: values.tipoCalefaccion,
             marca: values.marcaCalefaccion,
             modelo: values.modeloCalefaccion,
-            potencia: Number(values.potenciaCalefaccion),
+            potencia: parseFloat(
+              normalizeNumericInput(values.potenciaCalefaccion)
+            ),
             activa: true,
           };
           handleNewCalefaccion(nuevaCalefaccion);

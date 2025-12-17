@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Pressable } from 'react-native';
+import { View, Text, Pressable } from 'react-native';
 import React, { useState } from 'react';
 import {
   AlertCircle,
@@ -8,10 +8,8 @@ import {
   Circle,
   Clock,
   Droplet,
-  Settings,
-  Thermometer,
   Zap,
-} from 'react-native-feather';
+} from 'lucide-react-native';
 import { Lectura } from '@/app/lecturas';
 
 // Función para formatear fecha y hora

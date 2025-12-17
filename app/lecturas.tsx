@@ -1,19 +1,10 @@
-import { View, Text, ScrollView } from 'react-native';
-import React, { useState, useMemo, useEffect, use } from 'react';
+import { View, Text, ScrollView, Pressable } from 'react-native';
+import React, { useState, useMemo, useEffect } from 'react';
 import LecturaCard from '@/components/dashboard/lecturaCard';
-import {
-  AlertTriangle,
-  Calendar,
-  ChevronDown,
-  ChevronsLeft,
-  ChevronsRight,
-  ChevronUp,
-  Search,
-} from 'react-native-feather';
+import { ChevronsLeft, ChevronsRight } from 'lucide-react-native';
 import { piscinaService } from '@/services/piscina.service';
 import { useAuth } from '@/context/authContext';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import CustomPressable from '@/components/utiles/customPressable';
 
 export type Lectura = {
   id: number;
@@ -130,7 +121,10 @@ const HistorialLecturas = () => {
 
   if (loading) {
     return (
-      <SafeAreaView className="flex-1 bg-gray-50 px-2 py-4 items-center justify-center">
+      <SafeAreaView
+        className="flex-1 bg-gray-50 px-2 py-4 items-center justify-center"
+        edges={['bottom']}
+      >
         <Text className="text-gray-500 font-geist text-base mt-2">
           Cargando lecturas...
         </Text>
@@ -139,22 +133,26 @@ const HistorialLecturas = () => {
   }
 
   return (
-    <SafeAreaView className="flex-1 bg-gray-50 px-2 py-4">
-      <View className="px-4 pt-2 pb-4">
-        <Text className="font-geist-semi-bold text-3xl text-gray-900 mb-1">
+    <SafeAreaView
+      className="flex-1 bg-gray-50"
+      edges={['bottom']} // 👈 Solo proteger el bottom, no el top
+    >
+      {/* Header fijo */}
+      <View className="px-4 pt-4 pb-3 bg-gray-50">
+        <Text className="font-geist-semi-bold text-2xl text-gray-900 mb-1">
           {selectedPool?.direccion}
         </Text>
-        <Text className="font-geist-semi-bold text-xl text-gray-900 mb-1">
+        <Text className="font-geist-semi-bold text-lg text-gray-900 mb-1">
           Historial de Lecturas
         </Text>
-        <Text className="text-gray-500 text-sm mb-4">
+        <Text className="text-gray-500 text-sm mb-3">
           Mediciones de parámetros del agua por mes
         </Text>
 
         {/* Navegador de meses */}
-        <View className="bg-white rounded-xl p-4 mb-4 border border-gray-200">
+        <View className="bg-white rounded-xl p-3 mb-3 border border-gray-200">
           <View className="flex-row items-center justify-between">
-            <CustomPressable
+            <Pressable
               className={`p-2 rounded-lg ${
                 puedeIrAnterior ? 'bg-blue-50' : 'bg-gray-100'
               }`}
@@ -162,16 +160,16 @@ const HistorialLecturas = () => {
               disabled={!puedeIrAnterior}
             >
               <ChevronsLeft color={puedeIrAnterior ? '#2563eb' : '#9ca3af'} />
-            </CustomPressable>
-            <View className="flex-1 mx-4">
-              <Text className="font-geist-semi-bold text-lg text-gray-900 text-center">
+            </Pressable>
+            <View className="flex-1 mx-3">
+              <Text className="font-geist-semi-bold text-base text-gray-900 text-center">
                 {formatearMesAño(mesSeleccionado.año, mesSeleccionado.mes)}
               </Text>
-              <Text className="text-gray-500 text-sm text-center">
+              <Text className="text-gray-500 text-xs text-center">
                 {lecturasFiltradas.length} lecturas
               </Text>
             </View>
-            <CustomPressable
+            <Pressable
               className={`p-2 rounded-lg ${
                 puedeIrSiguiente ? 'bg-blue-50' : 'bg-gray-100'
               }`}
@@ -179,110 +177,125 @@ const HistorialLecturas = () => {
               disabled={!puedeIrSiguiente}
             >
               <ChevronsRight color={puedeIrSiguiente ? '#2563eb' : '#9ca3af'} />
-            </CustomPressable>
+            </Pressable>
           </View>
         </View>
 
-        <View className="items-center mb-2 flex-row justify-between">
+        {/* Controles de filtrado - Layout vertical en pantallas pequeñas */}
+        <View className="gap-3">
+          {/* Ordenar */}
           <View>
-            <Text className="font-geist text-gray-700">Ordenar:</Text>
-            {/* Segmented control para ordenar */}
+            <Text className="font-geist text-gray-700 text-sm mb-1">
+              Ordenar:
+            </Text>
             <View className="flex-row border border-gray-200 rounded-lg overflow-hidden">
-              <CustomPressable
-                className={`px-4 py-2 ${
+              <Pressable
+                className={`flex-1 px-3 py-2 ${
                   sortDirection === 'desc' ? 'bg-blue-500' : 'bg-white'
                 }`}
                 onPress={() => setSortDirection('desc')}
               >
                 <Text
-                  className={
+                  className={`text-center text-sm ${
                     sortDirection === 'desc'
                       ? 'text-white font-geist-semi-bold'
                       : 'text-blue-500 font-geist'
-                  }
+                  }`}
                 >
                   Más recientes
                 </Text>
-              </CustomPressable>
-              <CustomPressable
-                className={`px-4 py-2 ${
+              </Pressable>
+              <Pressable
+                className={`flex-1 px-3 py-2 ${
                   sortDirection === 'asc' ? 'bg-blue-500' : 'bg-white'
                 }`}
                 onPress={() => setSortDirection('asc')}
               >
                 <Text
-                  className={
+                  className={`text-center text-sm ${
                     sortDirection === 'asc'
                       ? 'text-white font-geist-semi-bold'
                       : 'text-blue-500 font-geist'
-                  }
+                  }`}
                 >
                   Más antiguos
                 </Text>
-              </CustomPressable>
+              </Pressable>
             </View>
           </View>
-          {/* Nuevo segmented control para errores */}
+
+          {/* Filtrar por tipo */}
           <View>
-            <Text className="font-geist text-gray-700">Filtrar:</Text>
+            <Text className="font-geist text-gray-700 text-sm mb-1">
+              Filtrar:
+            </Text>
             <View className="flex-row border border-gray-200 rounded-lg overflow-hidden">
-              <CustomPressable
-                className={`px-3 py-2 ${
+              <Pressable
+                className={`flex-1 px-2 py-2 ${
                   filtroErrores === 'todas' ? 'bg-blue-500' : 'bg-white'
                 }`}
                 onPress={() => setFiltroErrores('todas')}
               >
                 <Text
-                  className={
+                  className={`text-center text-sm ${
                     filtroErrores === 'todas'
                       ? 'text-white font-geist-semi-bold'
                       : 'text-blue-500 font-geist'
-                  }
+                  }`}
                 >
                   Todas
                 </Text>
-              </CustomPressable>
-              <CustomPressable
-                className={`px-3 py-2 ${
+              </Pressable>
+              <Pressable
+                className={`flex-1 px-2 py-2 ${
                   filtroErrores === 'errores' ? 'bg-red-500' : 'bg-white'
                 }`}
                 onPress={() => setFiltroErrores('errores')}
               >
                 <Text
-                  className={
+                  className={`text-center text-sm ${
                     filtroErrores === 'errores'
                       ? 'text-white font-geist-semi-bold'
                       : 'text-red-500 font-geist'
-                  }
+                  }`}
                 >
                   Erróneas
                 </Text>
-              </CustomPressable>
-              <CustomPressable
-                className={`px-3 py-2 ${
+              </Pressable>
+              <Pressable
+                className={`flex-1 px-2 py-2 ${
                   filtroErrores === 'validas' ? 'bg-green-500' : 'bg-white'
                 }`}
                 onPress={() => setFiltroErrores('validas')}
               >
                 <Text
-                  className={
+                  className={`text-center text-sm ${
                     filtroErrores === 'validas'
                       ? 'text-white font-geist-semi-bold'
                       : 'text-green-500 font-geist'
-                  }
+                  }`}
                 >
                   Válidas
                 </Text>
-              </CustomPressable>
+              </Pressable>
             </View>
           </View>
         </View>
       </View>
 
+      {/* Lista scrolleable */}
       <ScrollView className="flex-1 px-4">
-        {lecturasOrdenadas.map((lectura, index) => (
-          <LecturaCard key={index} lectura={lectura} />
-        ))}
+        {lecturasOrdenadas.length === 0 ? (
+          <View className="items-center justify-center py-8">
+            <Text className="text-gray-500 font-geist text-base">
+              No hay lecturas para mostrar
+            </Text>
+          </View>
+        ) : (
+          lecturasOrdenadas.map((lectura, index) => (
+            <LecturaCard key={index} lectura={lectura} />
+          ))
+        )}
       </ScrollView>
     </SafeAreaView>
   );

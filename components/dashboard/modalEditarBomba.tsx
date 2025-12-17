@@ -13,14 +13,21 @@ import { Bomba } from '@/data/domain/piscina';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import CustomPressable from '../utiles/customPressable';
+import { isValidNumber, normalizeNumericInput } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   marcaBomba: Yup.string().required('Seleccione una marca de bomba'),
   modeloBomba: Yup.string().required('Seleccione un modelo de bomba'),
-  potenciaCV: Yup.number()
+  potenciaCV: Yup.string()
     .required('Ingrese la potencia en CV')
-    .typeError('La potencia debe ser un número')
-    .min(1, 'La potencia debe ser mayor que 0'),
+    .test('is-number', 'La potencia debe ser un número', (value) => {
+      if (!value) return false;
+      return isValidNumber(value);
+    })
+    .test('is-positive', 'La potencia debe ser mayor que 0', (value) => {
+      if (!value) return false;
+      return parseFloat(normalizeNumericInput(value)) >= 1;
+    }),
 });
 
 const ModalEditarBomba = ({
@@ -34,7 +41,6 @@ const ModalEditarBomba = ({
   bomba: Bomba;
   onSave: (bombaEditada: Bomba) => void;
 }) => {
-
   return (
     <Modal
       animationType="fade"
@@ -46,7 +52,7 @@ const ModalEditarBomba = ({
         initialValues={{
           marcaBomba: bomba.marca,
           modeloBomba: bomba.modelo,
-          potenciaCV: bomba.potencia,
+          potenciaCV: bomba.potencia.toString(),
         }}
         validationSchema={validationSchema}
         onSubmit={(values) => {
@@ -54,7 +60,7 @@ const ModalEditarBomba = ({
             ...bomba,
             marca: values.marcaBomba,
             modelo: values.modeloBomba,
-            potencia: values.potenciaCV,
+            potencia: parseFloat(normalizeNumericInput(values.potenciaCV)),
           });
           onClose();
         }}
@@ -131,19 +137,19 @@ const ModalEditarBomba = ({
                   <CustomPressable
                     onPress={onClose}
                     className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <Text className="text-text text-center font-geist-semi-bold">
                       Cancelar
                     </Text>
                   </CustomPressable>
-                  <CustomPressable  
+                  <CustomPressable
                     disabled={!dirty}
                     onPress={handleSubmit as any}
                     className={`bg-purple-unique rounded-lg items-center justify-center h-12 ml-1 ${
                       !dirty ? 'opacity-50' : ''
                     }`}
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold">

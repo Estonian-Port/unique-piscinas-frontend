@@ -32,61 +32,73 @@ const indicadores: {
 ];
 
 const Indicadores = ({ piscina }: { piscina: PiscinaResume }) => {
-  
-  const estadoIndicador = (indicador: string) => {
-    if (indicador === 'Calefaccion') {
-      if (piscina.calefaccion === null) return 'no-existe';
-      if (piscina.calefaccion.activa) return 'encendido';
-      return 'apagado';
-    }
+  const estadosIndicadores = useMemo(() => {
+    const estadoIndicador = (
+      indicador: string
+    ): 'encendido' | 'apagado' | 'no-existe' => {
+      if (indicador === 'Calefaccion') {
+        if (piscina.calefaccion === null) return 'no-existe';
+        if (piscina.calefaccion.activa) return 'encendido';
+        return 'apagado';
+      }
 
-    if (indicador === 'UV') {
-      const germicida = piscina.sistemasGermicidas.find(
-        (g) => g.tipo === 'UV'
-      );
-      if (!germicida) return 'no-existe';
-      if (germicida.activo) return 'encendido';
-      return 'apagado';
-    }
+      if (indicador === 'UV') {
+        const germicida = piscina.sistemasGermicidas.find(
+          (g) => g.tipo === 'UV'
+        );
+        if (!germicida) return 'no-existe';
+        if (germicida.activo) return 'encendido';
+        return 'apagado';
+      }
 
-    if (indicador === 'Ionizador') {
-      const germicida = piscina.sistemasGermicidas.find(
-        (g) => g.tipo === 'Ionizador de cobre'
-      );
-      if (!germicida) return 'no-existe';
-      if (germicida.activo) return 'encendido';
-      return 'apagado';
-    }
+      if (indicador === 'Ionizador') {
+        const germicida = piscina.sistemasGermicidas.find(
+          (g) => g.tipo === 'Ionizador de cobre'
+        );
+        if (!germicida) return 'no-existe';
+        if (germicida.activo) return 'encendido';
+        return 'apagado';
+      }
 
-    if (indicador === 'Trasductor') {
-      const germicida = piscina.sistemasGermicidas.find(
-        (g) => g.tipo === 'Trasductor de ultrasonido'
-      );
-      if (!germicida) return 'no-existe';
-      if (germicida.activo) return 'encendido';
-      return 'apagado';
-    }
-  };
+      if (indicador === 'Trasductor') {
+        const germicida = piscina.sistemasGermicidas.find(
+          (g) => g.tipo === 'Trasductor de ultrasonido'
+        );
+        if (!germicida) return 'no-existe';
+        if (germicida.activo) return 'encendido';
+        return 'apagado';
+      }
+
+      return 'no-existe';
+    };
+
+    return indicadores.map((ind) => ({
+      ...ind,
+      estado: estadoIndicador(ind.name),
+    }));
+  }, [piscina.sistemasGermicidas, piscina.calefaccion, piscina.funcionActiva]);
 
   return (
     <ScreenCard>
       <View className="flex-row justify-between items-center">
-        {indicadores.map((indicador, index) => {
-          const estado = estadoIndicador(indicador.name);
+        {estadosIndicadores.map((indicador, index) => {
+          const estado = indicador.estado;
           let borderColor = 'border-grayish-unique';
           let bgColor = 'bg-white';
           let iconColor = 'black';
           let iconOpacity = 1;
           let textColor = '';
+
           if (estado === 'encendido') {
             borderColor = 'border-green-500';
             bgColor = 'bg-green-100';
             iconColor = 'green';
             textColor = 'text-green-600';
           } else if (estado === 'no-existe') {
-            iconColor = '#A3A3A3'; // gris
+            iconColor = '#A3A3A3';
             iconOpacity = 0.4;
           }
+
           return (
             <View key={index} className="flex-1 items-center">
               <View

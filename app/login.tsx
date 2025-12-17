@@ -1,13 +1,11 @@
 import {
   View,
   Text,
-  TouchableOpacity,
   TextInput,
   KeyboardAvoidingView,
   Platform,
   Pressable,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
@@ -15,7 +13,7 @@ import ModalError from '@/components/utiles/modalError';
 import { router } from 'expo-router';
 import LogoUnique from '../assets/images/01_LOGO_UNIQUE.svg';
 import { useAuth } from '@/context/authContext';
-import { Eye, EyeOff, LogIn } from 'react-native-feather';
+import { Eye, EyeOff, LogIn } from 'lucide-react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RolType } from '@/data/domain/rol';
 import CustomPressable from '@/components/utiles/customPressable';
@@ -140,9 +138,9 @@ const Login = () => {
                     onPress={() => setShowPassword((prev) => !prev)}
                   >
                     {showPassword ? (
-                      <EyeOff width={20} height={20} stroke="#666" />
+                      <EyeOff width={20} height={20} color="#666" />
                     ) : (
-                      <Eye width={20} height={20} stroke="#666" />
+                      <Eye width={20} height={20} color="#666" />
                     )}
                   </Pressable>
                 </View>
