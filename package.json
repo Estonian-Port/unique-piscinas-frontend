@@ -1,7 +1,7 @@
 {
-  "name": "unique-piscinas-mobile",
+  "name": "unique-piscinas-frontend",
   "main": "expo-router/entry",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "homepage": "https://unique.estonianport.com.ar",
   "scripts": {
     "start": "expo start",
