@@ -1,27 +1,22 @@
-import { View, Text, TextInput, ScrollView, Platform } from 'react-native';
+import { View, Text, TextInput, Platform } from 'react-native';
 import React, { useState } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import { Link } from 'expo-router';
 import PoolTableCard from './cardPiscinaTabla';
 import { PiscinaRegistrada } from '@/data/domain/piscina';
 import CustomPressable from '../utiles/customPressable';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
   const [searchQuery, setSearchQuery] = useState('');
-  // Estado para controlar cuál piscina está expandida (solo UNA a la vez)
   const [expandedPoolId, setExpandedPoolId] = useState<number | null>(null);
 
-  // Filtrar piscinas según la búsqueda
   const filteredPools = pools.filter(
     (pool) =>
       pool.direccion.toLowerCase().includes(searchQuery.toLowerCase()) ||
       pool.nombreAdministrador.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  // Función para manejar la expansión/colapso
   const handleToggleExpand = (poolId: number) => {
-    // Si ya está expandida, colapsarla. Si no, expandir esta y colapsar las demás
     setExpandedPoolId(expandedPoolId === poolId ? null : poolId);
   };
 
@@ -63,7 +58,7 @@ const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
         returnKeyType="search"
       />
 
-      <ScrollView className="flex-1">
+      <View className="flex-1">
         {filteredPools.map((pool) => (
           <PoolTableCard
             key={pool.id}
@@ -80,7 +75,7 @@ const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
             </Text>
           </View>
         )}
-      </ScrollView>
+      </View>
     </ScreenCard>
   );
 };

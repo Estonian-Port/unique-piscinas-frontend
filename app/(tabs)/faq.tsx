@@ -10,7 +10,7 @@ const FAQ = () => {
   const { usuario, selectedPool } = useAuth();
 
   return (
-    <ScrollView className="flex-1 bg-white">
+    <ScrollView className="flex-1">
       <ScreenTabs>
           <View className='w-11/12'>
             <Header 

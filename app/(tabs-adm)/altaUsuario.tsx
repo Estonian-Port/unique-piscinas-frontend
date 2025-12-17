@@ -16,7 +16,7 @@ const Usuarios = () => {
 
   return (
     <PrivateScreen>
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1">
         <ScreenTabs>
           <View className="w-11/12">
             <Text className="self-start font-geist-bold text-3xl text-text m-5">

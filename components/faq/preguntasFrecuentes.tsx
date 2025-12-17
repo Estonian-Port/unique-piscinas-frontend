@@ -8,7 +8,7 @@ const PreguntasFrecuentes = () => {
   const faqs: FAQ[] = faqsMock;
 
   return (
-    <View className='p-2'>
+    <View className='p-2 bg-white rounded-lg shadow-md mb-5'>
       <View className='p-2 mb-2'>
         <View className="flex-row items-center justify-start">
           <HelpCircle

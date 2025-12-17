@@ -104,7 +104,7 @@ export default function Resume() {
 
   return (
     <PrivateScreen>
-      <ScrollView className="flex-1 bg-white">
+      <ScrollView className="flex-1">
         <ScreenTabs>
           <View className="w-11/12">
             <Header usuario={usuario} piscina={selectedPool} />
