@@ -1,5 +1,5 @@
-import { View, Text, TextInput, Platform } from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, TextInput, Platform, ScrollView } from 'react-native';
+import React, { useState, useRef } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
 import { Link } from 'expo-router';
 import PoolTableCard from './cardPiscinaTabla';
@@ -9,6 +9,7 @@ import CustomPressable from '../utiles/customPressable';
 const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [expandedPoolId, setExpandedPoolId] = useState<number | null>(null);
+  const searchInputRef = useRef<TextInput>(null);
 
   const filteredPools = pools.filter(
     (pool) =>
@@ -43,22 +44,31 @@ const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
         </Link>
       </View>
 
-      <TextInput
-        className="border rounded-lg px-3 bg-white text-base border-gray-300 mb-5 h-12"
-        style={{
-          paddingVertical: 0,
-          textAlignVertical: 'center',
-        }}
-        placeholder="Buscar piscina por nombre o propietario"
-        placeholderTextColor="#9CA3AF"
-        onChangeText={(text) => setSearchQuery(text)}
-        value={searchQuery}
-        autoCapitalize="none"
-        autoCorrect={false}
-        returnKeyType="search"
-      />
+      <View style={{ marginBottom: 20 }}>
+        <TextInput
+          ref={searchInputRef}
+          className="border rounded-lg bg-white text-base border-gray-300 h-12"
+          style={{
+            paddingHorizontal: 12,
+            paddingTop: Platform.OS === 'ios' ? 5 : 0,
+            paddingBottom: Platform.OS === 'ios' ? 5 : 0,
+            lineHeight: Platform.OS === 'ios' ? 20 : undefined,
+          }}
+          placeholder="Buscar piscina por nombre o propietario"
+          placeholderTextColor="#9CA3AF"
+          onChangeText={(text) => setSearchQuery(text)}
+          value={searchQuery}
+          autoCapitalize="none"
+          autoCorrect={false}
+          returnKeyType="search"
+        />
+      </View>
 
-      <View className="flex-1">
+      <ScrollView 
+        style={{ flex: 1 }}
+        nestedScrollEnabled={true}
+        showsVerticalScrollIndicator={false}
+      >
         {filteredPools.map((pool) => (
           <PoolTableCard
             key={pool.id}
@@ -75,7 +85,7 @@ const PiscinasRegistradas = ({ pools }: { pools: PiscinaRegistrada[] }) => {
             </Text>
           </View>
         )}
-      </View>
+      </ScrollView>
     </ScreenCard>
   );
 };

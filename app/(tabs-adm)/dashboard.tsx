@@ -82,14 +82,15 @@ const Dashboard = () => {
     <PrivateScreen>
       <KeyboardAwareScrollView
         enableOnAndroid={true}
-        enableAutomaticScroll={Platform.OS === 'android'}
-        extraScrollHeight={Platform.OS === 'android' ? 20 : 0}
+        enableAutomaticScroll={true}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 : 80}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        keyboardOpeningTime={0}
       >
         <ScreenTabs>
-          <View className="w-11/12">
+          <View className="w-11/12" style={{ paddingBottom: 40 }}>
             <Text className="self-start font-geist-bold text-3xl text-text m-5">
               Panel de Administración
             </Text>
