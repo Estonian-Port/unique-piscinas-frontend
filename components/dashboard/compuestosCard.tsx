@@ -54,7 +54,7 @@ export default function CompuestosCard({
 
   return (
     <View>
-      <View className="justify-around items-center">
+      <View className="justify-around items-center bg-white rounded-lg p-4 mb-4 border border-gray-200 w-full">
         <View className={cardStyle(values.orp)}>
           <Text className="font-geist-semi-bold text-text mr-2">ORP</Text>
           <Switch

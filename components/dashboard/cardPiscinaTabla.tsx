@@ -155,6 +155,7 @@ const PoolTableCard = ({
         type: 'success',
         text1: 'Lectura manual realizada',
         text2: 'La lectura manual se ha realizado con éxito.',
+        position: 'bottom',
       });
     } catch (error) {
       console.error('Error realizando lectura manual:', error);

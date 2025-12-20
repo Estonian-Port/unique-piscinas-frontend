@@ -188,7 +188,7 @@ const CalefaccionNuevaPiscina = ({
                 ref={scrollViewRef}
                 enableOnAndroid={true}
                 enableAutomaticScroll={true}
-                extraScrollHeight={Platform.OS === 'ios' ? 30 : 30}
+                extraScrollHeight={Platform.OS === 'ios' ? 150 : 30}
                 extraHeight={Platform.OS === 'ios' ? 150 : 70}
                 keyboardShouldPersistTaps="handled"
                 contentContainerStyle={{ flexGrow: 1 }}

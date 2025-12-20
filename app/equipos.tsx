@@ -83,7 +83,7 @@ export default function Equipos() {
 
   return (
     <PrivateScreen>
-      <ScrollView className="flex-1 bg-white px-4">
+      <ScrollView className="flex-1 px-4">
         <Screen>
           <Text className="self-start py-5 text-text font-geist-semi-bold text-2xl">
             Editar Equipamiento - {pool.direccion}
@@ -101,7 +101,7 @@ export default function Equipos() {
           ))}
           {pool.bombas.length < 4 && (
             <CustomPressable
-              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3 border border-gray-400"
               onPress={() => setModalAgregarBomba(true)}
               containerClassName='w-1/2'
             >
@@ -116,7 +116,7 @@ export default function Equipos() {
               piscina={pool}
               actualizarPiscina={fetchPool}
             />
-          <Divider />
+          <Divider customStyle='bg-gray-300 h-px my-5 w-full' />
           <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Filtro
           </Text>
@@ -125,7 +125,7 @@ export default function Equipos() {
             piscina={pool}
             actualizarPiscina={fetchPool}
           />
-          <Divider />
+          <Divider customStyle='bg-gray-300 h-px my-5 w-full' />
           <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Sistemas germicidas
           </Text>
@@ -139,7 +139,7 @@ export default function Equipos() {
           ))}
           {!tieneUv && (
             <CustomPressable
-              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3 border border-gray-400"
               onPress={() => setModalAgregarUV(true)}
               containerClassName='w-1/2'
             >
@@ -158,7 +158,7 @@ export default function Equipos() {
           )}
           {!tieneIonizador && (
             <CustomPressable
-              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3 border border-gray-400"
               onPress={() => setModalAgregarIonizador(true)}
               containerClassName='w-1/2'
             >
@@ -177,7 +177,7 @@ export default function Equipos() {
           )}
           {!tieneTrasductor && (
             <CustomPressable
-              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3 border border-gray-400"
               onPress={() => setModalAgregarTrasductor(true)}
               containerClassName='w-1/2'
             >
@@ -194,7 +194,7 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           )}
-          <Divider />
+          <Divider customStyle='bg-gray-300 h-px my-5 w-full' />
           <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Tratamiento
           </Text>
@@ -205,7 +205,7 @@ export default function Equipos() {
             piscina={pool}
             actualizarPiscina={fetchPool}
           />
-          <Divider />
+          <Divider customStyle='bg-gray-300 h-px my-5 w-full' />
           <Text className="self-start mb-2 text-text font-geist-semi-bold text-xl">
             Calefacción
           </Text>
@@ -217,7 +217,7 @@ export default function Equipos() {
             />
           ) : (
             <CustomPressable
-              className="bg-gray-200 rounded-lg p-3 items-center mb-3"
+              className="bg-gray-200 rounded-lg p-3 items-center mb-3 border border-gray-400"
               onPress={() => setModalAgregarCalefaccion(true)}
               containerClassName='w-1/2'
             >
@@ -234,14 +234,14 @@ export default function Equipos() {
               actualizarPiscina={fetchPool}
             />
           )}
-          <Divider />
+          <Divider customStyle='bg-gray-300 h-px my-5 w-full' />
           <View className="flex-row items-center justify-between mb-4 w-full self-center">
             <Text className="text-text font-geist-semi-bold text-xl">
               Registros
             </Text>
             <CustomPressable
               onPress={() => setModalNuevoRegistro(true)}
-              className="bg-white border border-grayish-unique rounded-lg py-3 px-2 flex-row items-center justify-center"
+              className="bg-gray-200 rounded-lg p-3 mb-3 border border-gray-400 flex-row items-center justify-center"
             >
               <Clipboard className="mr-2" />
               <Text className="text-black font-geist-semi-bold text-sm">
@@ -257,7 +257,7 @@ export default function Equipos() {
               />
             )}
           </View>
-          <View className="bg-white rounded-lg mb-4 w-full">
+          <View className="w-full">
           {pool.registros.length === 0 && (
             <View className="flex-1 justify-center items-center py-4">
               <Text className="text-gray-500 font-geist">

@@ -9,6 +9,7 @@ import {
   Germicida,
   GermicidaNuevo,
   PiscinaEquipamiento,
+  PiscinaFichaTecnica,
   PiscinaListItem,
   PiscinaNueva,
   PiscinaProgramacion,
@@ -274,6 +275,18 @@ class PiscinaService {
     );
     return { data: response.data.data, message: response.data.message };
   };
+
+  editarInformacionPiscina = async (
+    userId: number,
+    piscinaFicha: PiscinaFichaTecnica
+  ): Promise<{ data: PiscinaFichaTecnica; message: string }> => {
+    const response = await api.put(
+      `${PISCINA}/editar-informacion-piscina/${userId}`,
+      piscinaFicha
+    );
+    return { data: response.data.data, message: response.data.message };
+  };
+
 
 }
 

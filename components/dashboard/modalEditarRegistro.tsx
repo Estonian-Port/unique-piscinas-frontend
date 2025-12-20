@@ -16,6 +16,7 @@ import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Calendar, Edit, Info, Settings, Wrench } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
+import { formatDateToLocalString } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   accion: Yup.string().required('La acción es obligatoria'),
@@ -40,7 +41,6 @@ const ModalEditarRegistro = ({
   registro,
 }: ModalEditarRegistroProps) => {
   const [showDatePicker, setShowPicker] = useState(false);
-  const [date, setDate] = useState(new Date());
 
   const handleActualizarRegistro = async (registro: Registro) => {
     try {
@@ -79,7 +79,7 @@ const ModalEditarRegistro = ({
       onSubmit={(values) => {
         const registroActualizado: Registro = {
           id: registro.id,
-          fecha: values.fecha.toISOString().split('T')[0],
+          fecha: formatDateToLocalString(values.fecha),
           dispositivo: values.dispositivo,
           accion: values.accion,
           descripcion: values.descripcion,
@@ -88,7 +88,7 @@ const ModalEditarRegistro = ({
         handleActualizarRegistro(registroActualizado);
         onClose();
       }}
-      enableReinitialize={false}
+      enableReinitialize={true}
     >
       {({
         handleChange,
@@ -98,6 +98,7 @@ const ModalEditarRegistro = ({
         errors,
         touched,
         dirty,
+        setFieldValue,
       }) => {
         return (
           <Modal
@@ -116,7 +117,12 @@ const ModalEditarRegistro = ({
                     Actualizar Registro
                   </Text>
                   <View className="flex-row items-center mb-1">
-                    <Calendar height={16} width={16} color="#666" className="mr-2" />
+                    <Calendar
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Fecha
                     </Text>
@@ -127,25 +133,30 @@ const ModalEditarRegistro = ({
                     style={{ alignItems: 'center' }}
                   >
                     <Text className="text-text text-base font-geist-semi-bold">
-                      {date.toLocaleDateString()}
+                      {values.fecha.toLocaleDateString()}
                     </Text>
                   </Pressable>
                   {showDatePicker && (
                     <DateTimePicker
-                      date={date}
+                      date={values.fecha}
                       mode="date"
                       display="default"
                       isVisible={showDatePicker}
                       onConfirm={(selectedDate) => {
                         setShowPicker(false);
-                        setDate(selectedDate);
+                        setFieldValue('fecha', selectedDate);
                       }}
                       onCancel={() => setShowPicker(false)}
                     />
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Edit height={16} width={16}  color="#666" className="mr-2" />
+                    <Edit
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Acción
                     </Text>
@@ -166,7 +177,12 @@ const ModalEditarRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Settings height={16} width={16} color="#666" className="mr-2"/>
+                    <Settings
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Dispositivo
                     </Text>
@@ -187,7 +203,12 @@ const ModalEditarRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Info height={16} width={16}  color="#666" className="mr-2" />
+                    <Info
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Descripción
                     </Text>
@@ -211,7 +232,12 @@ const ModalEditarRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Wrench height={16} width={16}  color="#666" className="mr-2" />
+                    <Wrench
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Técnico
                     </Text>
@@ -230,31 +256,31 @@ const ModalEditarRegistro = ({
                     </Text>
                   )}
 
-                <View className="flex-row justify-between mt-3">
-                  <CustomPressable
-                    onPress={onClose}
-                    className="bg-gray-400 rounded-lg items-center justify-center h-14 mr-1"
-                    containerClassName='w-1/2'
-                  >
-                    <Text className="text-text text-center font-geist-semi-bold">
-                      Cancelar
-                    </Text>
-                  </CustomPressable>
-                  <CustomPressable  
-                    disabled={!dirty}
-                    onPress={handleSubmit as any}
-                    className={`bg-purple-unique rounded-lg items-center justify-center h-14 ml-1 ${
-                      !dirty ? 'opacity-50' : ''
-                    }`}
-                    containerClassName='w-1/2'
-                  >
-                    <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold">
-                        Guardar cambios
+                  <View className="flex-row justify-between mt-3">
+                    <CustomPressable
+                      onPress={onClose}
+                      className="bg-gray-400 rounded-lg items-center justify-center h-14 mr-1"
+                      containerClassName="w-1/2"
+                    >
+                      <Text className="text-text text-center font-geist-semi-bold">
+                        Cancelar
                       </Text>
-                    </View>
-                  </CustomPressable>
-                </View>
+                    </CustomPressable>
+                    <CustomPressable
+                      disabled={!dirty}
+                      onPress={handleSubmit as any}
+                      className={`bg-purple-unique rounded-lg items-center justify-center h-14 ml-1 ${
+                        !dirty ? 'opacity-50' : ''
+                      }`}
+                      containerClassName="w-1/2"
+                    >
+                      <View className="flex-row items-center justify-center">
+                        <Text className="text-white text-center font-geist-semi-bold">
+                          Guardar cambios
+                        </Text>
+                      </View>
+                    </CustomPressable>
+                  </View>
                 </View>
               </View>
             </KeyboardAvoidingView>

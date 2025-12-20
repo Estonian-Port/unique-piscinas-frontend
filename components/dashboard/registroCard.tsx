@@ -5,7 +5,15 @@ import ModalEditarRegistro from './modalEditarRegistro';
 import ModalEliminarEquipamiento from './modalEliminarEquipamiento';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
-import { Calendar, Edit2, Info, Settings, Wrench, Trash2 } from 'lucide-react-native';
+import {
+  Calendar,
+  Edit2,
+  Info,
+  Settings,
+  Wrench,
+  Trash2,
+} from 'lucide-react-native';
+import { formatearFecha } from '@/helper/funciones';
 
 const RegistroCard = ({
   registro,
@@ -61,17 +69,17 @@ const RegistroCard = ({
         {/* Fecha y dispositivo */}
         <View className="flex-row mb-4">
           <View className="flex-1 flex-row items-center mr-2">
-            <Calendar color="#666" className="mr-2" />
+            <Calendar width={16} height={16} color="#666" style={{marginRight: 3}} />
             <View>
               <Text className="text-gray-500 text-xs mb-1">Fecha</Text>
               <Text className="text-gray-800 font-geist-semi-bold text-sm">
-                {registro.fecha}
+                {formatearFecha(registro.fecha)}
               </Text>
             </View>
           </View>
 
           <View className="flex-1 flex-row items-center">
-            <Settings width={16} height={16} color="#666" className="mr-2" />
+            <Settings width={16} height={16} color="#666" style={{marginRight: 3}} />
             <View>
               <Text className="text-gray-500 text-xs mb-1">Dispositivo</Text>
               <Text className="text-gray-800 font-geist-semi-bold text-sm">
@@ -84,7 +92,7 @@ const RegistroCard = ({
         {/* Descripción */}
         <View className="mb-4 bg-gray-100 rounded-lg">
           <View className="flex-row items-center px-3 pt-3 mb-1">
-            <Info width={14} height={14} color="#666" className="mr-1" />
+            <Info width={16} height={16} color="#666" style={{marginRight: 3}} />
             <Text className="text-gray-500 text-xs">Descripción</Text>
           </View>
           <Text className="text-gray-800 text-sm px-3 pb-3">

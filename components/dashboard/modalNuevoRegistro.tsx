@@ -16,6 +16,7 @@ import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
 import { Calendar, Edit, Info, Settings, Wrench } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
+import { formatDateToLocalString } from '@/helper/funciones';
 
 const validationSchema = Yup.object().shape({
   accion: Yup.string().required('La acción es obligatoria'),
@@ -38,7 +39,6 @@ const ModalNuevoRegistro = ({
   piscinaId,
 }: ModalNuevoRegistroProps) => {
   const [showDatePicker, setShowPicker] = useState(false);
-  const [date, setDate] = useState(new Date());
 
   const handleNuevoRegistro = async (registro: Registro) => {
     try {
@@ -73,7 +73,7 @@ const ModalNuevoRegistro = ({
       onSubmit={(values) => {
         const nuevoRegistro: Registro = {
           id: 0,
-          fecha: values.fecha.toISOString().split('T')[0],
+          fecha: formatDateToLocalString(values.fecha),
           dispositivo: values.dispositivo,
           accion: values.accion,
           descripcion: values.descripcion,
@@ -91,6 +91,7 @@ const ModalNuevoRegistro = ({
         values,
         errors,
         touched,
+        setFieldValue,
       }) => {
         return (
           <Modal
@@ -109,7 +110,12 @@ const ModalNuevoRegistro = ({
                     Nuevo Registro
                   </Text>
                   <View className="flex-row items-center mb-1">
-                    <Calendar height={16} width={16} color="#666" className="mr-2" />
+                    <Calendar
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Fecha
                     </Text>
@@ -120,25 +126,30 @@ const ModalNuevoRegistro = ({
                     style={{ alignItems: 'center' }}
                   >
                     <Text className="text-text text-base font-geist-semi-bold">
-                      {date.toLocaleDateString()}
+                      {values.fecha.toLocaleDateString()}
                     </Text>
                   </Pressable>
                   {showDatePicker && (
                     <DateTimePicker
-                      date={date}
+                      date={values.fecha}
                       mode="date"
                       display="default"
                       isVisible={showDatePicker}
                       onConfirm={(selectedDate) => {
                         setShowPicker(false);
-                        setDate(selectedDate);
+                        setFieldValue('fecha', selectedDate);
                       }}
                       onCancel={() => setShowPicker(false)}
                     />
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Edit height={16} width={16} color="#666" className="mr-2" />
+                    <Edit
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Acción
                     </Text>
@@ -159,7 +170,12 @@ const ModalNuevoRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Settings height={16} width={16} color="#666" className="mr-2"/>
+                    <Settings
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Dispositivo
                     </Text>
@@ -180,7 +196,12 @@ const ModalNuevoRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Info height={16} width={16} color="#666" className="mr-2" />
+                    <Info
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Descripción
                     </Text>
@@ -204,7 +225,12 @@ const ModalNuevoRegistro = ({
                   )}
 
                   <View className="flex-row items-center mb-1">
-                    <Wrench height={16} width={16} color="#666" className="mr-2" />
+                    <Wrench
+                      height={16}
+                      width={16}
+                      color="#666"
+                      className="mr-2"
+                    />
                     <Text className="text-text text-base font-geist">
                       Técnico
                     </Text>
@@ -223,28 +249,28 @@ const ModalNuevoRegistro = ({
                     </Text>
                   )}
 
-                <View className="flex-row justify-between mt-5">
-                  <CustomPressable
-                    onPress={onClose}
-                    className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
-                  >
-                    <Text className="text-white text-center font-geist-semi-bold">
-                      Cancelar
-                    </Text>
-                  </CustomPressable>
-                  <CustomPressable
-                    onPress={handleSubmit as any}
-                    className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
-                    containerClassName='w-1/2'
-                  >
-                    <View className="flex-row items-center justify-center">
-                      <Text className="text-white text-center font-geist-semi-bold ml-2">
-                        Guardar
+                  <View className="flex-row justify-between mt-5">
+                    <CustomPressable
+                      onPress={onClose}
+                      className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
+                      containerClassName="w-1/2"
+                    >
+                      <Text className="text-white text-center font-geist-semi-bold">
+                        Cancelar
                       </Text>
-                    </View>
-                  </CustomPressable>
-                </View>
+                    </CustomPressable>
+                    <CustomPressable
+                      onPress={handleSubmit as any}
+                      className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
+                      containerClassName="w-1/2"
+                    >
+                      <View className="flex-row items-center justify-center">
+                        <Text className="text-white text-center font-geist-semi-bold ml-2">
+                          Guardar
+                        </Text>
+                      </View>
+                    </CustomPressable>
+                  </View>
                 </View>
               </View>
             </KeyboardAvoidingView>

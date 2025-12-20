@@ -10,7 +10,7 @@ import {
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { Clock, Filter } from 'lucide-react-native';
+import { BrushCleaning, ClipboardClock, Clock, Filter } from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 import { programacionService } from '@/services/programacion.service';
 
@@ -166,7 +166,7 @@ const ProgramacionFiltrado = ({
   return (
     <ScreenCard>
       <View className="flex-row items-center  mb-4">
-        <Filter color="cyan" />
+        <Filter color='blue' width={20} height={20}/>
         <Text className="font-geist-semi-bold text-text text-2xl ml-1">
           Programación de Filtrado
         </Text>
@@ -174,7 +174,7 @@ const ProgramacionFiltrado = ({
 
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <Clock />
+          <ClipboardClock width={20} height={20}/>
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Ciclos programados
           </Text>
