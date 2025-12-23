@@ -4,9 +4,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage"
 import { authService } from "@/services/auth.service"
 import { piscinaService } from "@/services/piscina.service"
 import { PiscinaListItem } from "@/data/domain/piscina"
-
-export const STORAGE_KEY_POOL = "pool_id"
-export const STORAGE_KEY_TOKEN = "token"
+import { STORAGE_KEY_POOL, STORAGE_KEY_TOKEN } from "@/util/storage"
 
 type AuthContextType = {
   usuario: UsuarioLogin | null

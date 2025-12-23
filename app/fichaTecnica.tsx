@@ -9,6 +9,8 @@ import PrivateScreen from '@/components/utiles/privateScreen';
 import { useAuth } from '@/context/authContext';
 import { administracionService } from '@/services/administracion.service';
 import { Edit2 } from 'lucide-react-native';
+import { piscinaService } from '@/services/piscina.service';
+import Toast from 'react-native-toast-message';
 
 export default function FichaTecnica() {
   const { usuario, selectedPool } = useAuth();
@@ -36,8 +38,24 @@ export default function FichaTecnica() {
     fetchPool();
   }, [selectedPool, usuario]);
 
-  const handleEdit = (poolEditada: PiscinaFichaTecnica) => {
-    setPool(poolEditada); // Actualizar el pool editado
+  const handleEdit = async (poolEditada: PiscinaFichaTecnica) => {
+    try {
+      const response = await piscinaService.editarInformacionPiscina(usuario!.id, poolEditada);
+      setPool(response.data);
+      Toast.show({
+        type: 'success',
+        text1: 'Éxito',
+        text2: 'La información de la piscina ha sido actualizada.',
+        position: 'bottom',
+      });
+    } catch (error) {
+      Toast.show({
+        type: 'error',
+        text1: 'Error',
+        text2: 'No se pudo actualizar la información de la piscina.',
+        position: 'bottom',
+      });
+    }
   };
 
   // Mostrar loading mientras carga

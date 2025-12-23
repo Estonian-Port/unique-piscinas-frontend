@@ -1,10 +1,4 @@
-import {
-  ActivityIndicator,
-  Platform,
-  ScrollView,
-  Text,
-  View,
-} from 'react-native';
+import { ActivityIndicator, Platform, Text, View } from 'react-native';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { ScreenTabs } from '@/components/utiles/Screen';
 import StatCard from '@/components/dashboard/statCard';
@@ -57,7 +51,6 @@ const Dashboard = () => {
     [usuario]
   );
 
-  // Carga inicial solo una vez
   useEffect(() => {
     if (!hasLoadedRef.current) {
       hasLoadedRef.current = true;
@@ -65,17 +58,14 @@ const Dashboard = () => {
     }
   }, [fetchData]);
 
-  // Refrescar cuando la pantalla obtiene foco
   useFocusEffect(
     useCallback(() => {
-      // Solo refrescar si ya se hizo la carga inicial
       if (hasLoadedRef.current) {
         fetchData(false);
       }
     }, [fetchData])
   );
 
-  // Pull to refresh
   const onRefresh = useCallback(() => {
     fetchData(false);
   }, [fetchData]);
@@ -93,73 +83,69 @@ const Dashboard = () => {
       <KeyboardAwareScrollView
         enableOnAndroid={true}
         enableAutomaticScroll={true}
-        extraScrollHeight={0}
-        extraHeight={0}
+        extraScrollHeight={Platform.OS === 'ios' ? 100 : 80}
         keyboardShouldPersistTaps="handled"
-        contentContainerStyle={{ flexGrow: 1, paddingBottom: 0 }}
-        enableResetScrollToCoords={false}
-        scrollEnabled={true}
+        contentContainerStyle={{ flexGrow: 1 }}
         showsVerticalScrollIndicator={false}
+        keyboardOpeningTime={0}
       >
-        <ScrollView className="flex-1 bg-white">
-          <ScreenTabs>
-            <View className="w-11/12">
-              <Text className="self-start font-geist-bold text-3xl text-text m-5">
-                Panel de Administración
-              </Text>
+        <ScreenTabs>
+          <View className="w-11/12" style={{ paddingBottom: 40 }}>
+            <Text className="self-start font-geist-bold text-3xl text-text m-5">
+              Panel de Administración
+            </Text>
 
-              <WebTabBar isAdmin={true} />
+            <WebTabBar isAdmin={true} />
 
-              {Platform.OS === 'web' ? (
-                <View className="grid grid-cols-3 gap-3">
-                  <StatCard
-                    title="Usuarios"
-                    value={stats.totalUsuarios}
-                    label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
-                    icon="people"
-                  />
-                  <StatCard
-                    title="Piscinas"
-                    value={stats.totalPiscinas}
-                    label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
-                    icon="water-drop"
-                  />
-                  <StatCard
-                    title="Volumen Total"
-                    value={stats.volumenTotal}
-                    label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
-                    icon="water"
-                    unity="m³"
-                  />
-                </View>
-              ) : (
-                <>
-                  <StatCard
-                    title="Usuarios"
-                    value={stats.totalUsuarios}
-                    label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
-                    icon="people"
-                  />
-                  <StatCard
-                    title="Piscinas"
-                    value={stats.totalPiscinas}
-                    label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
-                    icon="water-drop"
-                  />
-                  <StatCard
-                    title="Volumen Total"
-                    value={stats.volumenTotal}
-                    label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
-                    icon="water"
-                    unity="m³"
-                  />
-                </>
-              )}
+            {Platform.OS === 'web' ? (
+              <View className="grid grid-cols-3 gap-3">
+                <StatCard
+                  title="Usuarios"
+                  value={stats.totalUsuarios}
+                  label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
+                  icon="people"
+                />
+                <StatCard
+                  title="Piscinas"
+                  value={stats.totalPiscinas}
+                  label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
+                  icon="water-drop"
+                />
+                <StatCard
+                  title="Volumen Total"
+                  value={stats.volumenTotal}
+                  label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
+                  icon="water"
+                  unity="m³"
+                />
+              </View>
+            ) : (
+              <>
+                <StatCard
+                  title="Usuarios"
+                  value={stats.totalUsuarios}
+                  label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
+                  icon="people"
+                />
+                <StatCard
+                  title="Piscinas"
+                  value={stats.totalPiscinas}
+                  label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
+                  icon="water-drop"
+                />
+                <StatCard
+                  title="Volumen Total"
+                  value={stats.volumenTotal}
+                  label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
+                  icon="water"
+                  unity="m³"
+                />
+              </>
+            )}
 
-              <PiscinasRegistradas pools={piscinasRegistradas} />
-            </View>
-          </ScreenTabs>
-        </ScrollView>
+            <PiscinasRegistradas pools={piscinasRegistradas} />
+          </View>
+        </ScreenTabs>
       </KeyboardAwareScrollView>
     </PrivateScreen>
   );

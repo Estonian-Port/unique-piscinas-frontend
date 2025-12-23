@@ -29,7 +29,6 @@ const ModalEditarInfoGeneral = ({
   pool: PiscinaFichaTecnica;
   onSave: (poolEditado: PiscinaFichaTecnica) => void;
 }) => {
-
   return (
     <Modal
       animationType="fade"
@@ -57,6 +56,7 @@ const ModalEditarInfoGeneral = ({
           handleBlur,
           handleSubmit,
           errors,
+          values,
           touched,
         }) => (
           <KeyboardAvoidingView
@@ -74,7 +74,7 @@ const ModalEditarInfoGeneral = ({
                 </Text>
                 <TextInput
                   className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                  value={pool.direccion}
+                  value={values.direccion}
                   onChangeText={handleChange('direccion')}
                   onBlur={handleBlur('direccion')}
                   placeholder="Ej: Calle Falsa 123"
@@ -91,10 +91,10 @@ const ModalEditarInfoGeneral = ({
                 </Text>
                 <TextInput
                   className="border-2 bg-white border-gray-300 rounded-md py-4 px-3"
-                  value={pool.ciudad}
+                  value={values.ciudad}
                   onChangeText={handleChange('ciudad')}
                   onBlur={handleBlur('ciudad')}
-                  placeholder="Ej: Ciudad de México"
+                  placeholder="Ej: Buenos Aires"
                   placeholderTextColor="#9CA3AF"
                 />
                 {errors.ciudad && touched.ciudad && (
@@ -107,7 +107,7 @@ const ModalEditarInfoGeneral = ({
                   <CustomPressable
                     onPress={onClose}
                     className="bg-gray-400 rounded-lg items-center justify-center h-12 mr-1"
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <Text className="text-white text-center font-geist-semi-bold">
                       Cancelar
@@ -116,7 +116,7 @@ const ModalEditarInfoGeneral = ({
                   <CustomPressable
                     onPress={handleSubmit as any}
                     className="bg-purple-unique rounded-lg items-center justify-center h-12 ml-1"
-                    containerClassName='w-1/2'
+                    containerClassName="w-1/2"
                   >
                     <View className="flex-row items-center justify-center">
                       <Text className="text-white text-center font-geist-semi-bold ml-2">

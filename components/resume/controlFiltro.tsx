@@ -18,6 +18,7 @@ import ModalBarrefondo from './modalBarrefondo';
 import Toast from 'react-native-toast-message';
 import { Box, Circle, Droplet, Eye, Info } from 'react-native-feather';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
+import { BrushCleaning } from 'lucide-react-native';
 
 interface ControlFiltroProps {
   piscina: PiscinaResume;
@@ -279,7 +280,7 @@ export default function ControlFiltro({
           }`}
           onPress={handleBarrefondoPress}
         >
-          <Circle />
+          <BrushCleaning />
           <Text className="font-geist-semi-bold text-base text-text mt-2">
             Barrefondo
           </Text>

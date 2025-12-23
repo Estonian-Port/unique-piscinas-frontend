@@ -10,7 +10,15 @@ import Schedule from './schedule';
 import ModalProgramacion from './modalProgramacion';
 import Toast from 'react-native-toast-message';
 import { useAuth } from '@/context/authContext';
-import { Clock, Sliders } from 'lucide-react-native';
+import {
+  BrushCleaning,
+  ClipboardClock,
+  Clock,
+  Lightbulb,
+  LightbulbOff,
+  Sliders,
+  Sun,
+} from 'lucide-react-native';
 import CustomPressable from '../utiles/customPressable';
 import { estadoPiscinaService } from '@/services/estadoPiscina.service';
 import { programacionService } from '@/services/programacion.service';
@@ -217,7 +225,7 @@ const ProgramacionIluminacion = ({
   return (
     <ScreenCard>
       <View className="flex-row items-center  mb-4">
-        <Clock color="orange" />
+        <Sun color="orange" />
         <Text className="font-geist-semi-bold text-text text-2xl ml-1">
           Control de Iluminación
         </Text>
@@ -225,7 +233,7 @@ const ProgramacionIluminacion = ({
 
       <View className="flex-row items-center justify-between mb-2">
         <View className="flex-row items-center">
-          <Sliders />
+          <Sliders width={20} height={20}/>
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Control Manual
           </Text>
@@ -241,7 +249,7 @@ const ProgramacionIluminacion = ({
 
       <View className="flex-row items-center justify-between mb-4">
         <View className="flex-row items-center">
-          <Clock />
+          <ClipboardClock width={20} height={20}/>
           <Text className="font-geist-semi-bold text-text text-base ml-1">
             Horarios programados
           </Text>

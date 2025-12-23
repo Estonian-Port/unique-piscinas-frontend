@@ -320,7 +320,7 @@ const BombaNuevaPiscina = ({
                 extraScrollHeight={Platform.OS === 'ios' ? 150 : 200}
                 extraHeight={Platform.OS === 'ios' ? 150 : 200}
                 keyboardShouldPersistTaps="handled"
-                contentContainerStyle={{ flexGrow: 1, paddingBottom: 100 }}
+                contentContainerStyle={{ flexGrow: 1}}
                 enableResetScrollToCoords={false}
                 scrollEnabled={true}
                 showsVerticalScrollIndicator={false}
