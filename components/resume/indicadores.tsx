@@ -1,33 +1,34 @@
 import { View, Text } from 'react-native';
 import { useMemo } from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
-import { MaterialIcons } from '@expo/vector-icons';
-import { PiscinaResume, sistemaGermicida } from '@/data/domain/piscina';
+import { Zap, Lightbulb, Waves, ThermometerSun } from 'lucide-react-native';
+import { PiscinaResume } from '@/data/domain/piscina';
 
+// Cambia el tipo del icon a ser el componente de Lucide
 const indicadores: {
   name: string;
   title: string;
-  icon: 'bolt' | 'lightbulb-outline' | 'water' | 'thermostat';
+  icon: typeof Zap | typeof Lightbulb | typeof Waves | typeof ThermometerSun;
 }[] = [
   {
     name: 'UV',
     title: 'UV',
-    icon: 'bolt',
+    icon: Zap,
   },
   {
     name: 'Ionizador',
     title: 'ION',
-    icon: 'lightbulb-outline',
+    icon: Lightbulb,
   },
   {
     name: 'Trasductor',
     title: 'US',
-    icon: 'water',
+    icon: Waves,
   },
   {
     name: 'Calefaccion',
     title: 'Calentador',
-    icon: 'thermostat',
+    icon: ThermometerSun,
   },
 ];
 
@@ -92,24 +93,24 @@ const Indicadores = ({ piscina }: { piscina: PiscinaResume }) => {
           if (estado === 'encendido') {
             borderColor = 'border-green-500';
             bgColor = 'bg-green-100';
-            iconColor = 'green';
+            iconColor = '#22c55e'; // green-500 en hex
             textColor = 'text-green-600';
           } else if (estado === 'no-existe') {
             iconColor = '#A3A3A3';
             iconOpacity = 0.4;
           }
 
+          // Asigna el componente del icono a una variable
+          const IconComponent = indicador.icon;
+
           return (
             <View key={index} className="flex-1 items-center">
               <View
                 className={`border p-3 rounded-full items-center ${borderColor} ${bgColor}`}
               >
-                <MaterialIcons
-                  name={indicador.icon}
-                  size={32}
-                  color={iconColor}
-                  style={{ opacity: iconOpacity }}
-                />
+                <View style={{ opacity: iconOpacity }}>
+                  <IconComponent width={24} height={24} color={iconColor} />
+                </View>
               </View>
               <Text
                 className={`font-geist-semi-bold text-base mt-1 ${textColor}`}

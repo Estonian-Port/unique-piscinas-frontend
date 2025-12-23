@@ -23,7 +23,7 @@ const PreguntasFrecuentes = () => {
         </View>
       </View>
 
-      <View className="py-3">
+      <View className="py-3 w-full">
         {faqs.map((faq, index) => (
           <FAQItem faq={faq} key={index} />
         ))}

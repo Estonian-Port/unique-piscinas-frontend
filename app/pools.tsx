@@ -12,9 +12,14 @@ const Pools = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (!user) {
+      setLoading(false);
+      return;
+    }
+
     const fetchPools = async () => {
       try {
-        const data = await piscinaService.getPiscinasByUserId(user!.id);
+        const data = await piscinaService.getPiscinasByUserId(user.id);
         setPools(data);
       } catch (error) {
         console.error('Error cargando las piscinas:', error);
@@ -25,6 +30,10 @@ const Pools = () => {
 
     fetchPools();
   }, [user]);
+
+  if (!user) {
+    return null;
+  }
 
   if (loading || !pools) {
     return (
@@ -49,7 +58,8 @@ const Pools = () => {
               No tienes piscinas asignadas
             </Text>
             <Text className="font-geist text-yellow-900 text-base text-center">
-              Por favor contacta a un administrador para que te asigne una piscina y puedas comenzar a gestionar.
+              Por favor contacta a un administrador para que te asigne una
+              piscina y puedas comenzar a gestionar.
             </Text>
           </View>
         )}

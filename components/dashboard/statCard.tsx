@@ -1,7 +1,5 @@
 import { View, Text } from 'react-native';
-import React from 'react';
 import { ScreenCard } from '../utiles/ScreenCard';
-import { MaterialIcons } from '@expo/vector-icons';
 
 type StatCardProps = {
   title: string;
@@ -22,7 +20,7 @@ const StatCard = ({
     <ScreenCard>
       <View className="flex-row justify-between mb-2">
         <Text className="font-geist-semi-bold text-xl text-text">{title}</Text>
-        <MaterialIcons name={icon} size={20} color="black" />
+        {icon}
       </View>
       <Text className="font-geist-semi-bold text-3xl text-text mb-1">{`${value} ${unity}`}</Text>
       <Text className="font-geist-light text-base text-gray-500">{label}</Text>
