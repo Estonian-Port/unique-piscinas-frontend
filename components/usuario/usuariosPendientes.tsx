@@ -13,15 +13,19 @@ import ModalReenviarInvitacion from './modalReenviarInvitacion';
 const UsuariosPendientes = ({ refreshKey }: { refreshKey: number }) => {
   const { usuario } = useAuth();
   const [users, setUsers] = useState<UsuarioPendiente[]>([]);
-  const [modalEliminarInvitacionVisible, setModalEliminarInvitacionVisible] = useState(false);
-  const [modalReenviarInvitacionVisible, setModalReenviarInvitacionVisible] = useState(false);
+  const [modalEliminarInvitacionVisible, setModalEliminarInvitacionVisible] =
+    useState(false);
+  const [modalReenviarInvitacionVisible, setModalReenviarInvitacionVisible] =
+    useState(false);
 
   const [selectedEmail, setSelectedEmail] = useState<string>('');
 
   const fetchData = useCallback(async () => {
     if (!usuario) return;
     try {
-      const response = await administracionService.getUsuariosPendientes(usuario.id);
+      const response = await administracionService.getUsuariosPendientes(
+        usuario.id
+      );
       setUsers(response);
     } catch (error) {
       console.error('Error fetching user data:', error);
@@ -84,52 +88,59 @@ const UsuariosPendientes = ({ refreshKey }: { refreshKey: number }) => {
           Invitaciones enviadas por email
         </Text>
       </View>
-
-      {users.map((user) => (
-        <View
-          className="flex-row justify-between items-center py-4 border-b border-gray-200"
-          key={user.id}
-        >
-          <View className='flex-1 mr-4'>
-            <Text
-              className="font-geist-semi-bold text-text text-base"
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={{ flexShrink: 1 }}
-            >
-              {user.email}
-            </Text>
-            <Text
-              className="font-geist text-gray-500 text-sm"
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={{ flexShrink: 1 }}
-            >
-              Invitación enviada el {user.fechaAlta}
-            </Text>
-          </View>
-
-          <Pressable
-            className='mr-2'
-            onPress={() => {
-              setSelectedEmail(user.email);
-              setModalEliminarInvitacionVisible(true);
-            }}
-          >
-            <Trash2 height={26} width={26} color={'red'} />
-          </Pressable>
-
-          <Pressable
-            className='ml-2'
-            onPress={() => {
-              setSelectedEmail(user.email);
-              setModalReenviarInvitacionVisible(true);
-            }}
-          >
-            <RefreshCcw height={26} width={26} color={'green'} />
-          </Pressable>
+      {users.length === 0 ? (
+        <View className="items-center justify-center py-8">
+          <Text className="font-geist-semi-bold text-text text-lg text-center">
+            No invitaciones pendientes
+          </Text>
         </View>
-      ))}
+      ) : (
+        users.map((user) => (
+          <View
+            className="flex-row justify-between items-center py-4 border-b border-gray-200"
+            key={user.id}
+          >
+            <View className="flex-1 mr-4">
+              <Text
+                className="font-geist-semi-bold text-text text-base"
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{ flexShrink: 1 }}
+              >
+                {user.email}
+              </Text>
+              <Text
+                className="font-geist text-gray-500 text-sm"
+                numberOfLines={1}
+                ellipsizeMode="tail"
+                style={{ flexShrink: 1 }}
+              >
+                Invitación enviada el {user.fechaAlta}
+              </Text>
+            </View>
+
+            <Pressable
+              className="mr-2"
+              onPress={() => {
+                setSelectedEmail(user.email);
+                setModalEliminarInvitacionVisible(true);
+              }}
+            >
+              <Trash2 height={26} width={26} color={'red'} />
+            </Pressable>
+
+            <Pressable
+              className="ml-2"
+              onPress={() => {
+                setSelectedEmail(user.email);
+                setModalReenviarInvitacionVisible(true);
+              }}
+            >
+              <RefreshCcw height={26} width={26} color={'green'} />
+            </Pressable>
+          </View>
+        ))
+      )}
 
       {/* Una sola instancia de cada modal, con el email seleccionado */}
       <ModalEliminarInvitacion

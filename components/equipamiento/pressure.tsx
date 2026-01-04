@@ -1,4 +1,4 @@
-import { MaterialIcons } from "@expo/vector-icons"
+import { Gauge } from "lucide-react-native"
 import { View, Text } from "react-native"
 
 type PressureGaugeProps = {
@@ -30,7 +30,7 @@ export default function PressureGauge({
     <View className="w-full my-3">
       <View className="flex-row justify-between items-center mb-1 w-full">
         <View className="flex-row items-center mb-1">
-        <MaterialIcons name="speed" size={18} color="#000" />
+        <Gauge width={18} height={18} color="#000" />
         <Text className='font-geist-semi-bold text-text text-base ml-1'>{title}</Text>
         </View>
         <Text className={`text-base font-bold ${isOptimal ? "text-green-500" : "text-red-500"}`}>

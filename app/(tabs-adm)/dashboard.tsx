@@ -11,6 +11,7 @@ import PrivateScreen from '@/components/utiles/privateScreen';
 import WebTabBar from '@/components/utiles/webTabBar';
 import { useFocusEffect } from 'expo-router';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { Users, Waves, WavesLadder } from 'lucide-react-native';
 
 const Dashboard = () => {
   const { usuario } = useAuth();
@@ -103,19 +104,19 @@ const Dashboard = () => {
                   title="Usuarios"
                   value={stats.totalUsuarios}
                   label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
-                  icon="people"
+                  icon={<Users color={"black"} width={20} height={20} />}
                 />
                 <StatCard
                   title="Piscinas"
                   value={stats.totalPiscinas}
                   label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
-                  icon="water-drop"
+                  icon={<WavesLadder color={"black"} width={20} height={20} />}
                 />
                 <StatCard
                   title="Volumen Total"
                   value={stats.volumenTotal}
                   label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
-                  icon="water"
+                  icon={<Waves color={"black"} width={20} height={20} />}
                   unity="m³"
                 />
               </View>
@@ -125,19 +126,19 @@ const Dashboard = () => {
                   title="Usuarios"
                   value={stats.totalUsuarios}
                   label={`${stats.usuariosActivos} activos, ${stats.usuariosInactivos} inactivos, ${stats.usuariosPendientes} pendientes`}
-                  icon="people"
+                  icon={<Users color={"black"} width={20} height={20} />}
                 />
                 <StatCard
                   title="Piscinas"
                   value={stats.totalPiscinas}
                   label={`${stats.piscinasSkimmer} skimmer, ${stats.piscinasDesborde} desborde`}
-                  icon="water-drop"
+                  icon={<WavesLadder color={"black"} width={20} height={20} />}
                 />
                 <StatCard
                   title="Volumen Total"
                   value={stats.volumenTotal}
                   label={`Promedio: ${stats.volumenPromedio} m³ por piscina`}
-                  icon="water"
+                  icon={<Waves color={"black"} width={20} height={20} />}
                   unity="m³"
                 />
               </>

@@ -29,16 +29,16 @@ export default function WebTabBar({ isAdmin = false }: WebTabBarProps) {
 
   const handlePress = async (route: string) => {
     if(isAdmin){
-      router.replace(`/(tabs-adm)${route}`);
+      router.replace(`/(tabs-adm)${route}` as any);
     }else{
-      router.replace(`/(tabs)${route}`);
+      router.replace(`/(tabs)${route}`as any);
     }
   }
     
   if (Platform.OS !== "web") return null;
 
   return (
-    <View className="flex-row bg-gray-100 rounded-lg p-1 mb-4 w-full">
+    <View className="flex-row bg-gray-50 rounded-lg p-1 mb-4 w-full">
       {tabs.map((tab) => {
         const isActive = pathname === tab.route;
         return (

@@ -60,7 +60,7 @@ const ModalBarrefondo = ({
             <View className="flex-row justify-between mt-3">
               <CustomPressable
                 onPress={onClose}
-                className="bg-gray-400 rounded-lg mr-1 items-center justify-center h-12"
+                className="bg-gray-400 rounded-lg items-center justify-center h-12 border-x-2 border-white"
                 containerClassName="w-1/3"
               >
                 <Text className="text-text text-center font-geist-semi-bold">
@@ -69,7 +69,7 @@ const ModalBarrefondo = ({
               </CustomPressable>
               <CustomPressable
                 onPress={handleFiltrarPress}
-                className="bg-purple-unique rounded-lg mx-1 items-center justify-center h-12"
+                className="bg-purple-unique rounded-lg items-center justify-center h-12 border-x-2 border-white"
                 containerClassName="w-1/3"
               >
                 <Text className="text-white text-center font-geist-semi-bold">
@@ -78,7 +78,7 @@ const ModalBarrefondo = ({
               </CustomPressable>
               <CustomPressable
                 onPress={handleDesagotarPress}
-                className="bg-purple-unique rounded-lg ml-1 items-center justify-center h-12"
+                className="bg-purple-unique rounded-lg items-center justify-center h-12 border-x-2 border-white"
                 containerClassName="w-1/3"
               >
                 <Text className="text-white text-center font-geist-semi-bold">

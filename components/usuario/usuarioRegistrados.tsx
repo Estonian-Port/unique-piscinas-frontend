@@ -40,15 +40,26 @@ const UsuarioRegistrados = ({ refreshKey }: { refreshKey: number }) => {
           Gestion de usuarios y sus piscinas
         </Text>
       </View>
-      {users.map((user) => (
-        <UserItem
-          key={user.id}
-          usuario={user}
-          isExpanded={expandedUserId === user.id}
-          onToggleExpand={() => handleToggleExpand(user.id)}
-          onActualizarPiscinasAsignadas={fetchData}
-        />
-      ))}
+      {users.length === 0 ? (
+        <View className="items-center justify-center py-8">
+          <Text className="font-geist-semi-bold text-text text-lg text-center">
+            No hay usuarios registrados
+          </Text>
+          <Text className="font-geist-light text-text text-sm text-center mt-2">
+            Comienza agregando un nuevo usuario
+          </Text>
+        </View>
+      ) : (
+        users.map((user) => (
+          <UserItem
+            key={user.id}
+            usuario={user}
+            isExpanded={expandedUserId === user.id}
+            onToggleExpand={() => handleToggleExpand(user.id)}
+            onActualizarPiscinasAsignadas={fetchData}
+          />
+        ))
+      )}
     </ScreenCard>
   );
 };

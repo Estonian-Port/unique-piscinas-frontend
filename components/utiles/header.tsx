@@ -3,15 +3,20 @@ import { View, Text } from 'react-native';
 import BotonCambio from './botonCambio';
 import { UsuarioLogin } from '@/data/domain/user';
 import { PiscinaListItem } from '@/data/domain/piscina';
+import PrivateScreen from './privateScreen';
 
 type HeaderProps = {
-  usuario: UsuarioLogin
-  piscina: PiscinaListItem
+  usuario: UsuarioLogin | null;
+  piscina: PiscinaListItem | null;
 };
 
 const Header = ({ usuario, piscina }: HeaderProps) => {
+  if (!usuario || !piscina) {
+    return null;
+  }
+
   return (
-    <>
+    <PrivateScreen>
       <View className="w-11/12 my-3">
         <Text className="font-geist-bold text-2xl text-text">
           Hola, {usuario.nombre}. Bienvenido!
@@ -26,9 +31,11 @@ const Header = ({ usuario, piscina }: HeaderProps) => {
             Volumen de la piscina: {piscina.volumen} m3
           </Text>
         </View>
-        {usuario.piscinasId.length > 1 && usuario.rol !== 'ADMIN' && <BotonCambio />}
+        {usuario.piscinasId.length > 1 && usuario.rol !== 'ADMIN' && (
+          <BotonCambio />
+        )}
       </View>
-    </>
+    </PrivateScreen>
   );
 };
 

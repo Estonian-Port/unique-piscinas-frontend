@@ -1,6 +1,4 @@
 import { View, Text, Pressable } from 'react-native';
-import React from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 import { PiscinaRegistrada as PiscinaRegistrada } from '@/data/domain/piscina';
 import { useAuth } from '@/context/authContext';
@@ -15,6 +13,11 @@ import {
   Tag,
   User,
   Settings,
+  Zap,
+  Lightbulb,
+  Waves,
+  ThermometerSun,
+  Aperture,
 } from 'lucide-react-native';
 import { piscinaService } from '@/services/piscina.service';
 import Toast from 'react-native-toast-message';
@@ -54,15 +57,15 @@ const EquipmentItem = ({
   const getIcon = () => {
     switch (tipo) {
       case 'UV':
-        return 'electric-bolt';
+        return <Zap color={getStatusColor()}/>;
       case 'Ionizador de cobre':
-        return 'lightbulb';
+        return <Lightbulb color={getStatusColor()}/>;
       case 'Trasductor de ultrasonido':
-        return 'waves';
+        return <Waves color={getStatusColor()}/>;
       case 'Calentador':
-        return 'thermostat';
+        return <ThermometerSun color={getStatusColor()}/>;
       default:
-        return 'device-unknown';
+        return <Aperture color={getStatusColor()}/>;
     }
   };
 
@@ -83,7 +86,7 @@ const EquipmentItem = ({
 
   return (
     <View className="items-center bg-gray-50 p-3 rounded-lg">
-      <MaterialIcons name={getIcon()} size={24} color={getStatusColor()} />
+      {getIcon()}
       <Text className="font-geist text-text text-xs mt-1 text-center">{tipo}</Text>
       <View
         className="mt-1 px-2 py-1 rounded-full"

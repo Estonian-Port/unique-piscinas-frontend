@@ -1,4 +1,4 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import { Clock } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { View, Text, Pressable } from 'react-native';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
@@ -20,7 +20,7 @@ const TimeInput = ({title, timeSchedule, onChange} : {title:string, timeSchedule
         className="items-center"
       >
         <View className="flex-row items-center mb-1">
-          <MaterialIcons name="schedule" size={20} color="#000" />
+          <Clock width={20} height={20} color="#000" />
           <Text className="font-geist text-text text-sm ml-1">
             {title}
           </Text>

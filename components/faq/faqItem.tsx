@@ -3,6 +3,25 @@ import { useState } from 'react';
 import { Pressable, View, Text } from 'react-native';
 import { ChevronDown, ChevronUp } from 'lucide-react-native';
 
+// Función helper para procesar el texto con negritas
+const renderFormattedText = (text: string) => {
+  // Divide el texto por los marcadores de negrita **texto**
+  const parts = text.split(/(\*\*.*?\*\*)/g);
+  
+  return parts.map((part, index) => {
+    // Si está entre **, aplicar negrita
+    if (part.startsWith('**') && part.endsWith('**')) {
+      const boldText = part.slice(2, -2);
+      return (
+        <Text key={index} className="font-geist-bold">
+          {boldText}
+        </Text>
+      );
+    }
+    return <Text key={index}>{part}</Text>;
+  });
+};
+
 const FAQItem = ({ faq }: { faq: FAQ }) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -30,7 +49,7 @@ const FAQItem = ({ faq }: { faq: FAQ }) => {
       {isExpanded && (
         <View className="bg-[#F0F7FB] mx-3 mb-3 p-4 rounded-lg border-l-4 border-[#D4AF37]">
           <Text className="font-geist text-[#2C3E50] text-base leading-6">
-            {faq.answer}
+            {renderFormattedText(faq.answer)}
           </Text>
         </View>
       )}
