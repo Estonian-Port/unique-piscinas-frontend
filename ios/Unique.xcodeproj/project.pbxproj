@@ -7,36 +7,36 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0EF377B2B8EF4AEAB9484CD2 /* Geist-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BE3491CD51204F77AA687622 /* Geist-ExtraLight.ttf */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
-		1CBD842B344E48E889674873 /* Geist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBFDBED3CDC34CDFA0EF386F /* Geist-SemiBold.ttf */; };
-		3A382B4FA9B74D868B848406 /* Geist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 892F8E4010704A27AF7D1972 /* Geist-Bold.ttf */; };
+		1B41E38C4FC54CB4BC971745 /* Geist-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 929264B2827F42D5A7BEFD8D /* Geist-Light.ttf */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
-		615078E582862DB76E75D07A /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = EAF0E3DA06DCC828610589F2 /* PrivacyInfo.xcprivacy */; };
-		6ED7C04E570F45E4B312B9B5 /* Geist-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 05C75BEA7AD1465F9E059226 /* Geist-Light.ttf */; };
-		B66BF66BF7D2F529AECCC996 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB515F9A0FD8E389C6F5F147 /* ExpoModulesProvider.swift */; };
+		64332A9D91ADD1B223741F8B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 1F4E4A6C1F9DCBE9303CC340 /* PrivacyInfo.xcprivacy */; };
+		7FA71919E318420BBD178D55 /* Geist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B56BC76DF8C940AE91092659 /* Geist-Regular.ttf */; };
+		91E1233E0663487FB006B642 /* Geist-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = ACD12E923B3D4736A716B0AB /* Geist-Bold.ttf */; };
+		AE716C33B175D3C652A40680 /* libPods-Unique.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D9CFD825255938A70F0B9595 /* libPods-Unique.a */; };
+		B33D78B735F8470A984641B1 /* Geist-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C3E8B606F7424E2AA278DEFA /* Geist-SemiBold.ttf */; };
+		B5948226D6130B8A42AEDC71 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B97020EDF0E2C05266DE585 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
-		D2D6C797F47847EB84745305 /* Geist-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7EE5D2E128D14DE48556E2FB /* Geist-Regular.ttf */; };
-		D328DCB622BC1B18D6764AA7 /* libPods-Unique.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EA0026F5B4A657C9E75155D5 /* libPods-Unique.a */; };
 		F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11748412D0307B40044C1D9 /* AppDelegate.swift */; };
-		F8E2182229004925936A653D /* Geist-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BED6824EBCCC408AB7BBA38A /* Geist-ExtraLight.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		05C75BEA7AD1465F9E059226 /* Geist-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Light.ttf"; path = "../assets/fonts/Geist-Light.ttf"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* Unique.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unique.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = Unique/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = Unique/Info.plist; sourceTree = "<group>"; };
-		5AC69ADC6CF3B59624BF3FED /* Pods-Unique.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unique.release.xcconfig"; path = "Target Support Files/Pods-Unique/Pods-Unique.release.xcconfig"; sourceTree = "<group>"; };
-		7EE5D2E128D14DE48556E2FB /* Geist-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Regular.ttf"; path = "../assets/fonts/Geist-Regular.ttf"; sourceTree = "<group>"; };
-		892F8E4010704A27AF7D1972 /* Geist-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Bold.ttf"; path = "../assets/fonts/Geist-Bold.ttf"; sourceTree = "<group>"; };
+		1C4610CCF2CE12920FC28AC1 /* Pods-Unique.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unique.release.xcconfig"; path = "Target Support Files/Pods-Unique/Pods-Unique.release.xcconfig"; sourceTree = "<group>"; };
+		1F4E4A6C1F9DCBE9303CC340 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Unique/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		7B97020EDF0E2C05266DE585 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Unique/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		929264B2827F42D5A7BEFD8D /* Geist-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Light.ttf"; path = "../assets/fonts/Geist-Light.ttf"; sourceTree = "<group>"; };
+		A42409CA305EC339D9A6009F /* Pods-Unique.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unique.debug.xcconfig"; path = "Target Support Files/Pods-Unique/Pods-Unique.debug.xcconfig"; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = Unique/SplashScreen.storyboard; sourceTree = "<group>"; };
+		ACD12E923B3D4736A716B0AB /* Geist-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Bold.ttf"; path = "../assets/fonts/Geist-Bold.ttf"; sourceTree = "<group>"; };
+		B56BC76DF8C940AE91092659 /* Geist-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-Regular.ttf"; path = "../assets/fonts/Geist-Regular.ttf"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
-		BED6824EBCCC408AB7BBA38A /* Geist-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-ExtraLight.ttf"; path = "../assets/fonts/Geist-ExtraLight.ttf"; sourceTree = "<group>"; };
-		CB515F9A0FD8E389C6F5F147 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-Unique/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
-		D14B810C0F2FC2CE85B45EDB /* Pods-Unique.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Unique.debug.xcconfig"; path = "Target Support Files/Pods-Unique/Pods-Unique.debug.xcconfig"; sourceTree = "<group>"; };
-		EA0026F5B4A657C9E75155D5 /* libPods-Unique.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Unique.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		EAF0E3DA06DCC828610589F2 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = Unique/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
-		EBFDBED3CDC34CDFA0EF386F /* Geist-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-SemiBold.ttf"; path = "../assets/fonts/Geist-SemiBold.ttf"; sourceTree = "<group>"; };
+		BE3491CD51204F77AA687622 /* Geist-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-ExtraLight.ttf"; path = "../assets/fonts/Geist-ExtraLight.ttf"; sourceTree = "<group>"; };
+		C3E8B606F7424E2AA278DEFA /* Geist-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Geist-SemiBold.ttf"; path = "../assets/fonts/Geist-SemiBold.ttf"; sourceTree = "<group>"; };
+		D9CFD825255938A70F0B9595 /* libPods-Unique.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Unique.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		F11748412D0307B40044C1D9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Unique/AppDelegate.swift; sourceTree = "<group>"; };
 		F11748442D0722820044C1D9 /* Unique-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "Unique-Bridging-Header.h"; path = "Unique/Unique-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -47,7 +47,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D328DCB622BC1B18D6764AA7 /* libPods-Unique.a in Frameworks */,
+				AE716C33B175D3C652A40680 /* libPods-Unique.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,25 +63,16 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */,
-				EAF0E3DA06DCC828610589F2 /* PrivacyInfo.xcprivacy */,
+				1F4E4A6C1F9DCBE9303CC340 /* PrivacyInfo.xcprivacy */,
 			);
 			name = Unique;
-			sourceTree = "<group>";
-		};
-		15B0C15B90387246F307392D /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				D14B810C0F2FC2CE85B45EDB /* Pods-Unique.debug.xcconfig */,
-				5AC69ADC6CF3B59624BF3FED /* Pods-Unique.release.xcconfig */,
-			);
-			path = Pods;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				EA0026F5B4A657C9E75155D5 /* libPods-Unique.a */,
+				D9CFD825255938A70F0B9595 /* libPods-Unique.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,9 +91,9 @@
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
-				D1CC2FADD16C479D9F9BF1DE /* Resources */,
-				15B0C15B90387246F307392D /* Pods */,
-				B419F0091DEC5D773D03AD7E /* ExpoModulesProviders */,
+				84B32DB9E10142F0B62FA863 /* Resources */,
+				BC64972F5DB6743D94995CC3 /* Pods */,
+				BD14BE67BFF89B8A63CE5D8C /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -117,12 +108,24 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B419F0091DEC5D773D03AD7E /* ExpoModulesProviders */ = {
+		84B32DB9E10142F0B62FA863 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C8F34ED4AC6864B2D545D8FD /* Unique */,
+				BE3491CD51204F77AA687622 /* Geist-ExtraLight.ttf */,
+				929264B2827F42D5A7BEFD8D /* Geist-Light.ttf */,
+				B56BC76DF8C940AE91092659 /* Geist-Regular.ttf */,
+				C3E8B606F7424E2AA278DEFA /* Geist-SemiBold.ttf */,
+				ACD12E923B3D4736A716B0AB /* Geist-Bold.ttf */,
 			);
-			name = ExpoModulesProviders;
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		B7BDD0A3F3045F41BE37EA48 /* Unique */ = {
+			isa = PBXGroup;
+			children = (
+				7B97020EDF0E2C05266DE585 /* ExpoModulesProvider.swift */,
+			);
+			name = Unique;
 			sourceTree = "<group>";
 		};
 		BB2F792B24A3F905000567C9 /* Supporting */ = {
@@ -134,24 +137,21 @@
 			path = Unique/Supporting;
 			sourceTree = "<group>";
 		};
-		C8F34ED4AC6864B2D545D8FD /* Unique */ = {
+		BC64972F5DB6743D94995CC3 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				CB515F9A0FD8E389C6F5F147 /* ExpoModulesProvider.swift */,
+				A42409CA305EC339D9A6009F /* Pods-Unique.debug.xcconfig */,
+				1C4610CCF2CE12920FC28AC1 /* Pods-Unique.release.xcconfig */,
 			);
-			name = Unique;
+			path = Pods;
 			sourceTree = "<group>";
 		};
-		D1CC2FADD16C479D9F9BF1DE /* Resources */ = {
+		BD14BE67BFF89B8A63CE5D8C /* ExpoModulesProviders */ = {
 			isa = PBXGroup;
 			children = (
-				BED6824EBCCC408AB7BBA38A /* Geist-ExtraLight.ttf */,
-				05C75BEA7AD1465F9E059226 /* Geist-Light.ttf */,
-				7EE5D2E128D14DE48556E2FB /* Geist-Regular.ttf */,
-				EBFDBED3CDC34CDFA0EF386F /* Geist-SemiBold.ttf */,
-				892F8E4010704A27AF7D1972 /* Geist-Bold.ttf */,
+				B7BDD0A3F3045F41BE37EA48 /* Unique */,
 			);
-			name = Resources;
+			name = ExpoModulesProviders;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -162,13 +162,13 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Unique" */;
 			buildPhases = (
 				08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */,
-				EEE6BBF77986A93F5A1353A2 /* [Expo] Configure project */,
+				082AF3430ADFCA101B08C73E /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */,
-				D692EFA92E52D9AE9A0980F7 /* [CP] Embed Pods Frameworks */,
+				2BCAC15526EE7950A24E247A /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -218,12 +218,12 @@
 				BB2F792D24A3F905000567C9 /* Expo.plist in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */,
-				F8E2182229004925936A653D /* Geist-ExtraLight.ttf in Resources */,
-				6ED7C04E570F45E4B312B9B5 /* Geist-Light.ttf in Resources */,
-				D2D6C797F47847EB84745305 /* Geist-Regular.ttf in Resources */,
-				1CBD842B344E48E889674873 /* Geist-SemiBold.ttf in Resources */,
-				3A382B4FA9B74D868B848406 /* Geist-Bold.ttf in Resources */,
-				615078E582862DB76E75D07A /* PrivacyInfo.xcprivacy in Resources */,
+				0EF377B2B8EF4AEAB9484CD2 /* Geist-ExtraLight.ttf in Resources */,
+				1B41E38C4FC54CB4BC971745 /* Geist-Light.ttf in Resources */,
+				7FA71919E318420BBD178D55 /* Geist-Regular.ttf in Resources */,
+				B33D78B735F8470A984641B1 /* Geist-SemiBold.ttf in Resources */,
+				91E1233E0663487FB006B642 /* Geist-Bold.ttf in Resources */,
+				64332A9D91ADD1B223741F8B /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +247,30 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"$PODS_ROOT/../.xcode.env\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env\"\nfi\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n# The project root by default is one level up from the ios directory\nexport PROJECT_ROOT=\"$PROJECT_DIR\"/..\n\nif [[ \"$CONFIGURATION\" = *Debug* ]]; then\n  export SKIP_BUNDLING=1\nfi\nif [[ -z \"$ENTRY_FILE\" ]]; then\n  # Set the entry JS file using the bundler's entry resolution.\n  export ENTRY_FILE=\"$(\"$NODE_BINARY\" -e \"require('expo/scripts/resolveAppEntry')\" \"$PROJECT_ROOT\" ios absolute | tail -n 1)\"\nfi\n\nif [[ -z \"$CLI_PATH\" ]]; then\n  # Use Expo CLI\n  export CLI_PATH=\"$(\"$NODE_BINARY\" --print \"require.resolve('@expo/cli', { paths: [require.resolve('expo/package.json')] })\")\"\nfi\nif [[ -z \"$BUNDLE_COMMAND\" ]]; then\n  # Default Expo CLI command for bundling\n  export BUNDLE_COMMAND=\"export:embed\"\nfi\n\n# Source .xcode.env.updates if it exists to allow\n# SKIP_BUNDLING to be unset if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.updates\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.updates\"\nfi\n# Source local changes to allow overrides\n# if needed\nif [[ -f \"$PODS_ROOT/../.xcode.env.local\" ]]; then\n  source \"$PODS_ROOT/../.xcode.env.local\"\nfi\n\n`\"$NODE_BINARY\" --print \"require('path').dirname(require.resolve('react-native/package.json')) + '/scripts/react-native-xcode.sh'\"`\n\n";
 		};
+		082AF3430ADFCA101B08C73E /* [Expo] Configure project */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/.xcode.env",
+				"$(SRCROOT)/.xcode.env.local",
+				"$(SRCROOT)/Unique/Unique.entitlements",
+				"$(SRCROOT)/Pods/Target Support Files/Pods-Unique/expo-configure-project.sh",
+			);
+			name = "[Expo] Configure project";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(SRCROOT)/Pods/Target Support Files/Pods-Unique/ExpoModulesProvider.swift",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Unique/expo-configure-project.sh\"\n";
+		};
 		08A4A3CD28434E44B6B9DE2E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -267,6 +291,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2BCAC15526EE7950A24E247A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Unique/Pods-Unique-frameworks.sh",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Unique/Pods-Unique-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		800E24972A6A228C8D4807E9 /* [CP] Copy Pods Resources */ = {
@@ -301,52 +347,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Unique/Pods-Unique-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D692EFA92E52D9AE9A0980F7 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Unique/Pods-Unique-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/React-Core-prebuilt/React.framework/React",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/ReactNativeDependencies/ReactNativeDependencies.framework/ReactNativeDependencies",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/hermes-engine/Pre-built/hermes.framework/hermes",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/React.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactNativeDependencies.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/hermes.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Unique/Pods-Unique-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		EEE6BBF77986A93F5A1353A2 /* [Expo] Configure project */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/.xcode.env",
-				"$(SRCROOT)/.xcode.env.local",
-				"$(SRCROOT)/Unique/Unique.entitlements",
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Unique/expo-configure-project.sh",
-			);
-			name = "[Expo] Configure project";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(SRCROOT)/Pods/Target Support Files/Pods-Unique/ExpoModulesProvider.swift",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-Unique/expo-configure-project.sh\"\n";
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -355,7 +355,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F11748422D0307B40044C1D9 /* AppDelegate.swift in Sources */,
-				B66BF66BF7D2F529AECCC996 /* ExpoModulesProvider.swift in Sources */,
+				B5948226D6130B8A42AEDC71 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,12 +364,12 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D14B810C0F2FC2CE85B45EDB /* Pods-Unique.debug.xcconfig */;
+			baseConfigurationReference = A42409CA305EC339D9A6009F /* Pods-Unique.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Unique/Unique.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = DSVF4QY4AV;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -377,14 +377,12 @@
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = Unique/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Unique;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -393,36 +391,30 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.estonianport.unique;
 				PRODUCT_NAME = Unique;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Unique/Unique-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Debug;
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5AC69ADC6CF3B59624BF3FED /* Pods-Unique.release.xcconfig */;
+			baseConfigurationReference = 1C4610CCF2CE12920FC28AC1 /* Pods-Unique.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Unique/Unique.entitlements;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = DSVF4QY4AV;
 				INFOPLIST_FILE = Unique/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = Unique;
-				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -431,13 +423,9 @@
 				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = com.estonianport.unique;
 				PRODUCT_NAME = Unique;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
-				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
-				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_OBJC_BRIDGING_HEADER = "Unique/Unique-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
 			name = Release;
