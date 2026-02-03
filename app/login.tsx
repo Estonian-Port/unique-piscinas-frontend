@@ -6,6 +6,7 @@ import {
   Platform,
   Pressable,
   Keyboard,
+  ActivityIndicator,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { useState, useEffect } from 'react';
@@ -24,6 +25,7 @@ const Login = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { login, usuario } = useAuth();
 
@@ -47,8 +49,11 @@ const Login = () => {
 
   const handleLogin = async (email: string, password: string) => {
     try {
+      setLoading(true);
       await login(email, password);
+      setLoading(false);
     } catch (error: any) {
+      setLoading(false);
       let errorMessage = 'Error desconocido';
 
       // Error de red (sin respuesta del servidor)
@@ -67,6 +72,7 @@ const Login = () => {
 
       setModalMessage(errorMessage);
       setModalVisible(true);
+      setLoading(false);
     }
   };
 
@@ -149,11 +155,23 @@ const Login = () => {
                   onPress={() => handleLogin(email, password)}
                   className="bg-gold-unique rounded-full px-4 py-2 flex-row items-center justify-center h-14 w-full"
                   activeOpacity={0.8}
+                  disabled={loading}
                 >
-                  <LogIn color={'white'} />
-                  <Text className="font-geist-semi-bold text-white ml-2">
-                    Iniciar Sesión
-                  </Text>
+                  {loading ? (
+                    <View className="flex-row items-center">
+                      <Text className="font-geist-semi-bold text-white mr-2">
+                        Iniciando...
+                      </Text>
+                      <ActivityIndicator size="small" color="#fff" />
+                    </View>
+                  ) : (
+                    <>
+                      <LogIn color={'white'} />
+                      <Text className="font-geist-semi-bold text-white ml-2">
+                        Iniciar Sesión
+                      </Text>
+                    </>
+                  )}
                 </CustomPressable>
               </View>
             </Pressable>
