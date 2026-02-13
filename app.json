@@ -8,7 +8,7 @@
     "scheme": "unique",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
-    "jsEngine": "jsc",
+    "jsEngine": "hermes",
     "android": {
       "package": "com.estonianport.unique",
       "versionCode": 1,
